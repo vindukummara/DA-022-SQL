@@ -2691,13 +2691,13 @@ Output: 21-08-2026
 
 Important format symbols:
 Symbol	Meaning	          Example
-%d	Day	            21
-%m	Month	            08
-%Y	4-digit year	    2026
-%y	2-digit year	     26
-%M	Full month name    August
-%b	Short month name    Aug
-%W	Full weekday name  Friday
+%d	      Day	             21
+%m	     Month	             08
+%Y	   4-digit year	        2026
+%y	   2-digit year	         26
+%M	   Full month name      August
+%b	   Short month name      Aug
+%W	   Full weekday name    Friday
 
 Correction to your example:
 SELECT DATE_FORMAT(CURDATE(), '%d%m%y');
@@ -2809,139 +2809,3 @@ What does CONNECTION_ID() return?
 How do you extract the year/month/day from a date?
 How do you add 10 days to today's date?
 How do you format a date as DD-MM-YYYY?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-very important in interview:
-
-==DATE AND TIME===
----------------------------
-1.NOW()
-2.CURDATE()
-3.CURTIME()
-4.YEAR()
-5.MONTH()
-6.DAY()
-7.DAYNAME()
-8.DATEDIFF()
-9.DATE_ADD()
-10.DATE_SUB()
-11.DATE_FORMAT()
-12.STR_TO_DATE()
-
-
-1.NOW():
-----------
--IT RETURNS CURRENT TIME AND DATE
-ex: select now(); //
-
-2.CURDATE():
----------------
--It returns the current date only.
-ex: select curdate();
-
-3.CURTIME():
-------------------
--it returns the current time.
-ex: select curtime();
-
-4.YEAR():
-----------
--it is used to extract the year in a date.
-ex: select year(curdate());
-
-5.MONTH():
-------------
--It is used to extract month in a date.
-ex: select month(curdate());
-
-6.DAY():
-------------
--it extract day in a day
-ex: select day(curdate());
-
-7.DAYNAME():
-------------------
--It extract day in a date and return dayname.
-ex: select dayName (curdate());
-
-8.DATEDIFF():
-----------------
-it returns difference between two dates
-
-9.DATE_ADD():
------------------
--It is used add the days, or months or year in a date.
-
-syntax:
------
-select date_add(curdate(), interval value);
-select date_add(curdate(),interval 10 days);
-
-10.DATE_SUB():
-----------
-
--IT SUBTARCT THE YEAR AND MONTHS D
-select date_sub(curdate(),interval 10 days);
-
-11.DATE_FORMAT(): it is important by default mysql date formate is yyyy-mm-dd
----------------------
--It used to customer date format
-select date_format(curdate(),'%d%m%y');
-
-12.STR_TO_DATE():
------------------
--To convert string into a date.
-
-select str_to_date('19-08-2026','%y%m%d');
-
-SYSTEM FUNCTIONS: imp in interview
-=================================
-1.version():
-------------------
--select version();
-
-2.DATABASE():
-------------------
-select database();
-
-3.USER():
-------------
--it returns the current username and host
-
-4.current_user():
-------------------------
-it returns current user name.
-
-5.connection_id():
---------------------
-
-it is used to uquie.it is provided by MYSQL server
-select connection_id();
-
-6.LAST_INSERT_ID:
------------------
--it is used to know the value of last auto_increment value.
-select last_insert_id();
