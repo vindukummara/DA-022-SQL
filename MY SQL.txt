@@ -1,0 +1,2947 @@
+DAY 1 — MYSQL BASICS
+-------------------------
+1. DATA
+--------
+-Data is a collection of raw facts, figures, symbols, or values.
+-Data is generally unprocessed and may not have meaningful information by itself.
+>Example:
+101
+Rahul
+23
+
+2. INFORMATION
+----------------
+-Information is processed data that has meaningful context.
+>Example:
+.Student ID = 101
+.Student Name = Rahul
+.Age = 23
+
+3. FILE MANAGEMENT SYSTEM (FMS)
+---------------------------------------
+-A File Management System is used to store and manage data in files.
+
+Key functions of FMS:
+--------------------
+1.Create a file
+2.Open a file
+3.Read a file
+4.Update a file
+5.Delete a file
+6.Share data
+7.Provide access to data
+
+Drawbacks of FMS:
+------------------------
+1.Data inconsistency — same data may have different values in different files.
+2.Less security — difficult to control data access.
+3.Data redundancy — duplicate data may be stored.
+4.Backup and recovery problems — recovering data can be difficult.
+5.Data manipulation problems — managing large amounts of data is difficult.
+-These problems led to the development and use of databases and DBMS.
+
+4. DATABASE
+-------------------
+-A database is an organized collection of data used to store and manage information.
+-Example:
+Student Database
+101  Rahul   Data Analytics
+102  Sita    Python
+103  Ravi    SQL
+
+5. DATABASE MANAGEMENT SYSTEM
+----------------------------------------------
+-DBMS stands for Database Management System.
+-A DBMS is software used to create, store, retrieve, update, and delete    data in a database.
+
+Main operations:
+--------------
+1.Create
+2.Insert
+3.Retrieve
+4.Update
+5.Delete
+-These are commonly referred to as CRUD operations:
+C → Create
+R → Read
+U → Update
+D → Delete
+
+6. ADVANTAGES OF DBMS
+-----------------------
+1.Reduces data redundancy.
+2.Provides better security.
+3.Reduces data inconsistency.
+4.Supports backup and recovery.
+5.Makes data management easier.
+6.Provides controlled access to data.
+7.Allows multiple users to access data.
+
+7. TYPES OF DATABASE MANAGEMENT SYSTEMS
+------------------------------------------
+A. NoSQL Database
+---------------------
+-NoSQL databases are generally designed for data that does not fit neatly into traditional relational tables.
+
+Examples:
+------
+MongoDB
+Cassandra
+Redis
+-Note: PostgreSQL is not a NoSQL database. PostgreSQL is an RDBMS.
+
+B. RDBMS
+--------------------
+-RDBMS stands for Relational Database Management System.
+-In an RDBMS, data is stored in tables consisting of rows and columns.
+Examples:
+-----
+.MySQL
+.Oracle Database
+.PostgreSQL
+.Microsoft SQL Server
+
+8. MYSQL
+-------------
+-MySQL is a relational database management system (RDBMS).
+
+Advantages of MySQL:
+-----------------------
+1.Data is stored in table format.
+2.Supports relationships between tables.
+3.Easy to use and maintain.
+4.Open-source editions are available.
+5.Widely used in web and application development.
+6.Supports SQL.
+7.Provides security and access control.
+
+9. FIELD / COLUMN/ TUPLES
+--------------------------
+-A column represents a particular attribute of data.
+Example:
+studentid   sname	course
+101	    Rahul	DA
+Here:
+studentid → Column
+sname     → Column
+course    → Column
+
+10. RECORD / ROW / ATTRIBUTE
+------------------------
+-A row is a collection of related fields/values representing one record.
+Example:
+101, Rahul, DA
+This is one row/record.
+
+11. TABLE
+--------------
+-A table is a collection of rows and columns.
+-Example:
+studentid     sname	course
+101	      Rahul	DA
+102	      Sita	Python
+103	      Ravi	SQL
+
+IMPORTANT MYSQL COMMANDS — DAY 1
+-----------------------------------------
+-SHOW DATABASES;  ----- show all databases
+-CREATE DATABASE da22;  ---- create a database
+-USE da22;  -----use a database
+-SELECT DATABASE(); ------ currently selected database
+-DROP DATABASE da22;   delete a database
+
+Oracle SQL vs MySQL:
+--------------------------
+-Both Oracle Database and MySQL are RDBMSs and both use SQL, but they are different database products.
+----------------------------------------------------------------------
+MySQL	                        |   Oracle Database
+Developed by Oracle	        |Developed by Oracle
+Widely used in web applications |Widely used in large enterprise systems
+Generally simpler for beginners |More enterprise-oriented
+Uses MySQL-specific features    |Uses Oracle-specific features
+Open-source editions available  |Commercial and other licensing options
+---------------------------------------------------------------------
+Important: SQL is the language; MySQL and Oracle Database are database systems that implement SQL.
+
+DAY 2 — DATA MODELS, SQL & DATA TYPES
+-----------------------------------------
+1. DATA MODEL
+---------------
+A data model is a way of organizing and representing data. It defines how data is stored, related, and manipulated in a database.
+
+Types of Data Models:
+--------------------------
+1. Hierarchical Data Model
+-------------------------------
+.Data is organized in a tree-like structure.
+.It contains parent-child relationships.
+.Each child can have only one parent.
+.One parent can have multiple children.
+.It is easy to retrieve and maintain simple hierarchical data.
+.It is not suitable for complex relationships.
+-Example:
+-----------
+Institute
+   |
+   +--- Course
+          |
+          +--- Student 1
+          +--- Student 2
+
+
+2. Network Data Model:
+--------------------------
+.Data is organized using nodes and relationships.
+.One parent can have many children.
+.One child can have multiple parents.
+.It is more flexible than the hierarchical model.
+.It is suitable for many-to-many relationships.
+-Example:
+Student 1 ---- Course 1
+    |             |
+    |             |
+    +----------- Course 2
+Student 2 ---- Course 1
+-For example:
+.One student can take multiple courses.
+.One course can have multiple students.
+
+3. Object-Oriented Data Model
+-----------------------------
+.Data is represented as objects.
+.Objects contain:
+   -Properties → characteristics/data
+   -Behaviors → actions/functions
+Example:
+Student Object
+
+Properties:
+student_id
+student_name
+course
+
+Behaviors:
+study()
+attend_class()
+
+4. Relational Data Model
+-Data is stored in tables.
+-Tables contain rows and columns.
+-A column represents a field/attribute.
+-A row represents a record.
+Example:
+sid	sname	course
+101	Rahul	DA
+102	Sita	Python
+
+2. DATA MODEL LEVELS
+----------------------------
+There are three levels of data abstraction:
+1. Conceptual Level
+---------------------------
+-Describes the overall structure of the database.
+-Example:
+Student → Course → Department
+
+2. Logical Level
+---------------------------------
+-Describes tables, columns, relationships, keys, etc.
+Example:
+-Student(student_id, student_name, course_id)
+3. Physical Level
+-----------------------
+-Describes how data is actually stored in the storage system.
+
+3. INTRODUCTION TO SQL
+-----------------------------
+-SQL stands for Structured Query Language.
+-SQL is used to communicate with relational database systems such as:
+
+.MySQL
+.Oracle Database
+.PostgreSQL
+.SQL Server
+.Uses of SQL
+.Create database objects.
+.Modify database objects.
+.Insert data.
+.Update data.
+.Delete data.
+.Retrieve data.
+.Control access to data.
+
+4. SQL COMMAND CATEGORIES
+-----------------------------
+-SQL commands are commonly divided into:
+1. DDL
+2. DML
+3. DQL
+4. TCL
+5. DCL
+
+1. DDL:
+------------
+-DDL = Data Definition Language
+-DDL is used to define and modify the structure of database objects, such as databases and tables.
+Commands:
+----------
+1.CREATE
+2.ALTER
+3.DROP
+4.TRUNCATE
+5.RENAME
+Example:
+1.CREATE TABLE student
+(
+    sid INT,
+    sname VARCHAR(30)
+);
+
+2.ALTER TABLE student ADD age INT;
+3.DROP TABLE student;
+4.TRUNCATE TABLE student;
+
+2. DML
+----------
+-DML = Data Manipulation Language
+-DML is used to insert, update, and delete data in tables.
+Commands:
+------------
+1.INSERT
+2.UPDATE
+3.DELETE
+Examples:
+1.INSERT INTO student VALUES (101, 'Rahul', 23);
+2.UPDATE student
+SET age = 24
+WHERE sid = 101;
+3.DELETE FROM student
+WHERE sid = 101;
+
+7. TCL
+-------------
+-TCL = Transaction Control Language
+-TCL is used to manage transactions.
+Commands:
+--------------
+1.COMMIT
+2.ROLLBACK
+3.SAVEPOINT
+
+8. DQL
+------------
+-DQL = Data Query Language
+-DQL is used to retrieve data from a database.
+Command:
+-------
+SELECT
+Example:
+SELECT * FROM student;
+
+9. DCL
+--------------
+-DCL = Data Control Language
+-DCL is used to control access and permissions in a database.
+
+Commands:
+----------------
+1.GRANT
+2.REVOKE
+Meaning:
+-GRANT → Gives permissions.
+-REVOKE → Removes permissions.
+
+10. DATA TYPES IN SQL
+---------------------------
+SQL data types can be broadly grouped into:
+
+1. Numeric Data Types
+2. String Data Types
+3. Date and Time Data Types
+
+11. NUMERIC DATA TYPES
+-------------------------
+TINYINT
+--------
+Stores a very small integer value.
+-TINYINT
+.For signed TINYINT, the range is:
+-128 to 127
+.For unsigned:
+-0 to 255
+
+
+SMALLINT
+--------------
+Stores a small integer.
+
+MEDIUMINT
+-------------------
+Stores a medium-sized integer.
+
+INT
+-------------
+-Stores a standard integer.
+-This is one of the most commonly used integer types.
+
+BIGINT
+------------
+Stores very large integer values.
+
+FLOAT
+------------
+Stores approximate decimal numbers.
+
+DECIMAL
+----------------
+Stores exact decimal values.
+DECIMAL(p,s)
+Where:
+p = total number of digits
+s = number of digits after the decimal point
+-Example:
+DECIMAL(5,2)
+-Can store values such as:
+123.45
+Total digits = 5
+Digits after decimal = 2
+
+BOOLEAN
+----------------
+-Used for true/false values.
+-In MySQL, BOOLEAN is effectively an alias for TINYINT(1).
+Common values:
+TRUE  → 1
+FALSE → 0
+Example:
+is_active BOOLEAN;
+
+12. STRING DATA TYPES
+------------------------------
+
+CHAR()
+------
+Stores a fixed-length string.
+-CHAR(20)
+Example:
+name CHAR(20);
+VARCHAR()
+-Stores a variable-length string.
+name VARCHAR(20)
+VARCHAR is commonly used for names, cities, email addresses, etc.
+
+TEXT
+-----------
+Used to store larger amounts of text.
+TEXT
+Example:
+description TEXT;
+
+
+ENUM
+---------------
+-Allows a column to contain one value from a predefined list.
+Correct syntax:
+---------------
+-ENUM('Java', 'Python', 'DA')
+Example:
+-------
+-course ENUM('Java', 'Python', 'DA');
+Possible values are:
+Java
+Python
+DA
+
+13. DATE AND TIME DATA TYPES
+-----------------------------
+DATE:
+----------
+Stores date values.
+Format:
+YYYY-MM-DD
+Example:
+'2026-08-08'
+
+TIME
+----------------
+Stores time values.
+Format:
+HH:MM:SS
+Example:
+'18:30:45'
+
+DATETIME
+--------------
+-Stores both date and time.
+Format:
+YYYY-MM-DD HH:MM:SS
+Example:
+'2026-08-08 18:30:45'
+
+TIMESTAMP
+------------
+-Stores date and time and is commonly used for automatically tracking creation/update times.
+Example:
+-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+Category	Commands / Types
+Data Model	Hierarchical, Network, Object-Oriented, Relational
+Levels	        Conceptual, Logical, Physical
+DDL	        CREATE, ALTER, DROP, TRUNCATE, RENAME
+DML	        INSERT, UPDATE, DELETE
+DQL	        SELECT
+TCL	        COMMIT, ROLLBACK, SAVEPOINT
+DCL	        GRANT, REVOKE
+Numeric	       TINYINT, SMALLINT, MEDIUMINT, INT, BIGINT, FLOAT, DECIMAL, BOOLEAN
+String	       CHAR, VARCHAR, TEXT, ENUM
+Date/Time	DATE, TIME, DATETIME, TIMESTAMP
+
+
+DAY 3 — CONSTRAINTS & DDL COMMANDS:
+--------------------------------------------
+1. CONSTRAINTS
+------------------
+-Constraints are rules applied to table columns to maintain:
+.Data consistency
+.Data integrity
+.Data accuracy
+Types of Constraints:
+-------------------
+1.UNIQUE
+2.NOT NULL
+3.PRIMARY KEY
+4.FOREIGN KEY
+5.CHECK
+6.DEFAULT
+
+2. UNIQUE
+---------------
+-The UNIQUE constraint ensures that duplicate values are not allowed in a column.
+-Example:
+CREATE TABLE student
+(
+    student_id INT UNIQUE,
+    name VARCHAR(20)
+);
+Here, every student_id must be different.
+
+3. NOT NULL
+------------
+-The NOT NULL constraint ensures that a column cannot contain NULL values.
+
+Example:
+CREATE TABLE student
+(
+    student_id INT,
+    name VARCHAR(20) NOT NULL
+);
+
+The name column must have a value.
+
+
+4. PRIMARY KEY
+--------------------------
+-A PRIMARY KEY uniquely identifies each row in a table.
+-A primary key has two important properties:
+.UNIQUE
+.NOT NULL
+Example:
+CREATE TABLE student
+(
+    student_id INT PRIMARY KEY,
+    name VARCHAR(20)
+);
+
+Each student_id must be unique and cannot be NULL.
+
+Example: Student ID, Employee ID, Customer ID.
+
+5. FOREIGN KEY
+-------------------
+-A FOREIGN KEY is used to establish and maintain a relationship between two tables.
+-The foreign key usually references a primary key or unique key in another table.
+Example
+-------
+CREATE TABLE employee
+(
+    id INT PRIMARY KEY,
+    name VARCHAR(20)
+);
+
+Another table:
+-------------
+CREATE TABLE department
+(
+    did INT,
+    dname VARCHAR(20),
+    FOREIGN KEY (did) REFERENCES employee(id)
+);
+Here:
+employee.id
+     ↑
+     |
+department.did
+
+-The department.did column references employee.id.
+6. CHECK
+--------------
+-The CHECK constraint ensures that values satisfy a specified condition.
+
+Example:
+------
+CREATE TABLE student
+(
+    id INT,
+    name VARCHAR(20),
+    age INT CHECK (age > 0 AND age < 120)
+);
+
+Valid:
+25
+50
+100
+Invalid:
+-5
+0
+125
+7. DEFAULT
+----------
+-The DEFAULT constraint automatically provides a value when no value is supplied during insertion.
+Example:
+---------
+CREATE TABLE employee
+(
+    id INT,
+    name VARCHAR(20),
+    address VARCHAR(20) DEFAULT 'HYD'
+);
+
+If you insert:
+
+INSERT INTO employee(id, name)
+VALUES (101, 'Rahul');
+The address automatically becomes:
+-HYD
+
+DDL COMMANDS
+---------------
+-DDL stands for Data Definition Language.
+
+Important DDL commands:
+---------------------------
+1.CREATE
+2.ALTER
+3.DROP
+4.TRUNCATE
+5.RENAME
+
+8. CREATE TABLE
+-----------------
+Syntax:
+CREATE TABLE table_name
+(
+    column1 datatype,
+    column2 datatype,
+    column3 datatype
+);
+Example:
+-------
+CREATE TABLE employee
+(
+    id INT,
+    name VARCHAR(20),
+    address VARCHAR(20),
+    age INT
+);
+
+9. DESC
+-----------
+DESC is used to display the structure of a table.
+
+DESC employee;
+
+You can also use:
+
+DESCRIBE employee;
+
+Both are used to see the table structure.
+
+10. SHOW CREATE TABLE
+-----------------------------------
+Displays the SQL statement used to create the table, including its definitions and constraints.
+>SHOW CREATE TABLE employee;
+
+11. CREATE TABLE LIKE
+------------------------------
+-Creates a new table with the same structure as another table.
+>CREATE TABLE employee1 LIKE employee;
+
+Check the structure:
+DESC employee1;
+
+
+12. ALTER TABLE
+---------------------
+-ALTER TABLE is used to modify the structure of an existing table.
+
+.ADD COLUMN
+-Add one column:
+>ALTER TABLE employee
+>ADD COLUMN salary DECIMAL(10,2);
+-Add multiple columns:
+ALTER TABLE employee
+ADD COLUMN salary1 DECIMAL(10,2),
+ADD COLUMN phonenum BIGINT;
+
+13. DROP COLUMN
+---------------------
+-Used to remove a column from a table.
+
+Remove one column:
+---------------------
+ALTER TABLE employee
+DROP COLUMN salary;
+Remove multiple columns:
+---------------------------
+ALTER TABLE employee
+DROP COLUMN salary1,
+DROP COLUMN phonenum;
+
+
+14. RENAME COLUMN
+-------------------------
+-Used to change the name of a column.
+
+ALTER TABLE employee
+RENAME COLUMN name TO emp_name;
+
+15. MODIFY DATATYPE
+-----------------------------
+-Used to change the datatype or definition of a column.
+ALTER TABLE employee
+MODIFY id BIGINT;
+Another example:
+------------
+ALTER TABLE employee
+MODIFY name VARCHAR(50);
+
+16. DROP TABLE
+--------------------
+-Deletes the entire table, including its data and structure.
+
+DROP TABLE employee;
+-Be careful: this permanently removes the table.
+
+17. RENAME TABLE
+-------------------------
+-Used to change the name of a table.
+>RENAME TABLE employee TO employees;
+
+18. CREATE TABLE USING ALL CONSTRAINTS
+--------------------------------------------------
+-Here is a corrected example using all six constraints:
+
+CREATE TABLE employee
+(
+    id INT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    address VARCHAR(20) DEFAULT 'HYD',
+    age INT CHECK (age > 0 AND age < 120),
+    phonenum BIGINT UNIQUE
+);
+
+This table uses:
+
+Column	         Constraint
+id	         PRIMARY KEY
+name	         NOT NULL
+address  	 DEFAULT
+age	         CHECK
+phonenum	UNIQUE
+
+19. FOREIGN KEY EXAMPLE
+--------------------------------
+-First create the parent table:
+
+CREATE TABLE employee
+(
+    id INT PRIMARY KEY,
+    name VARCHAR(20)
+);
+
+Then create the child table:
+
+CREATE TABLE dept
+(
+    did INT,
+    dname VARCHAR(20),
+    FOREIGN KEY (did) REFERENCES employee(id)
+);
+
+Usually, a department table would have its own primary key, and the employee table would reference it:
+
+CREATE TABLE department
+(
+    did INT PRIMARY KEY,
+    dname VARCHAR(30)
+);
+
+CREATE TABLE employee
+(
+    id INT PRIMARY KEY,
+    name VARCHAR(30),
+    did INT,
+    FOREIGN KEY (did) REFERENCES department(did)
+);
+
+
+⭐ Day 3 Quick Revision
+Constraint	Purpose
+UNIQUE	        Prevents duplicate values
+NOT NULL	Prevents NULL values
+PRIMARY KEY	Uniquely identifies each row
+FOREIGN KEY	Creates a relationship between tables
+CHECK	        Validates values using a condition
+DEFAULT	        Provides a value when no value is supplied
+
+DDL Commands
+--------------------
+CREATE
+ALTER
+DROP
+TRUNCATE
+RENAME
+Important ALTER Commands
+-------------------------------
+ALTER TABLE employee ADD COLUMN salary DECIMAL(10,2);
+
+ALTER TABLE employee DROP COLUMN salary;
+
+ALTER TABLE employee RENAME COLUMN name TO emp_name;
+
+ALTER TABLE employee MODIFY id BIGINT;
+
+
+Important Difference
+--------------------------
+-DROP TABLE
+→ Deletes table + data + structure
+-TRUNCATE TABLE
+→ Deletes all rows but keeps the table structure
+-DELETE
+→ Deletes rows and is a DML command
+
+DAY 4 — ADDING CONSTRAINTS, DML & DQL
+---------------------------------------
+1. ADD CONSTRAINTS TO AN EXISTING TABLE
+First create the table:
+CREATE TABLE emp
+(
+    id INT,
+    age INT,
+    name VARCHAR(20),
+    address VARCHAR(20),
+    dpid INT,
+    phonenum BIGINT
+);
+
+2. PRIMARY KEY
+---------------------
+-Add Primary Key
+ALTER TABLE emp
+ADD CONSTRAINT pk_id PRIMARY KEY(id);
+Remove Primary Key:
+ALTER TABLE emp
+DROP PRIMARY KEY;
+3. UNIQUE CONSTRAINT
+---------------------------
+-Add UNIQUE constraint
+ALTER TABLE emp
+ADD CONSTRAINT uk_ph UNIQUE(phonenum);
+-Remove UNIQUE constraint
+In MySQL, use DROP INDEX for a named unique constraint/index:
+ALTER TABLE emp
+DROP INDEX uk_ph;
+-DROP CONSTRAINT is not the usual MySQL syntax for dropping a UNIQUE constraint.
+
+4. CHECK CONSTRAINT
+------------------------------
+-Add CHECK constraint
+Your original syntax was missing a closing ).
+-Correct:
+ALTER TABLE emp
+ADD CONSTRAINT chk_age CHECK(age > 18);
+-Remove CHECK constraint
+ALTER TABLE emp
+DROP CHECK chk_age;
+
+5. NOT NULL CONSTRAINT:
+------------------------------
+-Add NOT NULL
+ALTER TABLE emp
+MODIFY name VARCHAR(20) NOT NULL;
+Now name cannot contain NULL.
+-Remove NOT NULL
+ALTER TABLE emp
+MODIFY name VARCHAR(20) NULL;
+
+6. DEFAULT CONSTRAINT
+------------------------------
+-Add DEFAULT
+ALTER TABLE emp
+MODIFY address VARCHAR(20) DEFAULT 'HYD';
+Now, if you don't provide an address during insertion, MySQL can use:
+HYD
+-Remove DEFAULT
+ALTER TABLE emp
+MODIFY address VARCHAR(20);
+
+7. FOREIGN KEY
+----------------------------
+-Suppose emp.id is the primary key.
+First:
+ALTER TABLE emp
+ADD CONSTRAINT pk_id PRIMARY KEY(id);
+-Then create a foreign key in another table:
+ALTER TABLE dept1
+ADD CONSTRAINT fk_did
+FOREIGN KEY(did)
+REFERENCES emp(id);
+-Relationship:
+emp
+---
+id (PK)
+ ↑
+ |
+ |
+did (FK)
+dept1
+-Remove Foreign Key
+ALTER TABLE dept1
+DROP FOREIGN KEY fk_did;
+
+8. TYPES OF CONSTRAINTS
+------------------------------
+Your notes have some terminology that needs correction.
+1. Domain Integrity
+--------------------------
+-Ensures that values entered into a column are valid according to its datatype/rules.
+Examples:
+INT
+VARCHAR
+DATE
+CHECK
+
+2. Entity Integrity
+----------------------------
+-Ensures that every row can be uniquely identified.
+.Mainly achieved using:
+  PRIMARY KEY
+
+3. Referential Integrity
+------------------------------
+-Maintains valid relationships between tables.
+.Achieved using:
+FOREIGN KEY
+
+4. Key Constraints
+----------------------
+Used to ensure uniqueness.
+Examples:
+PRIMARY KEY
+UNIQUE
+Entity Integrity       → PRIMARY KEY
+Referential Integrity  → FOREIGN KEY
+Domain Integrity       → Data type / CHECK
+Key Constraints        → PRIMARY KEY / UNIQUE
+
+9. DML COMMANDS
+----------------------
+-DML = Data Manipulation Language
+-DML is used to insert, update, and delete data in tables.
+-Main DML commands:
+ INSERT
+ UPDATE
+ DELETE
+
+10. INSERT
+---------------
+-INSERT is used to add records into a table.
+Method 1 — Insert values for all columns in table order
+-If you know the table's column order:
+INSERT INTO employee
+VALUES
+(101, 'Jaya', 20, 'Kurnool', 9908025336, 202);
+-The values must match the table's column order and datatypes.
+
+11. INSERT USING SPECIFIC COLUMN ORDER
+-------------------------------------------
+If you know the column names but want to specify their order:
+
+INSERT INTO employee
+(id, name, age, address, phonenum, did)
+VALUES
+(102, 'Ram', 20, 'HYD', 9897089, 202);
+-The column order in the INSERT statement can be different from the table definition.
+
+12. INSERT INTO SPECIFIC COLUMNS
+------------------------------------------------
+-You can insert values only into selected columns.
+INSERT INTO employee
+(id, name, age)
+VALUES
+(103, 'Sam', 20);
+The remaining columns will receive NULL or their DEFAULT value, depending on their definitions.
+
+13. INSERT MULTIPLE RECORDS
+--------------------------------
+-You can insert multiple rows using one INSERT statement.
+-Your original syntax needed a comma between the rows.
+INSERT INTO employee
+(id, name, age, address, phonenum, did)
+VALUES
+(104, 'Ram', 20, 'HYD', 190887989, 202),
+(105, 'Suma', 22, 'JNTU', 190887990, 207);
+
+14. DQL
+-------------
+-DQL = Data Query Language
+-DQL is used to retrieve data from tables.
+-The main DQL command is: SELECT
+
+15. SELECT ALL COLUMNS
+--------------------------
+-If you want to see all columns and all records:
+SELECT * FROM employee;
+* means all columns.
+
+16. SELECT SPECIFIC COLUMNS
+-------------------------------
+-If you know the column names:
+SELECT id, name, age
+FROM employee;
+You can select any required columns:
+SELECT name, address
+FROM employee;
+
+17. CHECK WHETHER DATA WAS INSERTED
+---------------------------------------
+SELECT * FROM employee;
+Example output:
+id	name	age	address	phonenum	did
+101	Jaya	20	Kurnool	9908025336	202
+102	Ram	20	HYD	9897089	202
+103	Sam	20	NULL
+
+⭐ Day 4 Quick Revision
+Constraints
+-- PRIMARY KEY
+ALTER TABLE emp
+ADD CONSTRAINT pk_id PRIMARY KEY(id);
+
+-- DROP PRIMARY KEY
+ALTER TABLE emp
+DROP PRIMARY KEY;
+
+-- UNIQUE
+ALTER TABLE emp
+ADD CONSTRAINT uk_ph UNIQUE(phonenum);
+
+-- DROP UNIQUE
+ALTER TABLE emp
+DROP INDEX uk_ph;
+
+-- CHECK
+ALTER TABLE emp
+ADD CONSTRAINT chk_age CHECK(age > 18);
+
+-- DROP CHECK
+ALTER TABLE emp
+DROP CHECK chk_age;
+
+-- NOT NULL
+ALTER TABLE emp
+MODIFY name VARCHAR(20) NOT NULL;
+
+-- REMOVE NOT NULL
+ALTER TABLE emp
+MODIFY name VARCHAR(20) NULL;
+
+-- DEFAULT
+ALTER TABLE emp
+MODIFY address VARCHAR(20) DEFAULT 'HYD';
+
+-- REMOVE DEFAULT
+ALTER TABLE emp
+MODIFY address VARCHAR(20);
+
+-- FOREIGN KEY
+ALTER TABLE dept1
+ADD CONSTRAINT fk_did
+FOREIGN KEY(did) REFERENCES emp(id);
+
+-- DROP FOREIGN KEY
+ALTER TABLE dept1
+DROP FOREIGN KEY fk_did;
+
+
+DML:
+------------
+INSERT INTO employee VALUES
+(104, 'Ram', 20, 'HYD', 190887989, 202),
+(105, 'Suma', 22, 'JNTU', 190887990, 207);
+
+UPDATE employee
+SET name = 'Ravi'
+WHERE id = 101;
+
+DELETE FROM employee
+WHERE id = 101;
+
+DQL:
+--------
+SELECT * FROM employee;
+
+SELECT id, name, age
+FROM employee;
+
+DAY 5 — MySQL
+--------------
+1. CREATE A NEW TABLE FROM AN EXISTING TABLE
+-To create a new table with the same structure as an existing table:
+CREATE TABLE new_table LIKE old_table;
+CREATE TABLE employee LIKE emp;
+This copies the table structure, but not the data.
+
+2. COPY ALL DATA FROM ONE TABLE TO ANOTHER
+-----------------------------------------------------------
+-To copy all records from an existing table:
+INSERT INTO new_table
+SELECT * FROM old_table;
+Example:
+INSERT INTO employee
+SELECT * FROM emp;
+This copies all rows from emp into employee.
+
+Structure + Data together
+-----------------------------
+CREATE TABLE employee LIKE emp;
+INSERT INTO employee
+SELECT * FROM emp;
+
+3. AUTO_INCREMENT
+---------------------------
+AUTO_INCREMENT is a MySQL feature that automatically generates a unique numeric value when a new row is inserted.
+It is commonly used with a PRIMARY KEY.
+
+CREATE TABLE student
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20),
+    age INT
+);
+
+INSERT INTO student(name, age)
+VALUES
+('Sam', 25),
+('Ram', 30),
+('Geetha', 60);
+The id is generated automatically.
+
+
+4. SELECT — RETRIEVE SPECIFIC COLUMNS
+---------------------------------------------
+-SELECT is used to retrieve data from a table.
+-Retrieve all columns:
+SELECT * FROM student;
+-Retrieve specific columns:
+SELECT name, age
+FROM student;
+
+5. WHERE CLAUSE
+----------------------
+The WHERE clause is used to filter rows based on a condition.
+
+Syntax:
+-------------
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+Example:
+SELECT *
+FROM student
+WHERE age >= 30;
+
+6. OPERATORS
+--------------------------
+An operator is a symbol or keyword used to perform an operation or comparison.
+
+Main types:
+-------------------
+1.Arithmetic operators
+2.Comparison operators
+3.Logical operators
+4.Bitwise operators
+
+7.ARITHMETIC OPERATORS
+------------------------------
+Used for mathematical calculations.
++   Addition   SELECT 10 + 5; 15
+-   Subtraction  SELECT 10 - 5;
+*   Multiplication  SELECT 10 * 5;
+/   Division  SELECT 10 / 5;
+%   Modulus / Remainder  SELECT 10 % 3;
+
+Arithmetic operation on table data:
+----------------------------------------------
+SELECT name, age, age + 10 AS new_age
+FROM student;
+SELECT name, age, age - 10 AS reduced_age
+FROM student;
+
+9. LOGICAL OPERATORS
+-----------------------------
+-Logical operators are used to combine multiple conditions.
+AND
+OR
+NOT
+AND
+-Both conditions must be true.
+.SELECT *
+FROM student
+WHERE age >= 20 AND age <= 40;
+
+OR:
+---------------------
+At least one condition must be true.
+SELECT *
+FROM student
+WHERE age = 25 OR age = 60;
+Your example:
+----------------------
+20 < 40 OR 20 > 70 is:
+TRUE OR FALSE = TRUE
+
+NOT
+-----------------------------
+-Reverses the result of a condition.
+SELECT *
+FROM student
+WHERE NOT age > 80;
+For example:
+--------------
+20 > 80 → FALSE
+NOT FALSE → TRUE
+
+10. BITWISE OPERATORS
+-------------------------------------------------
+-Bitwise operators work at the bit/binary level.
+&   Bitwise AND
+|   Bitwise OR
+^   Bitwise XOR
+<<  Left shift
+>>  Right shift
+Examples:
+SELECT 5 & 3;
+SELECT 5 | 3;
+SELECT 5 ^ 3;
+SELECT 5 << 1;
+SELECT 5 >> 1;
+
+11. WHERE — PRACTICE COMMANDS
+------------------------------
+-Age greater than or equal to 30
+SELECT *
+FROM student
+WHERE age >= 30;
+-Age equal to 25 or 60
+SELECT name, age
+FROM student
+WHERE age = 25 OR age = 60;
+-Age not equal to 25
+SELECT *
+FROM student
+WHERE age != 25;
+SELECT *
+FROM student
+WHERE age <> 25;
+
+12. ALIAS
+----------------------------------------
+-An alias is a temporary/custom name given to a column or table.
+-The AS keyword is commonly used.
+Syntax:
+SELECT column_name AS alias_name
+FROM table_name;
+Example:
+SELECT name, age, age - 10 AS reduced_age
+FROM student;
+
+⭐ DAY 5 QUICK REVISION
+Create table from existing table
+CREATE TABLE employee LIKE emp;
+Copy data
+INSERT INTO employee
+SELECT * FROM emp;
+Auto Increment
+CREATE TABLE student
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20),
+    age INT
+);
+
+Insert
+INSERT INTO student(name, age)
+VALUES
+('Sam', 25),
+('Ram', 30),
+('Geetha', 60);
+Select all
+SELECT * FROM student;
+
+-Select specific columns
+SELECT name, age
+FROM student;
+
+WHERE
+SELECT *
+FROM student
+WHERE age >= 30;
+
+AND
+SELECT *
+FROM student
+WHERE age >= 20 AND age <= 40;
+
+OR
+SELECT *
+FROM student
+WHERE age = 25 OR age = 60;
+
+NOT
+SELECT *
+FROM student
+WHERE NOT age > 50;
+
+Alias
+SELECT name, age, age - 10 AS reduced_age
+FROM student;
+
+
+DAY 5 — Predicates / Special Operators, UPDATE & DELETE
+-------------------------------------------------------------
+1. Predicates / Special Operators
+------------------------------------------
+Predicates are conditions used to filter and compare data. They are especially useful for range checking, matching values, checking NULLs, and pattern matching.
+
+Main special operators
+----------------------
+1.BETWEEN
+2.IN
+3.IS NULL
+4.LIKE
+
+2. BETWEEN
+-----------------------
+-BETWEEN is used to retrieve values within a specified range.
+Syntax:
+SELECT *
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+example:
+-------------
+SELECT *
+FROM students
+WHERE age BETWEEN 10 AND 20;
+This includes both 10 and 20.
+
+-It is equivalent to:
+SELECT *
+FROM students
+WHERE age >= 10 AND age <= 20;
+
+NOT BETWEEN
+-----------------
+SELECT *
+FROM students
+WHERE age NOT BETWEEN 10 AND 20;
+This retrieves values outside the range 10 to 20.
+
+
+3. IN
+-----------------
+-IN is used to check whether a value matches any value in a list.
+Without IN
+----------------
+SELECT *
+FROM students
+WHERE id = 10 OR id = 20;
+
+Using IN
+--------------
+SELECT *
+FROM students
+WHERE id IN (10, 20);
+
+NOT IN
+---------------
+SELECT *
+FROM students
+WHERE id NOT IN (10, 20);
+This retrieves records where id is neither 10 nor 20
+
+4. IS NULL
+-------------------
+-IS NULL is used to find rows where a column contains NULL.
+Example
+SELECT *
+FROM students
+WHERE age IS NULL;
+
+IS NOT NULL
+------------------
+SELECT *
+FROM students
+WHERE age IS NOT NULL;
+
+5. LIKE
+------------------------
+-LIKE is used for pattern matching.
+-It is commonly used with string columns such as name, address, email, etc.
+There are two main wildcards:
+_  → exactly one character
+%  → zero or more characters
+_ UNDERSCORE
+The underscore represents exactly one character.
+
+One character
+--------------------------
+SELECT *
+FROM students
+WHERE name LIKE 'R_';
+Matches names such as:
+Ra
+Ro
+Ri
+
+Four characters
+---------------------
+SELECT *
+FROM students
+WHERE name LIKE '____';
+Matches names containing exactly 4 characters.
+Example:
+Ravi
+Sita
+John
+
+6. % PERCENTAGE
+--------------------------------
+% represents zero or more characters.
+Starts with A
+SELECT *
+FROM students
+WHERE name LIKE 'A%';
+Matches:
+Anu
+Arun
+Ajay
+A
+
+Contains a
+---------------
+SELECT *
+FROM students
+WHERE name LIKE '%a%';
+Matches names containing a anywhere.
+Examples:
+Ram
+Ravi
+Sita
+Anjali
+
+Ends with a
+-------------------
+SELECT *
+FROM students
+WHERE name LIKE '%a';
+-Matches names ending with a.
+Examples:
+Sita
+Geetha
+Anusha
+
+Ends with h
+--------------
+SELECT *
+FROM students
+WHERE name LIKE '%h';
+
+NOT LIKE
+---------------------------
+Does not match the specified pattern.
+SELECT *
+FROM students
+WHERE name NOT LIKE '%h%';
+This returns names that do not contain h.
+
+Does not start with A
+------------------------------
+SELECT *
+FROM students
+WHERE name NOT LIKE 'A%';
+7. ISNULL()
+-------------------
+ISNULL() is a function, whereas IS NULL is a condition/operator.
+ISNULL(column) returns:
+NULL value → 1
+Non-NULL value → 0
+
+SELECT salary, ISNULL(salary)
+FROM emp;
+
+8. IFNULL()
+------------------
+IFNULL() is used to replace NULL with a specified value.
+Syntax
+IFNULL(column_name, replacement_value)
+Example:
+SELECT salary, IFNULL(salary, 1000)
+FROM emp;
+
+9. PRACTICE COMMANDS
+----------------------------
+Select all students
+SELECT *
+FROM students;
+-IDs 1 and 3
+SELECT *
+FROM students
+WHERE id IN (1, 3);
+
+
+Age between 30 and 40
+-----------------------
+SELECT *
+FROM students
+WHERE age BETWEEN 30 AND 40;
+Age not between 30 and 40
+-----------------------------------
+SELECT *
+FROM students
+WHERE age NOT BETWEEN 30 AND 40;
+
+Age is NULL
+-------------------
+SELECT *
+FROM students
+WHERE age IS NULL;
+Age is NOT NULL
+----------------------
+SELECT *
+FROM students
+WHERE age IS NOT NULL;
+
+
+Name starts with R and ID is 2
+-----------------------------------
+SELECT *
+FROM students
+WHERE name LIKE 'R%'
+AND id IN (2);
+Name contains a and age between 30 and 60
+------------------------------------------------
+SELECT *
+FROM students
+WHERE name LIKE '%a%'
+AND age BETWEEN 30 AND 60;
+
+Check NULL
+-------------------
+SELECT age, ISNULL(age)
+FROM students;
+Replace NULL with 100
+-----------------------------
+SELECT age, IFNULL(age, 100)
+FROM students;
+
+10. UPDATE
+---------------------------
+-UPDATE is a DML command used to modify existing records.
+Syntax
+UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+Example
+Increase age by 10 for students whose age is 30:
+UPDATE students
+SET age = age + 10
+WHERE age = 30;
+
+-Check the result:
+SELECT *
+FROM students;
+-Update name
+UPDATE students
+SET name = 'Ravi'
+WHERE id = 2;
+
+Update multiple columns
+---------------------------
+UPDATE students
+SET name = 'Ravi',
+    age = 25
+WHERE id = 2;
+
+⚠️ Important: Always be careful with UPDATE without a WHERE clause.
+
+UPDATE students
+SET age = 25;
+
+This changes every row.
+
+
+11. DELETE
+----------------------------
+-DELETE is a DML command used to remove rows from a table.
+-Delete a particular row
+DELETE FROM students
+WHERE name = 'Ram';
+-Delete using ID
+DELETE FROM students
+WHERE id = 2;
+-Delete all rows
+DELETE FROM students;
+This removes all rows but keeps the table structure.
+
+12. DELETE vs TRUNCATE vs DROP
+Command	    Data	                Structure
+DELETE	    Deletes selected/all rows	 Keeps
+TRUNCATE    Deletes all rows	         Keeps
+DROP	    Deletes all data             Deletes
+DELETE
+-------------------
+DELETE FROM students;
+Deletes all rows.
+
+With WHERE:
+---------------
+DELETE FROM students
+WHERE age > 50;
+Deletes only matching rows.
+
+
+TRUNCATE
+---------------
+TRUNCATE TABLE students;
+Removes all rows while keeping the table structure.
+
+DROP
+--------
+DROP TABLE students;
+Removes the entire table, including its structure and data.
+
+⭐ Day 5 Quick Revision
+
+-- BETWEEN
+SELECT * FROM students
+WHERE age BETWEEN 30 AND 40;
+
+-- NOT BETWEEN
+SELECT * FROM students
+WHERE age NOT BETWEEN 30 AND 40;
+
+-- IN
+SELECT * FROM students
+WHERE id IN (1, 3);
+
+-- NOT IN
+SELECT * FROM students
+WHERE id NOT IN (1, 3);
+
+-- IS NULL
+SELECT * FROM students
+WHERE age IS NULL;
+
+-- IS NOT NULL
+SELECT * FROM students
+WHERE age IS NOT NULL;
+
+-- LIKE: starts with R
+SELECT * FROM students
+WHERE name LIKE 'R%';
+
+-- LIKE: contains a
+SELECT * FROM students
+WHERE name LIKE '%a%';
+
+-- LIKE: ends with a
+SELECT * FROM students
+WHERE name LIKE '%a';
+
+-- LIKE: exactly 4 characters
+SELECT * FROM students
+WHERE name LIKE '____';
+
+-- ISNULL()
+SELECT age, ISNULL(age)
+FROM students;
+
+-- IFNULL()
+SELECT age, IFNULL(age, 100)
+FROM students;
+
+-- UPDATE
+UPDATE students
+SET age = age + 10
+WHERE age = 30;
+
+-- DELETE one/matching row
+DELETE FROM students
+WHERE name = 'Ram';
+
+-- DELETE all rows
+DELETE FROM students;
+
+-- TRUNCATE
+TRUNCATE TABLE students;
+
+-- DROP
+DROP TABLE students;
+
+
+🔑 Most important interview differences
+
+IS NULL vs ISNULL()
+-----------------------------
+IS NULL
+----------------
+→ Checks whether a value is NULL.
+
+
+ISNULL()
+------------------
+→ Returns 1 if value is NULL, otherwise 0.
+
+IFNULL()
+--------------
+IFNULL(value, replacement)
+→ Replaces NULL with the specified value.
+
+DELETE vs TRUNCATE vs DROP
+DELETE    → Removes rows
+TRUNCATE  → Removes all rows
+DROP      → Removes table + structure
+
+________________________________________________________________________________________________________________________________________
+
+DAY 6 — Predicates / Special Operators
+===================================================
+1. BETWEEN
+----------------------
+-Used to retrieve values within a range. Both values are included.
+SELECT *
+FROM students
+WHERE age BETWEEN 10 AND 20;
+-Equivalent to:
+----------------------------
+SELECT *
+FROM students
+WHERE age >= 10 AND age <= 20;
+-NOT BETWEEN
+---------------------
+SELECT *
+FROM students
+WHERE age NOT BETWEEN 10 AND 20;
+
+2. IN
+----------------------
+-Used to check whether a value matches any value from a list.
+SELECT *
+FROM students
+WHERE id IN (10, 20);
+-Equivalent to:
+------------------------
+SELECT *
+FROM students
+WHERE id = 10 OR id = 20;
+-NOT IN
+-------------------
+SELECT *
+FROM students
+WHERE id NOT IN (10, 20);
+
+3. IS NULL
+-----------------
+-Used to find rows where a column contains NULL.
+SELECT *
+FROM students
+WHERE name IS NULL;
+
+IS NOT NULL
+------------------
+SELECT *
+FROM students
+WHERE name IS NOT NULL;
+✅ Use:
+-------------
+WHERE name IS NULL;
+
+
+4. LIKE
+--------------------------
+-LIKE is used for pattern matching.
+-There are two important wildcards:
+
+_  → exactly one character
+%  → zero or more characters
+_ Underscore
+----------------------------
+Exactly one character:
+SELECT *
+FROM students
+WHERE name LIKE 'R_';
+
+Exactly four characters:
+--------------------------
+SELECT *
+FROM students
+WHERE name LIKE '____';
+
+% Wildcard
+----------------------
+Starts with A
+SELECT *
+FROM students
+WHERE name LIKE 'A%';
+
+Contains a
+------------
+SELECT *
+FROM students
+WHERE name LIKE '%a%';
+
+Ends with a
+---------------------
+SELECT *
+FROM students
+WHERE name LIKE '%a';
+
+Ends with h
+--------------------
+SELECT *
+FROM students
+WHERE name LIKE '%h';
+
+Does not contain h
+----------------------------
+SELECT *
+FROM students
+WHERE name NOT LIKE '%h%';
+
+Does not start with A
+-------------------------------
+SELECT *
+FROM students
+WHERE name NOT LIKE 'A%';
+
+ISNULL() and IFNULL()
+------------------------------
+ISNULL()
+----------------
+-Returns 1 if the value is NULL and 0 if it is not NULL.
+SELECT salary, ISNULL(salary)
+FROM emp;
+Example:
+--------------
+salary	ISNULL(salary)
+20000	0
+NULL	1
+40000	0
+NULL	1
+3000	0
+
+IFNULL()
+---------------------
+-Used to replace NULL with another value.
+SELECT salary, IFNULL(salary, 1000)
+FROM emp;
+
+Example:
+-----------------
+salary	IFNULL(salary,1000)
+20000	20000
+NULL	1000
+40000	40000
+NULL	1000
+3000	3000
+Remember
+-----------------
+IS NULL
+---------------
+→ Checks whether a value is NULL
+ISNULL()
+-------------------------
+→ Returns 1 or 0
+IFNULL()
+--------------------------
+→ Replaces NULL with a specified value
+
+UPDATE
+----------------------------------------
+-UPDATE is used to modify existing rows.
+Syntax
+UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+-Increase age by 10 where age is 30
+
+✅ Correct:
+UPDATE students
+SET age = age + 10
+WHERE age = 30;
+SELECT * FROM students;
+
+Update a name
+-------------------
+UPDATE students
+SET name = 'Ravi'
+WHERE id = 2;
+-⚠️ Without WHERE, all rows will be updated:
+UPDATE students
+SET age = 30;
+
+DELETE
+-------------------
+-Used to remove rows.
+
+Delete Ram:
+DELETE FROM students
+WHERE name = 'Ram';
+Delete a particular ID:
+DELETE FROM students
+WHERE id = 2;
+
+Delete all rows:
+------------------------
+DELETE FROM students;
+
+DELETE vs TRUNCATE vs DROP
+-------------------------------------
+Command	    Data	         Table Structure
+DELETE	   Selected/all rows	   Remains
+TRUNCATE   All rows	           Remains
+DROP	   Data + table            Removed
+-DELETE FROM students;
+-TRUNCATE TABLE students;
+-DROP TABLE students;
+
+_________________________________________________________________________________________DAY7___________________________________________
+
+DAY 7 — LIMIT
+--------------------------
+-LIMIT restricts the number of rows returned.
+
+Syntax:
+SELECT *
+FROM product
+LIMIT 5;
+-Returns a maximum of 5 rows.
+
+Aggregate Functions
+-------------------------------------
+-Aggregate functions perform calculations on multiple rows and generally return a single result.
+
+Five important aggregate functions:
+-------------------------------------------------
+1.COUNT()
+2.SUM()
+3.AVG()
+4.MAX()
+5.MIN()
+1. COUNT()
+-------------------
+-Returns the number of rows.
+
+SELECT COUNT(*)
+FROM product;
+
+Using alias:
+--------------
+SELECT COUNT(*) AS total_count
+FROM product;
+2. SUM()
+---------------
+Returns the total of a numeric column.
+
+SELECT SUM(quantity)
+FROM product;
+SELECT SUM(quantity) AS total_quantity
+FROM product;
+3. AVG()
+--------------------------------
+Returns the average.
+
+SELECT AVG(quantity)
+FROM product;
+SELECT AVG(quantity) AS average_quantity
+FROM product;
+
+4. MAX()
+-----------------
+Returns the highest value.
+
+SELECT MAX(price)
+FROM product;
+SELECT MAX(price) AS maximum_price
+FROM product;
+5. MIN()
+------------------
+Returns the lowest value.
+
+SELECT MIN(price)
+FROM product;
+SELECT MIN(price) AS minimum_price
+FROM product;
+
+GROUP BY
+---------------
+-GROUP BY is used to divide rows into groups based on the same values.
+
+.Count products in each category
+SELECT category, COUNT(*) AS total_count
+FROM product
+GROUP BY category;
+.Total quantity for each category
+SELECT category, SUM(quantity) AS total_quantity
+FROM product
+GROUP BY category;
+.Average quantity for each category
+SELECT category, AVG(quantity) AS average_quantity
+FROM product
+GROUP BY category;
+.Maximum price for each category
+SELECT category, MAX(price) AS maximum_price
+FROM product
+GROUP BY category;
+
+.Minimum price for each category
+SELECT category, MIN(price) AS minimum_price
+FROM product
+GROUP BY category;
+
+DESC — Table Structure
+-------------------------
+-DESC product;
+-DESCRIBE product;
+
+________________________________________________________________________________________________DAY-8___________________________________
+
+DAY 8 — ALTER TABLE
+---------------------------------------
+-Add a column at the beginning
+Suppose:
+----
+CREATE TABLE student
+(
+    id INT,
+    name VARCHAR(20),
+    age INT
+);
+
+-Add email as the first column:
+ALTER TABLE student
+ADD COLUMN email VARCHAR(50) FIRST;
+--Add a column after another column
+-Add dob after name:
+ALTER TABLE student
+ADD COLUMN dob DATE AFTER name;
+
+GROUP BY Example
+-------------------------
+Suppose departments have:
+
+CSE   → 10
+ECE   → 12
+MECH  → 5
+CIVIL → 8
+
+-Find the number of students in each department:
+
+SELECT dept, COUNT(*) AS total_students
+FROM student
+GROUP BY dept;
+HAVING CLAUSE
+
+-HAVING is used to filter groups after GROUP BY.
+-It is commonly used with aggregate functions.
+
+Basic syntax:
+SELECT column_name, COUNT(*)
+FROM table_name
+GROUP BY column_name
+HAVING COUNT(*) > 10;
+
+-Find departments having more than 10 students
+SELECT dept, COUNT(*) AS total_count
+FROM student
+GROUP BY dept
+HAVING COUNT(*) > 10;
+-You can also use the alias in MySQL:
+SELECT dept, COUNT(*) AS total_count
+FROM student
+GROUP BY dept
+HAVING total_count > 10;
+
+HAVING with SUM()
+--------------------------
+-Find categories whose total quantity is greater than 100:
+SELECT category, SUM(quantity) AS total_quantity
+FROM product
+GROUP BY category
+HAVING SUM(quantity) > 100;
+
+HAVING with MAX()
+---------------------------
+-Find categories whose maximum price is greater than 50,000:
+
+SELECT category, MAX(price) AS maximum_price
+FROM product
+GROUP BY category
+HAVING MAX(price) > 50000;-
+
+WHERE vs HAVING
+--------------------------
+This is very important for interviews.
+
+WHERE
+------
+-Filters individual rows before grouping.
+SELECT *
+FROM product
+WHERE price > 500;
+
+HAVING
+------------------
+-Filters groups after GROUP BY.
+
+SELECT category, MAX(price)
+FROM product
+GROUP BY category
+HAVING MAX(price) > 500;
+
+Easy way to remember:
+WHERE  → Filters rows
+GROUP BY → Creates groups
+HAVING → Filters groups
+
+ORDER BY
+------------------
+ORDER BY is used to sort the result.
+
+Two types:
+----------------
+ASC  → Ascending
+DESC → Descending
+The default is ASC.
+
+Ascending
+-----------
+SELECT *
+FROM product
+ORDER BY price ASC;
+Default ascending
+------------------
+SELECT *
+FROM product
+ORDER BY price;
+Descending
+---------------
+SELECT *
+FROM product
+ORDER BY price DESC;
+
+GROUP BY + ORDER BY
+------------------------------
+-Find the count of products in each category and display categories in ascending order of count:
+
+SELECT category, COUNT(*) AS total_count
+FROM product
+GROUP BY category
+ORDER BY total_count ASC;
+
+Descending:
+----------------------
+SELECT category, COUNT(*) AS total_count
+FROM product
+GROUP BY category
+ORDER BY total_count DESC;
+
+SQL CLAUSE ORDER
+--------------------------
+The important order is:
+1. WHERE
+2. GROUP BY
+3. HAVING
+4. ORDER BY
+5. LIMIT
+
+-For a complete query:
+SELECT category, COUNT(*) AS total_count
+FROM product
+WHERE price > 100
+GROUP BY category
+HAVING total_count > 2
+ORDER BY total_count DESC
+LIMIT 5;
+
+DISTINCT
+----------------------------------
+DISTINCT is used to remove duplicate values and return unique values.
+
+Example:
+SELECT DISTINCT supplier_city
+FROM product;
+
+If the table contains:
+supplier_city
+Hyderabad
+Chennai
+Hyderabad
+Bangalore
+Chennai
+Result:
+----------
+supplier_city
+Hyderabad
+Chennai
+Bangalore
+
+⭐ DAY 6–8 INTERVIEW REVISION
+-----------------------------
+BETWEEN
+→ Checks a range
+IN
+→ Checks multiple values
+IS NULL
+→ Checks NULL
+LIKE
+→ Pattern matching
+_
+→ Exactly one character
+%
+→ Zero or more characters
+UPDATE
+→ Modifies existing rows
+DELETE
+→ Deletes rows
+TRUNCATE
+→ Deletes all rows, keeps structure
+DROP
+→ Deletes table and structure
+LIMIT
+→ Restricts returned rows
+COUNT()
+→ Counts rows
+SUM()
+→ Calculates total
+AVG()
+→ Calculates average
+MAX()
+→ Highest value
+MIN()
+→ Lowest value
+GROUP BY
+→ Creates groups
+HAVING
+→ Filters groups
+ORDER BY
+→ Sorts results
+DISTINCT
+→ Removes duplicate results
+DESC
+→ Shows table structure
+
+Most important query pattern:
+SELECT category, COUNT(*) AS total_count
+FROM product
+WHERE price > 100
+GROUP BY category
+HAVING total_count > 2
+ORDER BY total_count DESC
+LIMIT 5;
+
+Think of it as:
+-------------------
+WHERE → GROUP BY → HAVING → ORDER BY → LIMIT.
+
+____________________________________________________________________
+_______________________________DAY-9________________________________
+Numeric Functions in SQL
+============================
+1. ROUND()
+-----------
+Returns a number rounded to the specified number of decimal places.
+SELECT ROUND(123.456, 2);last number big so print 6. if incase last number small before the number
+-- 123.46
+
+SELECT ROUND(123.453, 2);
+-- 123.45
+
+SELECT ROUND(123.456);
+-- 123
+
+SELECT ROUND(123.456, -1);
+-- 120
+
+SELECT ROUND(1542, -3);
+-- 2000
+
+2. SQRT()
+-----------
+Returns the square root of a number.
+>SELECT SQRT(4);
+-- 2
+>SELECT SQRT(25);
+-- 53
+3. POWER()
+----------
+Returns a number raised to a specified power.
+>SELECT POWER(3, 2);
+-- 9
+>SELECT POWER(2, 3);
+-- 8
+
+4. MOD()
+------------
+Returns the remainder after division.
+
+>SELECT MOD(10, 3);
+-- 1
+>SELECT MOD(20, 4);
+-- 0
+5. ABS()
+---------------
+Returns the absolute value. It converts a negative number into a positive number.
+
+>SELECT ABS(-25);
+-- 25
+>SELECT ABS(25);
+-- 25
+>SELECT ABS(0);
+-- 0
+
+6. SIGN()
+---------
+Returns the sign of a number.
+
+Positive number → 1
+Negative number → -1
+Zero → 0
+>SELECT SIGN(90);
+-- 1
+>SELECT SIGN(-90);
+-- -1
+>SELECT SIGN(0);
+-- 0
+
+7. CEIL()
+------------
+Returns the nearest higher integer.
+
+>SELECT CEIL(20.8);
+-- 21
+>SELECT CEIL(20.1);
+-- 21
+
+8. FLOOR()
+-----------
+Returns the nearest lower integer.
+
+>SELECT FLOOR(20.8);
+-- 20
+>SELECT FLOOR(20.4);
+-- 20
+
+9. RAND()
+----------
+Returns a random decimal value between 0 and 1.
+>SELECT RAND();
+Example output:0.5089465589345866
+
+You can generate random values:
+>SELECT RAND() \* 100;
+To get a random integer from 0 to 99:
+>SELECT FLOOR(RAND() \* 100);
+
+10. GREATEST()
+--------------
+Returns the maximum value from the given values.
+
+>SELECT GREATEST(20, 70, 30);
+-- 70
+
+11. LEAST()
+------------
+Returns the minimum value from the given values.
+
+>SELECT LEAST(20, 70, 30);
+-- 20
+
+
+String Functions in SQL
+-----------------------
+1. UPPER()
+----------
+Converts all characters to uppercase.
+
+>SELECT UPPER('mysql');
+-- MYSQL
+
+2. LOWER()
+-------------
+Converts all characters to lowercase.
+
+>SELECT LOWER('MYSQL');
+-- mysql
+
+3. LENGTH()
+-------------
+Returns the length of a string in bytes.
+>SELECT LENGTH('mysql');
+-- 5
+
+4. CHAR_LENGTH()
+-----------------
+Returns the number of characters in a string.
+
+>SELECT CHAR\_LENGTH('mysql');
+-- 5
+
+Difference:
+------------
+LENGTH() → counts bytes
+CHAR_LENGTH() → counts characters
+
+5. SUBSTRING()
+---------------
+Extracts a specific part of a string.
+
+>SELECT SUBSTRING('MySQL developer', 1, 5);
+-- MySQL
+
+Here:
+1 → starting position
+5 → number of characters
+
+6. LEFT()
+-------------
+Returns a specified number of characters from the left side.
+
+>SELECT LEFT('mysql developer', 7);
+-- mysql d
+
+7. RIGHT()
+-----------
+Returns a specified number of characters from the right side.
+
+SELECT RIGHT('mysql developer', 7);
+-- veloper
+8. CONCAT()
+-----------
+Combines two or more strings.
+
+SELECT CONCAT('mysql', 'developer');
+-- mysqldeveloper
+
+With a space:
+>SELECT CONCAT('mysql', ' ', 'developer');
+ -- mysql developer
+
+
+9. CONCAT_WS()
+------------------
+Combines strings using a separator.
+
+>SELECT CONCAT_WS('-', 'mysql', 'developer');
+-- mysql-developer
+>SELECT CONCAT_WS(',', 'mysql', 'java');
+-- mysql,java
+
+10. REPLACE()
+----------------
+Replaces an old string/character with a new string/character.
+>SELECT REPLACE('java', 'a', '@');
+-- j@v@
+Another example:
+>SELECT REPLACE('I like Java', 'Java', 'MySQL');
+-- I like MySQL
+
+11. TRIM()
+----------
+Removes spaces from the beginning and end of a string.
+
+SELECT TRIM('  mysql  ');
+-- mysql
+12. LPAD()
+
+Adds characters to the left side until the string reaches the specified length.
+
+SELECT LPAD('mysql', 10, '*');
+-- *****mysql
+
+13. RPAD()
+--------------
+Adds characters to the right side until the string reaches the specified length.
+>SELECT RPAD('mysql', 10, '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*');
+-- mysql*****
+
+14. LOCATE()
+----------------
+Returns the position of a substring inside another string.
+>SELECT LOCATE('a', 'apple');
+-- 1
+Another example:
+SELECT LOCATE('developer', 'mysql developer');
+-- 6
+Because:
+m1 y2 s3 q4 l5 space6 d7
+So actually:
+SELECT LOCATE('developer', 'mysql developer');
+-- 7
+
+Function     Purpose     	        Example
+ROUND()	   Round number             ROUND(123.456,2) → 123.46
+SQRT()	   Square root	            SQRT(25) → 5
+POWER()	   Power	            POWER(3,2) → 9
+MOD()	   Remainder	            MOD(10,3) → 1
+ABS()	   Absolute value           ABS(-10) → 10
+SIGN()	   Sign of number           SIGN(-5) → -1
+CEIL()	   Higher integer           CEIL(20.2) → 21
+FLOOR()	   Lower integer            FLOOR(20.8) → 20
+RAND()	   Random number            RAND()
+GREATEST()  Maximum	            GREATEST(10,20,5) → 20
+LEAST()     Minimum                 LEAST(10,20,5) → 5
+UPPER()	    Uppercase	             UPPER('mysql') → MYSQL
+LOWER()     Lowercase	             LOWER('MYSQL') → mysql
+LENGTH()    String length in bytes    LENGTH('mysql')
+CHAR_LENGTH()	Character count	      CHAR_LENGTH('mysql') → 5
+SUBSTRING()	Extract string	      SUBSTRING('MySQL',1,3) → MyS
+LEFT()	     Characters from left    LEFT('mysql',2) → my
+RIGHT()	     Characters from right   RIGHT('mysql',2) → ql
+CONCAT()	Join strings	     CONCAT('My','SQL')
+CONCAT_WS()	Join with separator  CONCAT_WS('-','A','B') → A-B
+REPLACE()	Replace text	       REPLACE('java','a','@')
+TRIM()	     Remove outer spaces       TRIM(' mysql ')
+LPAD()	     Add characters on left    LPAD('mysql',10,'*')
+RPAD()	    Add characters on right    RPAD('mysql',10,'*')
+LOCATE()	Find position	      LOCATE('a','apple') → 1
+
+
+-- 1. Round 456.789 to 2 decimal places
+      SELECT ROUND(456.789, 2); ----456.79
+-- 2. Find the square root of 144
+      SELECT SQRT(144); ----12
+-- 3. Find 5 raised to the power 3
+      SELECT POWER(5, 3);---125
+-- 4. Find the remainder of 25 divided by 4
+      SELECT MOD(25, 4); ----1
+-- 5. Find the absolute value of -250
+      SELECT ABS(-250); ---250
+-- 6. Find the sign of -50
+      SELECT SIGN(-50); ---- -1
+-- 7. Find the nearest higher integer of 45.6
+      SELECT CEIL(45.6); --- 46
+-- 8. Find the nearest lower integer of 45.6
+      SELECT FLOOR(45.6);  --- 45
+-- 9. Find the maximum of 25, 75 and 50
+      SELECT GREATEST(25, 75, 50); ---- 75
+-- 10. Find the minimum of 25, 75 and 50
+      SELECT LEAST(25, 75, 50); ---25
+-- 11. Convert 'data analyst' to uppercase
+      SELECT UPPER('data analyst'); --- DATA ANALYST
+-- 12. Convert 'MYSQL DEVELOPER' to lowercase
+      SELECT LOWER('MYSQL DEVELOPER'); -- mysql developer
+-- 13. Find the length of 'database'
+      SELECT LENGTH('database'); ---8
+-- 14. Extract 'Data' from 'Data Analytics'
+     SELECT SUBSTRING('Data Analytics', 1, 4);  --- Data
+-- 15. Get the first 4 characters from 'Python'
+     SELECT LEFT('Python', 4); --Pyth
+-- 16. Get the last 3 characters from 'Python'
+      SELECT RIGHT('Python', 3);  -- hon
+-- 17. Combine 'Data' and 'Analytics' with a space
+      SELECT CONCAT('Data', ' ', 'Analytics'); -- Data Analytics
+-- 18. Replace 'Java' with 'Python' in 'I like Java'
+   SELECT REPLACE('I like Java', 'Java', 'Python'); -- I like Python
+-- 19. Remove spaces from '   MySQL   '
+   SELECT TRIM('   MySQL   ');  -- MySQL
+-- 20. Find the position of 'sql' in 'mysql'
+   SELECT LOCATE('sql', 'mysql'); -- 3
+
+ 
+________________________________21-08-2026________________________________
+__________________________________DAY10_____________________________
+
+
+DATE & TIME FUNCTIONS:
+-------------------------
+1.NOW()
+2.CURDATE()
+3.CURTIME()
+4.YEAR()
+5.MONTH()
+6.DAY()
+7.DAYNAME()
+8.DATEDIFF()
+9.DATE_ADD()
+10.DATE_SUB()
+11.DATE_FORMAT()
+12.STR_TO_DATE()
+
+1. NOW()
+------------
+-Returns the current date and current time.
+SELECT NOW();
+output:
+2026-08-21 16:59:30
+
+2. CURDATE()
+------------
+Returns the current date only.
+SELECT CURDATE();
+Example:
+2026-08-21
+
+3. CURTIME()
+------------
+-Returns the current time only.
+SELECT CURTIME();
+Example:
+16:59:30
+
+4. YEAR()
+-------------
+-Extracts the year from a date.
+SELECT YEAR(CURDATE());
+Output:
+2026
+
+5. MONTH()
+------------
+-Extracts the month number.
+SELECT MONTH(CURDATE());
+Output:
+8
+
+6. DAY()
+------------
+-Extracts the day of the month.
+SELECT DAY(CURDATE());
+Output:
+21
+
+7. DAYNAME()
+-------------
+Returns the day name.
+SELECT DAYNAME(CURDATE());
+Output:
+Friday
+
+8. DATEDIFF()
+------------
+Returns the difference between two dates in days.
+Syntax:
+SELECT DATEDIFF(date1, date2);
+Example:
+SELECT DATEDIFF('2026-08-21', '2026-08-10');
+Output:11
+
+Interview point: DATEDIFF() returns the difference in days.
+
+9. DATE_ADD()
+-------------
+-Used to add days, months, or years to a date.
+Syntax:
+SELECT DATE_ADD(date, INTERVAL value unit);
+Example — add 10 days:
+SELECT DATE_ADD(CURDATE(), INTERVAL 10 DAY);
+Add 2 months:
+SELECT DATE_ADD(CURDATE(), INTERVAL 2 MONTH);
+Add 1 year:
+SELECT DATE_ADD(CURDATE(), INTERVAL 1 YEAR);
+
+10. DATE_SUB()
+--------------
+-Used to subtract days, months, or years from a date.
+SELECT DATE_SUB(CURDATE(), INTERVAL 10 DAY);
+Subtract 2 months:
+SELECT DATE_SUB(CURDATE(), INTERVAL 2 MONTH);
+Subtract 1 year:
+SELECT DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+
+11. DATE_FORMAT()
+-----------------
+-Used to format a date according to our requirement.
+-MySQL's standard date format is: YYYY-MM-DD
+Example:
+SELECT DATE_FORMAT(CURDATE(), '%d-%m-%Y');
+Output: 21-08-2026
+
+Important format symbols:
+Symbol	Meaning	          Example
+%d	Day	            21
+%m	Month	            08
+%Y	4-digit year	    2026
+%y	2-digit year	     26
+%M	Full month name    August
+%b	Short month name    Aug
+%W	Full weekday name  Friday
+
+Correction to your example:
+SELECT DATE_FORMAT(CURDATE(), '%d%m%y');
+-This is valid, but it gives:
+210826
+-For a normal readable format, use:
+SELECT DATE_FORMAT(CURDATE(), '%d-%m-%Y');
+
+12. STR_TO_DATE()
+--------------------------
+-Used to convert a string into a DATE value according to the specified format.
+-For:
+19-08-2026
+Use:
+SELECT STR_TO_DATE('19-08-2026', '%d-%m-%Y');
+Output: 2026-08-19
+⚠️ Your original example was incorrect:
+SELECT STR_TO_DATE('19-08-2026','%y%m%d');
+Because %y%m%d does not match 19-08-2026.
+
+Important for Interviews:
+-----------------------
+SYSTEM FUNCTIONS
+-----------------
+1. VERSION()
+-------------
+-Returns the MySQL server version.
+SELECT VERSION();
+Example: 8.6.XX
+2. DATABASE()
+------------------
+-Returns the currently selected database.
+SELECT DATABASE();
+Example: company
+
+3. USER()
+--------------
+-Returns the current MySQL user and host used for the connection.
+SELECT USER();
+
+Example:
+root@localhost
+
+4. CURRENT_USER()
+----------------------
+-Returns the MySQL account used by the server to authenticate the current client.
+SELECT CURRENT_USER();
+
+Interview difference
+--------------------------
+USER() → client/connection user
+CURRENT_USER() → account MySQL uses for authentication and privileges
+
+5. CONNECTION_ID()
+-------------------------
+-Returns the unique connection/thread ID for the current MySQL connection.
+SELECT CONNECTION_ID();
+Example: 15
+ 
+6. LAST_INSERT_ID()
+-----------------------------
+-Returns the last automatically generated AUTO_INCREMENT value for the current session.
+
+Example:
+--------
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+-Insert:
+INSERT INTO students(name)
+VALUES ('Indu');
+
+Then:
+SELECT LAST_INSERT_ID();
+It returns the ID generated for that insert.
+
+⭐ Interview Quick Revision
+--------------------------------
+Remember these pairs:
+-----------------
+NOW()             → Date + Time
+CURDATE()         → Date
+CURTIME()         → Time
+YEAR()            → Year
+MONTH()           → Month
+DAY()             → Day
+DAYNAME()         → Day name
+DATEDIFF()        → Difference between dates
+DATE_ADD()        → Add date/time
+DATE_SUB()        → Subtract date/time
+DATE_FORMAT()     → Date → formatted string
+STR_TO_DATE()     → String → date
+VERSION()         → MySQL version
+DATABASE()        → Current database
+USER()            → Connected user
+CURRENT_USER()    → Authenticated MySQL account
+CONNECTION_ID()   → Current connection ID
+LAST_INSERT_ID()  → Last AUTO_INCREMENT value
+🔥 Most important interview questions from Day 10:
+What is the difference between NOW(), CURDATE() and CURTIME()?
+What is the difference between DATE_ADD() and DATE_SUB()?
+What is DATEDIFF()?
+What is the difference between DATE_FORMAT() and STR_TO_DATE()?
+What is the difference between USER() and CURRENT_USER()?
+What is LAST_INSERT_ID()?
+What does CONNECTION_ID() return?
+How do you extract the year/month/day from a date?
+How do you add 10 days to today's date?
+How do you format a date as DD-MM-YYYY?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+very important in interview:
+
+==DATE AND TIME===
+---------------------------
+1.NOW()
+2.CURDATE()
+3.CURTIME()
+4.YEAR()
+5.MONTH()
+6.DAY()
+7.DAYNAME()
+8.DATEDIFF()
+9.DATE_ADD()
+10.DATE_SUB()
+11.DATE_FORMAT()
+12.STR_TO_DATE()
+
+
+1.NOW():
+----------
+-IT RETURNS CURRENT TIME AND DATE
+ex: select now(); //
+
+2.CURDATE():
+---------------
+-It returns the current date only.
+ex: select curdate();
+
+3.CURTIME():
+------------------
+-it returns the current time.
+ex: select curtime();
+
+4.YEAR():
+----------
+-it is used to extract the year in a date.
+ex: select year(curdate());
+
+5.MONTH():
+------------
+-It is used to extract month in a date.
+ex: select month(curdate());
+
+6.DAY():
+------------
+-it extract day in a day
+ex: select day(curdate());
+
+7.DAYNAME():
+------------------
+-It extract day in a date and return dayname.
+ex: select dayName (curdate());
+
+8.DATEDIFF():
+----------------
+it returns difference between two dates
+
+9.DATE_ADD():
+-----------------
+-It is used add the days, or months or year in a date.
+
+syntax:
+-----
+select date_add(curdate(), interval value);
+select date_add(curdate(),interval 10 days);
+
+10.DATE_SUB():
+----------
+
+-IT SUBTARCT THE YEAR AND MONTHS D
+select date_sub(curdate(),interval 10 days);
+
+11.DATE_FORMAT(): it is important by default mysql date formate is yyyy-mm-dd
+---------------------
+-It used to customer date format
+select date_format(curdate(),'%d%m%y');
+
+12.STR_TO_DATE():
+-----------------
+-To convert string into a date.
+
+select str_to_date('19-08-2026','%y%m%d');
+
+SYSTEM FUNCTIONS: imp in interview
+=================================
+1.version():
+------------------
+-select version();
+
+2.DATABASE():
+------------------
+select database();
+
+3.USER():
+------------
+-it returns the current username and host
+
+4.current_user():
+------------------------
+it returns current user name.
+
+5.connection_id():
+--------------------
+
+it is used to uquie.it is provided by MYSQL server
+select connection_id();
+
+6.LAST_INSERT_ID:
+-----------------
+-it is used to know the value of last auto_increment value.
+select last_insert_id();
