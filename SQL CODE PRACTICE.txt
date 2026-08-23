@@ -1,0 +1,3022 @@
+DDL and Constraints:
+===========================
+
+mysql> CREATE TABLE student (
+    ->     sid INT PRIMARY KEY,
+    ->     sname VARCHAR(50),
+    ->     age INT,
+    ->     city VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE employee (
+    ->     eid INT PRIMARY KEY,
+    ->     ename VARCHAR(50) NOT NULL,
+    ->     salary DECIMAL(10,2),
+    ->     email VARCHAR(100) UNIQUE
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE department (
+    ->     did INT PRIMARY KEY,
+    ->     dname VARCHAR(50) UNIQUE,
+    ->     location VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+
+mysql> drop table product;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE product (
+    ->     pid INT PRIMARY KEY,
+    ->     pname VARCHAR(50) NOT NULL,
+    ->     price DECIMAL(10,2) CHECK (price > 0),
+    ->     quantity INT CHECK (quantity >= 0)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+
+mysql> drop table orders;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> drop table customer;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE customer (
+    ->     customer_id INT PRIMARY KEY,
+    ->     customer_name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> CREATE TABLE orders (
+    ->     order_id INT PRIMARY KEY,
+    ->     order_date DATE,
+    ->     customer_id INT,
+    ->     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+
+mysql>
+mysql> ALTER TABLE student
+    -> ADD email VARCHAR(100);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE student (
+    ->     sid INT,
+    ->     sname VARCHAR(50),
+    ->     age INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE student
+    -> ADD email VARCHAR(100);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE employee (
+    ->     eid INT,
+    ->     ename VARCHAR(50),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> ALTER TABLE employee
+    -> ADD phone VARCHAR(15) UNIQUE;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table product;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE product (
+    ->     pid INT,
+    ->     pname VARCHAR(20),
+    ->     price DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE product
+    -> MODIFY pname VARCHAR(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE student (
+    ->     sid INT,
+    ->     sname VARCHAR(50),
+    ->     age INT,
+    ->     city VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE student
+    -> RENAME COLUMN sname TO student_name;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE employee (
+    ->     eid INT,
+    ->     ename VARCHAR(50),
+    ->     salary DECIMAL(10,2),
+    ->     address VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE employee
+    -> DROP COLUMN address;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE student (
+    ->     sid INT,
+    ->     sname VARCHAR(50),
+    ->     age INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE student
+    -> ADD CONSTRAINT pk_student PRIMARY KEY (sid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE employee (
+    ->     eid INT,
+    ->     ename VARCHAR(50),
+    ->     email VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE employee
+    -> ADD CONSTRAINT uk_employee_email UNIQUE (email);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE employee (
+    ->     eid INT,
+    ->     ename VARCHAR(50),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> use da22;
+Database changed
+mysql> drop table employee;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE department (
+    ->     did INT PRIMARY KEY,
+    ->     dname VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> CREATE TABLE employee (
+    ->     eid INT PRIMARY KEY,
+    ->     ename VARCHAR(50),
+    ->     did INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> ALTER TABLE employee
+    -> ADD CONSTRAINT fk_employee_department
+    -> FOREIGN KEY (did) REFERENCES department(did);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE student (
+    ->     sid INT,
+    ->     sname VARCHAR(50),
+    ->     age INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> ALTER TABLE student
+    -> ADD CONSTRAINT chk_student_age CHECK (age BETWEEN 18 AND 60);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE employee (
+    ->     eid INT,
+    ->     ename VARCHAR(50),
+    ->     CONSTRAINT pk_employee PRIMARY KEY (eid)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE employee
+    -> DROP PRIMARY KEY;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE student (
+    ->     sid INT,
+    ->     email VARCHAR(100),
+    ->     CONSTRAINT uk_student_email UNIQUE (email)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE student
+    -> DROP INDEX uk_student_email;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE department (
+    ->     did INT PRIMARY KEY,
+    ->     dname VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> CREATE TABLE employee (
+    ->     eid INT PRIMARY KEY,
+    ->     ename VARCHAR(50),
+    ->     did INT,
+    ->     CONSTRAINT fk_employee_department
+    ->         FOREIGN KEY (did) REFERENCES department(did)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE employee
+    -> DROP FOREIGN KEY fk_employee_department;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table product;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE product (
+    ->     pid INT PRIMARY KEY,
+    ->     price DECIMAL(10,2),
+    ->     CONSTRAINT chk_product_price CHECK (price > 0)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> ALTER TABLE product
+    -> DROP CHECK chk_product_price;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table department;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE department (
+    ->     did INT PRIMARY KEY,
+    ->     dname VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> CREATE TABLE employee (
+    ->     eid INT PRIMARY KEY,
+    ->     ename VARCHAR(50) NOT NULL,
+    ->     email VARCHAR(100) UNIQUE,
+    ->     salary DECIMAL(10,2) CHECK (salary > 10000),
+    ->     did INT,
+    ->     FOREIGN KEY (did) REFERENCES department(did)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+Quick MySQL commands to remember
+Operation	Command
+Add column	ALTER TABLE table_name ADD column_name datatype;
+Modify column	ALTER TABLE table_name MODIFY column_name datatype;
+Rename column	ALTER TABLE table_name RENAME COLUMN old TO new;
+Drop column	ALTER TABLE table_name DROP COLUMN column_name;
+Add PK	        ADD CONSTRAINT ... PRIMARY KEY
+Add UNIQUE	ADD CONSTRAINT ... UNIQUE
+Add CHECK	ADD CONSTRAINT ... CHECK
+Add FK	        ADD CONSTRAINT ... FOREIGN KEY
+Drop PK 	DROP PRIMARY KEY
+Drop UNIQUE	DROP INDEX constraint_name
+Drop FK	        DROP FOREIGN KEY constraint_name
+Drop CHECK	DROP CHECK constraint_name
+
+
+
+INSERT , UPDATE, SELECT:
+==========================
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     emp_name VARCHAR(50),
+    ->     department VARCHAR(50),
+    ->     salary DECIMAL(10,2),
+    ->     experience INT,
+    ->     status INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO employees
+    -> (emp_name, department, salary, experience, status)
+    -> VALUES
+    -> ('Ravi', 'IT', 60000, 4, 1),
+    -> ('Anil', 'HR', 45000, 3, 2),
+    -> ('Priya', 'Finance', 70000, 6, 4),
+    -> ('Sneha', 'IT', 85000, 7, 3),
+    -> ('Kiran', 'Sales', 35000, 2, 1),
+    -> ('Arjun', 'IT', 55000, 5, 5),
+    -> ('Divya', 'HR', 40000, 4, 2),
+    -> ('Rahul', 'Finance', 65000, 8, 6),
+    -> ('Meena', 'Sales', 30000, 1, 1),
+    -> ('Suresh', 'IT', 95000, 10, 7),
+    -> ('Pooja', 'Marketing', 50000, 3, 2),
+    -> ('Vijay', 'Finance', 48000, 4, 4),
+    -> ('Neha', 'IT', 72000, 6, 3),
+    -> ('Amit', 'Sales', 42000, 5, 1),
+    -> ('Swathi', 'Marketing', 58000, 7, 5);
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employees;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      2 | Anil     | HR         | 45000.00 |          3 |      2 |
+|      3 | Priya    | Finance    | 70000.00 |          6 |      4 |
+|      4 | Sneha    | IT         | 85000.00 |          7 |      3 |
+|      5 | Kiran    | Sales      | 35000.00 |          2 |      1 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|      7 | Divya    | HR         | 40000.00 |          4 |      2 |
+|      8 | Rahul    | Finance    | 65000.00 |          8 |      6 |
+|      9 | Meena    | Sales      | 30000.00 |          1 |      1 |
+|     10 | Suresh   | IT         | 95000.00 |         10 |      7 |
+|     11 | Pooja    | Marketing  | 50000.00 |          3 |      2 |
+|     12 | Vijay    | Finance    | 48000.00 |          4 |      4 |
+|     13 | Neha     | IT         | 72000.00 |          6 |      3 |
+|     14 | Amit     | Sales      | 42000.00 |          5 |      1 |
+|     15 | Swathi   | Marketing  | 58000.00 |          7 |      5 |
++--------+----------+------------+----------+------------+--------+
+15 rows in set (0.00 sec)
+
+mysql> drop table products;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE products (
+    ->     product_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     product_name VARCHAR(50),
+    ->     price DECIMAL(10,2),
+    ->     quantity INT
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO products
+    -> (product_name, price, quantity)
+    -> VALUES
+    -> ('Laptop', 55000, 10),
+    -> ('Mouse', 800, 25),
+    -> ('Keyboard', 1500, 15),
+    -> ('Monitor', 12000, 8),
+    -> ('Headphones', 2500, 20),
+    -> ('Webcam', 3500, 12),
+    -> ('Printer', 15000, 5),
+    -> ('SSD', 6000, 18),
+    -> ('RAM', 4000, 30),
+    -> ('USB Cable', 500, 40),
+    -> ('Router', 3000, 10),
+    -> ('Speaker', 4500, 7);
+Query OK, 12 rows affected (0.01 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM products;
++------------+--------------+----------+----------+
+| product_id | product_name | price    | quantity |
++------------+--------------+----------+----------+
+|          1 | Laptop       | 55000.00 |       10 |
+|          2 | Mouse        |   800.00 |       25 |
+|          3 | Keyboard     |  1500.00 |       15 |
+|          4 | Monitor      | 12000.00 |        8 |
+|          5 | Headphones   |  2500.00 |       20 |
+|          6 | Webcam       |  3500.00 |       12 |
+|          7 | Printer      | 15000.00 |        5 |
+|          8 | SSD          |  6000.00 |       18 |
+|          9 | RAM          |  4000.00 |       30 |
+|         10 | USB Cable    |   500.00 |       40 |
+|         11 | Router       |  3000.00 |       10 |
+|         12 | Speaker      |  4500.00 |        7 |
++------------+--------------+----------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, salary, salary + 5000 AS salary_after_bonus
+    -> FROM employees;
++----------+----------+--------------------+
+| emp_name | salary   | salary_after_bonus |
++----------+----------+--------------------+
+| Ravi     | 60000.00 |           65000.00 |
+| Anil     | 45000.00 |           50000.00 |
+| Priya    | 70000.00 |           75000.00 |
+| Sneha    | 85000.00 |           90000.00 |
+| Kiran    | 35000.00 |           40000.00 |
+| Arjun    | 55000.00 |           60000.00 |
+| Divya    | 40000.00 |           45000.00 |
+| Rahul    | 65000.00 |           70000.00 |
+| Meena    | 30000.00 |           35000.00 |
+| Suresh   | 95000.00 |          100000.00 |
+| Pooja    | 50000.00 |           55000.00 |
+| Vijay    | 48000.00 |           53000.00 |
+| Neha     | 72000.00 |           77000.00 |
+| Amit     | 42000.00 |           47000.00 |
+| Swathi   | 58000.00 |           63000.00 |
++----------+----------+--------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, salary, salary * 1.10 AS salary_after_increment
+    -> FROM employees;
++----------+----------+------------------------+
+| emp_name | salary   | salary_after_increment |
++----------+----------+------------------------+
+| Ravi     | 60000.00 |             66000.0000 |
+| Anil     | 45000.00 |             49500.0000 |
+| Priya    | 70000.00 |             77000.0000 |
+| Sneha    | 85000.00 |             93500.0000 |
+| Kiran    | 35000.00 |             38500.0000 |
+| Arjun    | 55000.00 |             60500.0000 |
+| Divya    | 40000.00 |             44000.0000 |
+| Rahul    | 65000.00 |             71500.0000 |
+| Meena    | 30000.00 |             33000.0000 |
+| Suresh   | 95000.00 |            104500.0000 |
+| Pooja    | 50000.00 |             55000.0000 |
+| Vijay    | 48000.00 |             52800.0000 |
+| Neha     | 72000.00 |             79200.0000 |
+| Amit     | 42000.00 |             46200.0000 |
+| Swathi   | 58000.00 |             63800.0000 |
++----------+----------+------------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary > 50000;;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      3 | Priya    | Finance    | 70000.00 |          6 |      4 |
+|      4 | Sneha    | IT         | 85000.00 |          7 |      3 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|      8 | Rahul    | Finance    | 65000.00 |          8 |      6 |
+|     10 | Suresh   | IT         | 95000.00 |         10 |      7 |
+|     13 | Neha     | IT         | 72000.00 |          6 |      3 |
+|     15 | Swathi   | Marketing  | 58000.00 |          7 |      5 |
++--------+----------+------------+----------+------------+--------+
+8 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary >= 30000 AND salary <= 60000;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      2 | Anil     | HR         | 45000.00 |          3 |      2 |
+|      5 | Kiran    | Sales      | 35000.00 |          2 |      1 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|      7 | Divya    | HR         | 40000.00 |          4 |      2 |
+|      9 | Meena    | Sales      | 30000.00 |          1 |      1 |
+|     11 | Pooja    | Marketing  | 50000.00 |          3 |      2 |
+|     12 | Vijay    | Finance    | 48000.00 |          4 |      4 |
+|     14 | Amit     | Sales      | 42000.00 |          5 |      1 |
+|     15 | Swathi   | Marketing  | 58000.00 |          7 |      5 |
++--------+----------+------------+----------+------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department = 'IT' AND salary > 50000;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      4 | Sneha    | IT         | 85000.00 |          7 |      3 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|     10 | Suresh   | IT         | 95000.00 |         10 |      7 |
+|     13 | Neha     | IT         | 72000.00 |          6 |      3 |
++--------+----------+------------+----------+------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department != 'Finance' AND experience > 3;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      4 | Sneha    | IT         | 85000.00 |          7 |      3 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|      7 | Divya    | HR         | 40000.00 |          4 |      2 |
+|     10 | Suresh   | IT         | 95000.00 |         10 |      7 |
+|     13 | Neha     | IT         | 72000.00 |          6 |      3 |
+|     14 | Amit     | Sales      | 42000.00 |          5 |      1 |
+|     15 | Swathi   | Marketing  | 58000.00 |          7 |      5 |
++--------+----------+------------+----------+------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary > 40000 OR experience > 5;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      2 | Anil     | HR         | 45000.00 |          3 |      2 |
+|      3 | Priya    | Finance    | 70000.00 |          6 |      4 |
+|      4 | Sneha    | IT         | 85000.00 |          7 |      3 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|      8 | Rahul    | Finance    | 65000.00 |          8 |      6 |
+|     10 | Suresh   | IT         | 95000.00 |         10 |      7 |
+|     11 | Pooja    | Marketing  | 50000.00 |          3 |      2 |
+|     12 | Vijay    | Finance    | 48000.00 |          4 |      4 |
+|     13 | Neha     | IT         | 72000.00 |          6 |      3 |
+|     14 | Amit     | Sales      | 42000.00 |          5 |      1 |
+|     15 | Swathi   | Marketing  | 58000.00 |          7 |      5 |
++--------+----------+------------+----------+------------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary > 40000 OR experience > 5;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Ravi     | IT         | 60000.00 |          4 |      1 |
+|      2 | Anil     | HR         | 45000.00 |          3 |      2 |
+|      3 | Priya    | Finance    | 70000.00 |          6 |      4 |
+|      4 | Sneha    | IT         | 85000.00 |          7 |      3 |
+|      6 | Arjun    | IT         | 55000.00 |          5 |      5 |
+|      8 | Rahul    | Finance    | 65000.00 |          8 |      6 |
+|     10 | Suresh   | IT         | 95000.00 |         10 |      7 |
+|     11 | Pooja    | Marketing  | 50000.00 |          3 |      2 |
+|     12 | Vijay    | Finance    | 48000.00 |          4 |      4 |
+|     13 | Neha     | IT         | 72000.00 |          6 |      3 |
+|     14 | Amit     | Sales      | 42000.00 |          5 |      1 |
+|     15 | Swathi   | Marketing  | 58000.00 |          7 |      5 |
++--------+----------+------------+----------+------------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, salary, MOD(salary, 1000) AS remainder
+    -> FROM employees;
++----------+----------+-----------+
+| emp_name | salary   | remainder |
++----------+----------+-----------+
+| Ravi     | 60000.00 |      0.00 |
+| Anil     | 45000.00 |      0.00 |
+| Priya    | 70000.00 |      0.00 |
+| Sneha    | 85000.00 |      0.00 |
+| Kiran    | 35000.00 |      0.00 |
+| Arjun    | 55000.00 |      0.00 |
+| Divya    | 40000.00 |      0.00 |
+| Rahul    | 65000.00 |      0.00 |
+| Meena    | 30000.00 |      0.00 |
+| Suresh   | 95000.00 |      0.00 |
+| Pooja    | 50000.00 |      0.00 |
+| Vijay    | 48000.00 |      0.00 |
+| Neha     | 72000.00 |      0.00 |
+| Amit     | 42000.00 |      0.00 |
+| Swathi   | 58000.00 |      0.00 |
++----------+----------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, salary, salary % 1000 AS remainder
+    -> FROM employees;
++----------+----------+-----------+
+| emp_name | salary   | remainder |
++----------+----------+-----------+
+| Ravi     | 60000.00 |      0.00 |
+| Anil     | 45000.00 |      0.00 |
+| Priya    | 70000.00 |      0.00 |
+| Sneha    | 85000.00 |      0.00 |
+| Kiran    | 35000.00 |      0.00 |
+| Arjun    | 55000.00 |      0.00 |
+| Divya    | 40000.00 |      0.00 |
+| Rahul    | 65000.00 |      0.00 |
+| Meena    | 30000.00 |      0.00 |
+| Suresh   | 95000.00 |      0.00 |
+| Pooja    | 50000.00 |      0.00 |
+| Vijay    | 48000.00 |      0.00 |
+| Neha     | 72000.00 |      0.00 |
+| Amit     | 42000.00 |      0.00 |
+| Swathi   | 58000.00 |      0.00 |
++----------+----------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT product_name, price, quantity,
+    ->        price * quantity AS total_amount
+    -> FROM products;
++--------------+----------+----------+--------------+
+| product_name | price    | quantity | total_amount |
++--------------+----------+----------+--------------+
+| Laptop       | 55000.00 |       10 |    550000.00 |
+| Mouse        |   800.00 |       25 |     20000.00 |
+| Keyboard     |  1500.00 |       15 |     22500.00 |
+| Monitor      | 12000.00 |        8 |     96000.00 |
+| Headphones   |  2500.00 |       20 |     50000.00 |
+| Webcam       |  3500.00 |       12 |     42000.00 |
+| Printer      | 15000.00 |        5 |     75000.00 |
+| SSD          |  6000.00 |       18 |    108000.00 |
+| RAM          |  4000.00 |       30 |    120000.00 |
+| USB Cable    |   500.00 |       40 |     20000.00 |
+| Router       |  3000.00 |       10 |     30000.00 |
+| Speaker      |  4500.00 |        7 |     31500.00 |
++--------------+----------+----------+--------------+
+12 rows in set (0.00 sec)
+
+mysql> UPDATE employees
+    -> SET salary = salary * 1.10;
+Query OK, 15 rows affected (0.01 sec)
+Rows matched: 15  Changed: 15  Warnings: 0
+
+mysql> UPDATE employees
+    -> SET salary = salary * 1.15
+    -> WHERE department = 'IT';
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> UPDATE products
+    -> SET price = price * 0.95;
+Query OK, 12 rows affected (0.00 sec)
+Rows matched: 12  Changed: 12  Warnings: 0
+
+mysql> UPDATE products
+    -> SET quantity = quantity + 10
+    -> WHERE quantity < 20;
+Query OK, 8 rows affected (0.01 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> drop table employees;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     emp_name VARCHAR(50),
+    ->     department VARCHAR(50),
+    ->     salary DECIMAL(10,2),
+    ->     experience INT,
+    ->     status INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO employees
+    -> (emp_name, department, salary, experience, status)
+    -> VALUES
+    -> ('Kavya', 'IT', 60000, 3, 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employees;
++--------+----------+------------+----------+------------+--------+
+| emp_id | emp_name | department | salary   | experience | status |
++--------+----------+------------+----------+------------+--------+
+|      1 | Kavya    | IT         | 60000.00 |          3 |      1 |
++--------+----------+------------+----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE high_salary_employees AS
+    -> SELECT *
+    -> FROM employees
+    -> WHERE salary > 60000;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO employees_backup
+    -> SELECT *
+    -> FROM employees;
+ERROR 1146 (42S02): Table 'da22.employees_backup' doesn't exist
+mysql> INSERT INTO employees_backup
+    -> SELECT *
+    -> FROM employees
+    -> WHERE department = 'IT';
+ERROR 1146 (42S02): Table 'da22.employees_backup' doesn't exist
+
+
+
+PREDICTS & DELETE & UPDATE:
+===========================
+
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     emp_name VARCHAR(50),
+    ->     department VARCHAR(30),
+    ->     job_role VARCHAR(30),
+    ->     salary DECIMAL(10,2),
+    ->     city VARCHAR(30),
+    ->     manager_id INT,
+    ->     email VARCHAR(100),
+    ->     bonus DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO employees
+    -> (emp_id, emp_name, department, job_role, salary, city, manager_id, email, bonus)
+    -> VALUES
+    -> (101, 'Ravi',   'IT',      'Developer', 65000, 'Hyderabad', 201, 'ravi@gmail.com', 5000),
+    -> (102, 'Priya',  'HR',      'Manager',    75000, 'Bangalore', NULL, 'priya@gmail.com', 8000),
+    -> (103, 'Arun',   'IT',      'Tester',     45000, 'Chennai',   201, 'arun@gmail.com', NULL),
+    -> (104, 'Sneha',  'Finance', 'Analyst',    55000, 'Hyderabad', 202, 'sneha@gmail.com', 4000),
+    -> (105, 'Kiran',  'IT',      'Developer', 85000, 'Pune',      201, 'kiran@gmail.com', 10000),
+    -> (106, 'Anjali', 'HR',      'Recruiter',  42000, 'Chennai',   202, NULL, 3000),
+    -> (107, 'Vijay',  'Finance', 'Accountant', 48000, 'Bangalore', 202, 'vijay@gmail.com', NULL),
+    -> (108, 'Meena',  'Sales',   'Executive',  38000, 'Hyderabad', 203, 'meena@gmail.com', 2000),
+    -> (109, 'Rahul',  'Sales',   'Manager',    72000, 'Pune',      NULL, 'rahul@gmail.com', 7000),
+    -> (110, 'Divya',  'IT',      'Developer',  60000, 'Bangalore', 201, NULL, 5000),
+    -> (111, 'Suresh', 'Finance', 'Analyst',    52000, 'Chennai',   202, 'suresh@gmail.com', NULL),
+    -> (112, 'Pooja',  'HR',      'Executive',  35000, 'Hyderabad', 102, 'pooja@gmail.com', 1500),
+    -> (113, 'Amit',   'IT',      'Support',    40000, 'Pune',      201, 'amit@gmail.com', NULL),
+    -> (114, 'Neha',   'Sales',   'Executive',  46000, 'Bangalore', 203, NULL, 2500),
+    -> (115, 'Raj',    'IT',      'Architect',  95000, 'Hyderabad', NULL, 'raj@gmail.com', 15000);
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> select * from employees;
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com   |  5000.00 |
+|    102 | Priya    | HR         | Manager    | 75000.00 | Bangalore |       NULL | priya@gmail.com  |  8000.00 |
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com   |     NULL |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  |  4000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com  | 10000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL             |  3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |     NULL |
+|    108 | Meena    | Sales      | Executive  | 38000.00 | Hyderabad |        203 | meena@gmail.com  |  2000.00 |
+|    109 | Rahul    | Sales      | Manager    | 72000.00 | Pune      |       NULL | rahul@gmail.com  |  7000.00 |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL             |  5000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |     NULL |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com  |  1500.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com   |     NULL |
+|    114 | Neha     | Sales      | Executive  | 46000.00 | Bangalore |        203 | NULL             |  2500.00 |
+|    115 | Raj      | IT         | Architect  | 95000.00 | Hyderabad |       NULL | raj@gmail.com    | 15000.00 |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary BETWEEN 40000 AND 60000;
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus   |
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com   |    NULL |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  | 4000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL             | 3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |    NULL |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL             | 5000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |    NULL |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com   |    NULL |
+|    114 | Neha     | Sales      | Executive  | 46000.00 | Bangalore |        203 | NULL             | 2500.00 |
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary NOT BETWEEN 50000 AND 80000;
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email           | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com  |     NULL |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com | 10000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL            |  3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com |     NULL |
+|    108 | Meena    | Sales      | Executive  | 38000.00 | Hyderabad |        203 | meena@gmail.com |  2000.00 |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com |  1500.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com  |     NULL |
+|    114 | Neha     | Sales      | Executive  | 46000.00 | Bangalore |        203 | NULL            |  2500.00 |
+|    115 | Raj      | IT         | Architect  | 95000.00 | Hyderabad |       NULL | raj@gmail.com   | 15000.00 |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary NOT BETWEEN 50000 AND 80000;
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email           | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com  |     NULL |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com | 10000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL            |  3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com |     NULL |
+|    108 | Meena    | Sales      | Executive  | 38000.00 | Hyderabad |        203 | meena@gmail.com |  2000.00 |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com |  1500.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com  |     NULL |
+|    114 | Neha     | Sales      | Executive  | 46000.00 | Bangalore |        203 | NULL            |  2500.00 |
+|    115 | Raj      | IT         | Architect  | 95000.00 | Hyderabad |       NULL | raj@gmail.com   | 15000.00 |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department IN ('IT', 'HR', 'Finance');
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com   |  5000.00 |
+|    102 | Priya    | HR         | Manager    | 75000.00 | Bangalore |       NULL | priya@gmail.com  |  8000.00 |
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com   |     NULL |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  |  4000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com  | 10000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL             |  3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |     NULL |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL             |  5000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |     NULL |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com  |  1500.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com   |     NULL |
+|    115 | Raj      | IT         | Architect  | 95000.00 | Hyderabad |       NULL | raj@gmail.com    | 15000.00 |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department NOT IN ('IT', 'HR', 'Sales');
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus   |
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  | 4000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |    NULL |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |    NULL |
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE emp_name LIKE 'R%';
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+----------+
+| emp_id | emp_name | department | job_role  | salary   | city      | manager_id | email           | bonus    |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+----------+
+|    101 | Ravi     | IT         | Developer | 65000.00 | Hyderabad |        201 | ravi@gmail.com  |  5000.00 |
+|    109 | Rahul    | Sales      | Manager   | 72000.00 | Pune      |       NULL | rahul@gmail.com |  7000.00 |
+|    115 | Raj      | IT         | Architect | 95000.00 | Hyderabad |       NULL | raj@gmail.com   | 15000.00 |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE emp_name LIKE '%a';
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+---------+
+| emp_id | emp_name | department | job_role  | salary   | city      | manager_id | email           | bonus   |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+---------+
+|    102 | Priya    | HR         | Manager   | 75000.00 | Bangalore |       NULL | priya@gmail.com | 8000.00 |
+|    104 | Sneha    | Finance    | Analyst   | 55000.00 | Hyderabad |        202 | sneha@gmail.com | 4000.00 |
+|    108 | Meena    | Sales      | Executive | 38000.00 | Hyderabad |        203 | meena@gmail.com | 2000.00 |
+|    110 | Divya    | IT         | Developer | 60000.00 | Bangalore |        201 | NULL            | 5000.00 |
+|    112 | Pooja    | HR         | Executive | 35000.00 | Hyderabad |        102 | pooja@gmail.com | 1500.00 |
+|    114 | Neha     | Sales      | Executive | 46000.00 | Bangalore |        203 | NULL            | 2500.00 |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE emp_name LIKE '%i%';
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email           | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com  |  5000.00 |
+|    102 | Priya    | HR         | Manager    | 75000.00 | Bangalore |       NULL | priya@gmail.com |  8000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com | 10000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL            |  3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com |     NULL |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL            |  5000.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com  |     NULL |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE emp_name NOT LIKE 'A%';
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com   |  5000.00 |
+|    102 | Priya    | HR         | Manager    | 75000.00 | Bangalore |       NULL | priya@gmail.com  |  8000.00 |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  |  4000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com  | 10000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |     NULL |
+|    108 | Meena    | Sales      | Executive  | 38000.00 | Hyderabad |        203 | meena@gmail.com  |  2000.00 |
+|    109 | Rahul    | Sales      | Manager    | 72000.00 | Pune      |       NULL | rahul@gmail.com  |  7000.00 |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL             |  5000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |     NULL |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com  |  1500.00 |
+|    114 | Neha     | Sales      | Executive  | 46000.00 | Bangalore |        203 | NULL             |  2500.00 |
+|    115 | Raj      | IT         | Architect  | 95000.00 | Hyderabad |       NULL | raj@gmail.com    | 15000.00 |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE email IS NULL;
++--------+----------+------------+-----------+----------+-----------+------------+-------+---------+
+| emp_id | emp_name | department | job_role  | salary   | city      | manager_id | email | bonus   |
++--------+----------+------------+-----------+----------+-----------+------------+-------+---------+
+|    106 | Anjali   | HR         | Recruiter | 42000.00 | Chennai   |        202 | NULL  | 3000.00 |
+|    110 | Divya    | IT         | Developer | 60000.00 | Bangalore |        201 | NULL  | 5000.00 |
+|    114 | Neha     | Sales      | Executive | 46000.00 | Bangalore |        203 | NULL  | 2500.00 |
++--------+----------+------------+-----------+----------+-----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE email IS NOT NULL;
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com   |  5000.00 |
+|    102 | Priya    | HR         | Manager    | 75000.00 | Bangalore |       NULL | priya@gmail.com  |  8000.00 |
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com   |     NULL |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  |  4000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com  | 10000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |     NULL |
+|    108 | Meena    | Sales      | Executive  | 38000.00 | Hyderabad |        203 | meena@gmail.com  |  2000.00 |
+|    109 | Rahul    | Sales      | Manager    | 72000.00 | Pune      |       NULL | rahul@gmail.com  |  7000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |     NULL |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com  |  1500.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com   |     NULL |
+|    115 | Raj      | IT         | Architect  | 95000.00 | Hyderabad |       NULL | raj@gmail.com    | 15000.00 |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE manager_id IS NULL;
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+----------+
+| emp_id | emp_name | department | job_role  | salary   | city      | manager_id | email           | bonus    |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+----------+
+|    102 | Priya    | HR         | Manager   | 75000.00 | Bangalore |       NULL | priya@gmail.com |  8000.00 |
+|    109 | Rahul    | Sales      | Manager   | 72000.00 | Pune      |       NULL | rahul@gmail.com |  7000.00 |
+|    115 | Raj      | IT         | Architect | 95000.00 | Hyderabad |       NULL | raj@gmail.com   | 15000.00 |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE manager_id IS NOT NULL;
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com   |  5000.00 |
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com   |     NULL |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  |  4000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com  | 10000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL             |  3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |     NULL |
+|    108 | Meena    | Sales      | Executive  | 38000.00 | Hyderabad |        203 | meena@gmail.com  |  2000.00 |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL             |  5000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |     NULL |
+|    112 | Pooja    | HR         | Executive  | 35000.00 | Hyderabad |        102 | pooja@gmail.com  |  1500.00 |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com   |     NULL |
+|    114 | Neha     | Sales      | Executive  | 46000.00 | Bangalore |        203 | NULL             |  2500.00 |
++--------+----------+------------+------------+----------+-----------+------------+------------------+----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department IN ('IT', 'HR', 'Finance')
+    ->   AND salary BETWEEN 40000 AND 70000;
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email            | bonus   |
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com   | 5000.00 |
+|    103 | Arun     | IT         | Tester     | 45000.00 | Chennai   |        201 | arun@gmail.com   |    NULL |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com  | 4000.00 |
+|    106 | Anjali   | HR         | Recruiter  | 42000.00 | Chennai   |        202 | NULL             | 3000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com  |    NULL |
+|    110 | Divya    | IT         | Developer  | 60000.00 | Bangalore |        201 | NULL             | 5000.00 |
+|    111 | Suresh   | Finance    | Analyst    | 52000.00 | Chennai   |        202 | suresh@gmail.com |    NULL |
+|    113 | Amit     | IT         | Support    | 40000.00 | Pune      |        201 | amit@gmail.com   |    NULL |
++--------+----------+------------+------------+----------+-----------+------------+------------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department NOT IN ('IT', 'HR')
+    ->   AND salary NOT BETWEEN 40000 AND 70000;
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+---------+
+| emp_id | emp_name | department | job_role  | salary   | city      | manager_id | email           | bonus   |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+---------+
+|    108 | Meena    | Sales      | Executive | 38000.00 | Hyderabad |        203 | meena@gmail.com | 2000.00 |
+|    109 | Rahul    | Sales      | Manager   | 72000.00 | Pune      |       NULL | rahul@gmail.com | 7000.00 |
++--------+----------+------------+-----------+----------+-----------+------------+-----------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE (emp_name LIKE 'R%' OR emp_name LIKE 'S%')
+    ->   AND salary > 40000;
++--------+----------+------------+-----------+----------+-----------+------------+------------------+----------+
+| emp_id | emp_name | department | job_role  | salary   | city      | manager_id | email            | bonus    |
++--------+----------+------------+-----------+----------+-----------+------------+------------------+----------+
+|    101 | Ravi     | IT         | Developer | 65000.00 | Hyderabad |        201 | ravi@gmail.com   |  5000.00 |
+|    104 | Sneha    | Finance    | Analyst   | 55000.00 | Hyderabad |        202 | sneha@gmail.com  |  4000.00 |
+|    109 | Rahul    | Sales      | Manager   | 72000.00 | Pune      |       NULL | rahul@gmail.com  |  7000.00 |
+|    111 | Suresh   | Finance    | Analyst   | 52000.00 | Chennai   |        202 | suresh@gmail.com |     NULL |
+|    115 | Raj      | IT         | Architect | 95000.00 | Hyderabad |       NULL | raj@gmail.com    | 15000.00 |
++--------+----------+------------+-----------+----------+-----------+------------+------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE employees
+    -> SET salary = salary * 1.10
+    -> WHERE department = 'IT'
+    ->   AND salary < 60000;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> UPDATE employees
+    -> SET bonus = 5000
+    -> WHERE bonus IS NULL
+    ->   AND salary > 45000;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> DELETE FROM employees
+    -> WHERE department = 'Sales'
+    ->   AND salary < 45000;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE department = 'Sales'
+    ->   AND salary < 45000;
+Empty set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE salary BETWEEN 45000 AND 90000
+    ->   AND department IN ('IT', 'Finance', 'Sales')
+    ->   AND emp_name LIKE '%a%'
+    ->   AND bonus IS NOT NULL
+    ->   AND email IS NOT NULL;
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+| emp_id | emp_name | department | job_role   | salary   | city      | manager_id | email           | bonus    |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+|    101 | Ravi     | IT         | Developer  | 65000.00 | Hyderabad |        201 | ravi@gmail.com  |  5000.00 |
+|    103 | Arun     | IT         | Tester     | 49500.00 | Chennai   |        201 | arun@gmail.com  |  5000.00 |
+|    104 | Sneha    | Finance    | Analyst    | 55000.00 | Hyderabad |        202 | sneha@gmail.com |  4000.00 |
+|    105 | Kiran    | IT         | Developer  | 85000.00 | Pune      |        201 | kiran@gmail.com | 10000.00 |
+|    107 | Vijay    | Finance    | Accountant | 48000.00 | Bangalore |        202 | vijay@gmail.com |  5000.00 |
+|    109 | Rahul    | Sales      | Manager    | 72000.00 | Pune      |       NULL | rahul@gmail.com |  7000.00 |
++--------+----------+------------+------------+----------+-----------+------------+-----------------+----------+
+6 rows in set (0.00 sec)
+
+
+NUMARIC & STRING FUNCTION:
+===========================
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT,
+    ->     first_name VARCHAR(50),
+    ->     last_name VARCHAR(50),
+    ->     department VARCHAR(50),
+    ->     salary DECIMAL(10,2),
+    ->     bonus DECIMAL(10,2),
+    ->     commission DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO employees
+    -> (emp_id, first_name, last_name, department, salary, bonus, commission)
+    -> VALUES
+    -> (101, 'John', 'Smith', 'IT', 48500.00, 2500.00, 1200.00),
+    -> (102, 'Sarah', 'Johnson', 'HR', 52750.00, 3000.00, 800.00),
+    -> (103, 'Michael', 'Brown', 'Sales', 61250.00, 4500.00, 3500.00),
+    -> (104, 'David', 'Wilson', 'IT', 73499.00, 5000.00, 2100.00),
+    -> (105, 'Emma', 'Davis', 'Finance', 45680.00, 2200.00, 1500.00),
+    -> (106, 'Robert', 'Miller', 'Sales', 58990.00, 3500.00, 4200.00),
+    -> (107, 'Olivia', 'Taylor', 'HR', 51025.00, 2800.00, 900.00),
+    -> (108, 'Daniel', 'Anderson', 'IT', 67555.00, 4200.00, 1800.00),
+    -> (109, 'Sophia', 'Thomas', 'Finance', 49875.00, 2500.00, 1300.00),
+    -> (110, 'James', 'Jackson', 'Sales', 80500.00, 6000.00, 5500.00),
+    -> (111, 'Emily', 'White', 'IT', 92549.00, 7500.00, 3200.00),
+    -> (112, 'William', 'Harris', 'Finance', 55999.00, 3100.00, 1700.00),
+    -> (113, 'Ava', 'Martin', 'HR', 47250.00, 2400.00, 700.00),
+    -> (114, 'Christopher', 'Thompson', 'Sales', 68765.00, 4000.00, 3900.00),
+    -> (115, 'Isabella', 'Garcia', 'IT', 75999.00, 5200.00, 2500.00);
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++--------+-------------+-----------+------------+----------+---------+------------+
+| emp_id | first_name  | last_name | department | salary   | bonus   | commission |
++--------+-------------+-----------+------------+----------+---------+------------+
+|    101 | John        | Smith     | IT         | 48500.00 | 2500.00 |    1200.00 |
+|    102 | Sarah       | Johnson   | HR         | 52750.00 | 3000.00 |     800.00 |
+|    103 | Michael     | Brown     | Sales      | 61250.00 | 4500.00 |    3500.00 |
+|    104 | David       | Wilson    | IT         | 73499.00 | 5000.00 |    2100.00 |
+|    105 | Emma        | Davis     | Finance    | 45680.00 | 2200.00 |    1500.00 |
+|    106 | Robert      | Miller    | Sales      | 58990.00 | 3500.00 |    4200.00 |
+|    107 | Olivia      | Taylor    | HR         | 51025.00 | 2800.00 |     900.00 |
+|    108 | Daniel      | Anderson  | IT         | 67555.00 | 4200.00 |    1800.00 |
+|    109 | Sophia      | Thomas    | Finance    | 49875.00 | 2500.00 |    1300.00 |
+|    110 | James       | Jackson   | Sales      | 80500.00 | 6000.00 |    5500.00 |
+|    111 | Emily       | White     | IT         | 92549.00 | 7500.00 |    3200.00 |
+|    112 | William     | Harris    | Finance    | 55999.00 | 3100.00 |    1700.00 |
+|    113 | Ava         | Martin    | HR         | 47250.00 | 2400.00 |     700.00 |
+|    114 | Christopher | Thompson  | Sales      | 68765.00 | 4000.00 |    3900.00 |
+|    115 | Isabella    | Garcia    | IT         | 75999.00 | 5200.00 |    2500.00 |
++--------+-------------+-----------+------------+----------+---------+------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        ROUND(salary, -3) AS rounded_salary
+    -> FROM employees;
++--------+-------------+----------+----------------+
+| emp_id | first_name  | salary   | rounded_salary |
++--------+-------------+----------+----------------+
+|    101 | John        | 48500.00 |          49000 |
+|    102 | Sarah       | 52750.00 |          53000 |
+|    103 | Michael     | 61250.00 |          61000 |
+|    104 | David       | 73499.00 |          73000 |
+|    105 | Emma        | 45680.00 |          46000 |
+|    106 | Robert      | 58990.00 |          59000 |
+|    107 | Olivia      | 51025.00 |          51000 |
+|    108 | Daniel      | 67555.00 |          68000 |
+|    109 | Sophia      | 49875.00 |          50000 |
+|    110 | James       | 80500.00 |          81000 |
+|    111 | Emily       | 92549.00 |          93000 |
+|    112 | William     | 55999.00 |          56000 |
+|    113 | Ava         | 47250.00 |          47000 |
+|    114 | Christopher | 68765.00 |          69000 |
+|    115 | Isabella    | 75999.00 |          76000 |
++--------+-------------+----------+----------------+
+15 rows in set (0.01 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        ROUND(salary, 2) AS rounded_salary
+    -> FROM employees;
++--------+-------------+----------+----------------+
+| emp_id | first_name  | salary   | rounded_salary |
++--------+-------------+----------+----------------+
+|    101 | John        | 48500.00 |       48500.00 |
+|    102 | Sarah       | 52750.00 |       52750.00 |
+|    103 | Michael     | 61250.00 |       61250.00 |
+|    104 | David       | 73499.00 |       73499.00 |
+|    105 | Emma        | 45680.00 |       45680.00 |
+|    106 | Robert      | 58990.00 |       58990.00 |
+|    107 | Olivia      | 51025.00 |       51025.00 |
+|    108 | Daniel      | 67555.00 |       67555.00 |
+|    109 | Sophia      | 49875.00 |       49875.00 |
+|    110 | James       | 80500.00 |       80500.00 |
+|    111 | Emily       | 92549.00 |       92549.00 |
+|    112 | William     | 55999.00 |       55999.00 |
+|    113 | Ava         | 47250.00 |       47250.00 |
+|    114 | Christopher | 68765.00 |       68765.00 |
+|    115 | Isabella    | 75999.00 |       75999.00 |
++--------+-------------+----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        CEIL(salary) AS ceil_salary
+    -> FROM employees;
++--------+-------------+----------+-------------+
+| emp_id | first_name  | salary   | ceil_salary |
++--------+-------------+----------+-------------+
+|    101 | John        | 48500.00 |       48500 |
+|    102 | Sarah       | 52750.00 |       52750 |
+|    103 | Michael     | 61250.00 |       61250 |
+|    104 | David       | 73499.00 |       73499 |
+|    105 | Emma        | 45680.00 |       45680 |
+|    106 | Robert      | 58990.00 |       58990 |
+|    107 | Olivia      | 51025.00 |       51025 |
+|    108 | Daniel      | 67555.00 |       67555 |
+|    109 | Sophia      | 49875.00 |       49875 |
+|    110 | James       | 80500.00 |       80500 |
+|    111 | Emily       | 92549.00 |       92549 |
+|    112 | William     | 55999.00 |       55999 |
+|    113 | Ava         | 47250.00 |       47250 |
+|    114 | Christopher | 68765.00 |       68765 |
+|    115 | Isabella    | 75999.00 |       75999 |
++--------+-------------+----------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        FLOOR(salary) AS floor_salary
+    -> FROM employees;
++--------+-------------+----------+--------------+
+| emp_id | first_name  | salary   | floor_salary |
++--------+-------------+----------+--------------+
+|    101 | John        | 48500.00 |        48500 |
+|    102 | Sarah       | 52750.00 |        52750 |
+|    103 | Michael     | 61250.00 |        61250 |
+|    104 | David       | 73499.00 |        73499 |
+|    105 | Emma        | 45680.00 |        45680 |
+|    106 | Robert      | 58990.00 |        58990 |
+|    107 | Olivia      | 51025.00 |        51025 |
+|    108 | Daniel      | 67555.00 |        67555 |
+|    109 | Sophia      | 49875.00 |        49875 |
+|    110 | James       | 80500.00 |        80500 |
+|    111 | Emily       | 92549.00 |        92549 |
+|    112 | William     | 55999.00 |        55999 |
+|    113 | Ava         | 47250.00 |        47250 |
+|    114 | Christopher | 68765.00 |        68765 |
+|    115 | Isabella    | 75999.00 |        75999 |
++--------+-------------+----------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        POWER(salary, 2) AS salary_squared
+    -> FROM employees;
++--------+-------------+----------+----------------+
+| emp_id | first_name  | salary   | salary_squared |
++--------+-------------+----------+----------------+
+|    101 | John        | 48500.00 |     2352250000 |
+|    102 | Sarah       | 52750.00 |     2782562500 |
+|    103 | Michael     | 61250.00 |     3751562500 |
+|    104 | David       | 73499.00 |     5402103001 |
+|    105 | Emma        | 45680.00 |     2086662400 |
+|    106 | Robert      | 58990.00 |     3479820100 |
+|    107 | Olivia      | 51025.00 |     2603550625 |
+|    108 | Daniel      | 67555.00 |     4563678025 |
+|    109 | Sophia      | 49875.00 |     2487515625 |
+|    110 | James       | 80500.00 |     6480250000 |
+|    111 | Emily       | 92549.00 |     8565317401 |
+|    112 | William     | 55999.00 |     3135888001 |
+|    113 | Ava         | 47250.00 |     2232562500 |
+|    114 | Christopher | 68765.00 |     4728625225 |
+|    115 | Isabella    | 75999.00 |     5775848001 |
++--------+-------------+----------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        SQRT(salary) AS salary_sqrt
+    -> FROM employees;
++--------+-------------+----------+--------------------+
+| emp_id | first_name  | salary   | salary_sqrt        |
++--------+-------------+----------+--------------------+
+|    101 | John        | 48500.00 | 220.22715545545242 |
+|    102 | Sarah       | 52750.00 | 229.67368155711702 |
+|    103 | Michael     | 61250.00 | 247.48737341529164 |
+|    104 | David       | 73499.00 | 271.10698995046215 |
+|    105 | Emma        | 45680.00 | 213.72880011828073 |
+|    106 | Robert      | 58990.00 |  242.8785704832767 |
+|    107 | Olivia      | 51025.00 | 225.88713996153035 |
+|    108 | Daniel      | 67555.00 | 259.91344713192507 |
+|    109 | Sophia      | 49875.00 | 223.32711434127293 |
+|    110 | James       | 80500.00 | 283.72521918222213 |
+|    111 | Emily       | 92549.00 |   304.218671353354 |
+|    112 | William     | 55999.00 | 236.64107842891522 |
+|    113 | Ava         | 47250.00 |  217.3706511928416 |
+|    114 | Christopher | 68765.00 | 262.23081436017395 |
+|    115 | Isabella    | 75999.00 | 275.67916134521306 |
++--------+-------------+----------+--------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        ABS(salary - 60000) AS difference
+    -> FROM employees;
++--------+-------------+----------+------------+
+| emp_id | first_name  | salary   | difference |
++--------+-------------+----------+------------+
+|    101 | John        | 48500.00 |   11500.00 |
+|    102 | Sarah       | 52750.00 |    7250.00 |
+|    103 | Michael     | 61250.00 |    1250.00 |
+|    104 | David       | 73499.00 |   13499.00 |
+|    105 | Emma        | 45680.00 |   14320.00 |
+|    106 | Robert      | 58990.00 |    1010.00 |
+|    107 | Olivia      | 51025.00 |    8975.00 |
+|    108 | Daniel      | 67555.00 |    7555.00 |
+|    109 | Sophia      | 49875.00 |   10125.00 |
+|    110 | James       | 80500.00 |   20500.00 |
+|    111 | Emily       | 92549.00 |   32549.00 |
+|    112 | William     | 55999.00 |    4001.00 |
+|    113 | Ava         | 47250.00 |   12750.00 |
+|    114 | Christopher | 68765.00 |    8765.00 |
+|    115 | Isabella    | 75999.00 |   15999.00 |
++--------+-------------+----------+------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        MOD(salary, 1000) AS remainder
+    -> FROM employees;
++--------+-------------+----------+-----------+
+| emp_id | first_name  | salary   | remainder |
++--------+-------------+----------+-----------+
+|    101 | John        | 48500.00 |    500.00 |
+|    102 | Sarah       | 52750.00 |    750.00 |
+|    103 | Michael     | 61250.00 |    250.00 |
+|    104 | David       | 73499.00 |    499.00 |
+|    105 | Emma        | 45680.00 |    680.00 |
+|    106 | Robert      | 58990.00 |    990.00 |
+|    107 | Olivia      | 51025.00 |     25.00 |
+|    108 | Daniel      | 67555.00 |    555.00 |
+|    109 | Sophia      | 49875.00 |    875.00 |
+|    110 | James       | 80500.00 |    500.00 |
+|    111 | Emily       | 92549.00 |    549.00 |
+|    112 | William     | 55999.00 |    999.00 |
+|    113 | Ava         | 47250.00 |    250.00 |
+|    114 | Christopher | 68765.00 |    765.00 |
+|    115 | Isabella    | 75999.00 |    999.00 |
++--------+-------------+----------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        RAND() AS random_value
+    -> FROM employees;
++--------+-------------+----------------------+
+| emp_id | first_name  | random_value         |
++--------+-------------+----------------------+
+|    101 | John        |   0.9940687166471674 |
+|    102 | Sarah       | 0.004086962904862094 |
+|    103 | Michael     |  0.03822869531645318 |
+|    104 | David       |  0.17888261860132462 |
+|    105 | Emma        |   0.7797270377909085 |
+|    106 | Robert      |   0.3619873638842137 |
+|    107 | Olivia      |  0.47075573678198807 |
+|    108 | Daniel      |  0.26781662299094405 |
+|    109 | Sophia      |   0.9268159353424013 |
+|    110 | James       |   0.8306298384728188 |
+|    111 | Emily       |   0.3727014170705354 |
+|    112 | William     |   0.3716176006678656 |
+|    113 | Ava         |   0.7399837828613667 |
+|    114 | Christopher |   0.5850661430368816 |
+|    115 | Isabella    |   0.7053793973339529 |
++--------+-------------+----------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary,
+    ->        CASE
+    ->            WHEN salary > 0 THEN 'Positive'
+    ->            WHEN salary < 0 THEN 'Negative'
+    ->            ELSE 'Zero'
+    ->        END AS salary_status
+    -> FROM employees;
++--------+-------------+----------+---------------+
+| emp_id | first_name  | salary   | salary_status |
++--------+-------------+----------+---------------+
+|    101 | John        | 48500.00 | Positive      |
+|    102 | Sarah       | 52750.00 | Positive      |
+|    103 | Michael     | 61250.00 | Positive      |
+|    104 | David       | 73499.00 | Positive      |
+|    105 | Emma        | 45680.00 | Positive      |
+|    106 | Robert      | 58990.00 | Positive      |
+|    107 | Olivia      | 51025.00 | Positive      |
+|    108 | Daniel      | 67555.00 | Positive      |
+|    109 | Sophia      | 49875.00 | Positive      |
+|    110 | James       | 80500.00 | Positive      |
+|    111 | Emily       | 92549.00 | Positive      |
+|    112 | William     | 55999.00 | Positive      |
+|    113 | Ava         | 47250.00 | Positive      |
+|    114 | Christopher | 68765.00 | Positive      |
+|    115 | Isabella    | 75999.00 | Positive      |
++--------+-------------+----------+---------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary, bonus, commission,
+    ->        GREATEST(salary, bonus, commission) AS highest_value
+    -> FROM employees;
++--------+-------------+----------+---------+------------+---------------+
+| emp_id | first_name  | salary   | bonus   | commission | highest_value |
++--------+-------------+----------+---------+------------+---------------+
+|    101 | John        | 48500.00 | 2500.00 |    1200.00 |      48500.00 |
+|    102 | Sarah       | 52750.00 | 3000.00 |     800.00 |      52750.00 |
+|    103 | Michael     | 61250.00 | 4500.00 |    3500.00 |      61250.00 |
+|    104 | David       | 73499.00 | 5000.00 |    2100.00 |      73499.00 |
+|    105 | Emma        | 45680.00 | 2200.00 |    1500.00 |      45680.00 |
+|    106 | Robert      | 58990.00 | 3500.00 |    4200.00 |      58990.00 |
+|    107 | Olivia      | 51025.00 | 2800.00 |     900.00 |      51025.00 |
+|    108 | Daniel      | 67555.00 | 4200.00 |    1800.00 |      67555.00 |
+|    109 | Sophia      | 49875.00 | 2500.00 |    1300.00 |      49875.00 |
+|    110 | James       | 80500.00 | 6000.00 |    5500.00 |      80500.00 |
+|    111 | Emily       | 92549.00 | 7500.00 |    3200.00 |      92549.00 |
+|    112 | William     | 55999.00 | 3100.00 |    1700.00 |      55999.00 |
+|    113 | Ava         | 47250.00 | 2400.00 |     700.00 |      47250.00 |
+|    114 | Christopher | 68765.00 | 4000.00 |    3900.00 |      68765.00 |
+|    115 | Isabella    | 75999.00 | 5200.00 |    2500.00 |      75999.00 |
++--------+-------------+----------+---------+------------+---------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name, salary, bonus, commission,
+    ->        LEAST(salary, bonus, commission) AS lowest_value
+    -> FROM employees;
++--------+-------------+----------+---------+------------+--------------+
+| emp_id | first_name  | salary   | bonus   | commission | lowest_value |
++--------+-------------+----------+---------+------------+--------------+
+|    101 | John        | 48500.00 | 2500.00 |    1200.00 |      1200.00 |
+|    102 | Sarah       | 52750.00 | 3000.00 |     800.00 |       800.00 |
+|    103 | Michael     | 61250.00 | 4500.00 |    3500.00 |      3500.00 |
+|    104 | David       | 73499.00 | 5000.00 |    2100.00 |      2100.00 |
+|    105 | Emma        | 45680.00 | 2200.00 |    1500.00 |      1500.00 |
+|    106 | Robert      | 58990.00 | 3500.00 |    4200.00 |      3500.00 |
+|    107 | Olivia      | 51025.00 | 2800.00 |     900.00 |       900.00 |
+|    108 | Daniel      | 67555.00 | 4200.00 |    1800.00 |      1800.00 |
+|    109 | Sophia      | 49875.00 | 2500.00 |    1300.00 |      1300.00 |
+|    110 | James       | 80500.00 | 6000.00 |    5500.00 |      5500.00 |
+|    111 | Emily       | 92549.00 | 7500.00 |    3200.00 |      3200.00 |
+|    112 | William     | 55999.00 | 3100.00 |    1700.00 |      1700.00 |
+|    113 | Ava         | 47250.00 | 2400.00 |     700.00 |       700.00 |
+|    114 | Christopher | 68765.00 | 4000.00 |    3900.00 |      3900.00 |
+|    115 | Isabella    | 75999.00 | 5200.00 |    2500.00 |      2500.00 |
++--------+-------------+----------+---------+------------+--------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        UPPER(first_name) AS first_name,
+    ->        UPPER(last_name) AS last_name
+    -> FROM employees;
++--------+-------------+-----------+
+| emp_id | first_name  | last_name |
++--------+-------------+-----------+
+|    101 | JOHN        | SMITH     |
+|    102 | SARAH       | JOHNSON   |
+|    103 | MICHAEL     | BROWN     |
+|    104 | DAVID       | WILSON    |
+|    105 | EMMA        | DAVIS     |
+|    106 | ROBERT      | MILLER    |
+|    107 | OLIVIA      | TAYLOR    |
+|    108 | DANIEL      | ANDERSON  |
+|    109 | SOPHIA      | THOMAS    |
+|    110 | JAMES       | JACKSON   |
+|    111 | EMILY       | WHITE     |
+|    112 | WILLIAM     | HARRIS    |
+|    113 | AVA         | MARTIN    |
+|    114 | CHRISTOPHER | THOMPSON  |
+|    115 | ISABELLA    | GARCIA    |
++--------+-------------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        LOWER(first_name) AS first_name,
+    ->        LOWER(last_name) AS last_name
+    -> FROM employees;
++--------+-------------+-----------+
+| emp_id | first_name  | last_name |
++--------+-------------+-----------+
+|    101 | john        | smith     |
+|    102 | sarah       | johnson   |
+|    103 | michael     | brown     |
+|    104 | david       | wilson    |
+|    105 | emma        | davis     |
+|    106 | robert      | miller    |
+|    107 | olivia      | taylor    |
+|    108 | daniel      | anderson  |
+|    109 | sophia      | thomas    |
+|    110 | james       | jackson   |
+|    111 | emily       | white     |
+|    112 | william     | harris    |
+|    113 | ava         | martin    |
+|    114 | christopher | thompson  |
+|    115 | isabella    | garcia    |
++--------+-------------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        LENGTH(first_name) AS name_length
+    -> FROM employees;
++--------+-------------+-------------+
+| emp_id | first_name  | name_length |
++--------+-------------+-------------+
+|    101 | John        |           4 |
+|    102 | Sarah       |           5 |
+|    103 | Michael     |           7 |
+|    104 | David       |           5 |
+|    105 | Emma        |           4 |
+|    106 | Robert      |           6 |
+|    107 | Olivia      |           6 |
+|    108 | Daniel      |           6 |
+|    109 | Sophia      |           6 |
+|    110 | James       |           5 |
+|    111 | Emily       |           5 |
+|    112 | William     |           7 |
+|    113 | Ava         |           3 |
+|    114 | Christopher |          11 |
+|    115 | Isabella    |           8 |
++--------+-------------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        CONCAT(first_name, ' ', last_name) AS full_name,
+    ->        LENGTH(CONCAT(first_name, ' ', last_name)) AS full_name_length
+    -> FROM employees;
++--------+----------------------+------------------+
+| emp_id | full_name            | full_name_length |
++--------+----------------------+------------------+
+|    101 | John Smith           |               10 |
+|    102 | Sarah Johnson        |               13 |
+|    103 | Michael Brown        |               13 |
+|    104 | David Wilson         |               12 |
+|    105 | Emma Davis           |               10 |
+|    106 | Robert Miller        |               13 |
+|    107 | Olivia Taylor        |               13 |
+|    108 | Daniel Anderson      |               15 |
+|    109 | Sophia Thomas        |               13 |
+|    110 | James Jackson        |               13 |
+|    111 | Emily White          |               11 |
+|    112 | William Harris       |               14 |
+|    113 | Ava Martin           |               10 |
+|    114 | Christopher Thompson |               20 |
+|    115 | Isabella Garcia      |               15 |
++--------+----------------------+------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        LEFT(first_name, 3) AS first_3_characters
+    -> FROM employees;
++--------+-------------+--------------------+
+| emp_id | first_name  | first_3_characters |
++--------+-------------+--------------------+
+|    101 | John        | Joh                |
+|    102 | Sarah       | Sar                |
+|    103 | Michael     | Mic                |
+|    104 | David       | Dav                |
+|    105 | Emma        | Emm                |
+|    106 | Robert      | Rob                |
+|    107 | Olivia      | Oli                |
+|    108 | Daniel      | Dan                |
+|    109 | Sophia      | Sop                |
+|    110 | James       | Jam                |
+|    111 | Emily       | Emi                |
+|    112 | William     | Wil                |
+|    113 | Ava         | Ava                |
+|    114 | Christopher | Chr                |
+|    115 | Isabella    | Isa                |
++--------+-------------+--------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, last_name,
+    ->        RIGHT(last_name, 3) AS last_3_characters
+    -> FROM employees;
++--------+-----------+-------------------+
+| emp_id | last_name | last_3_characters |
++--------+-----------+-------------------+
+|    101 | Smith     | ith               |
+|    102 | Johnson   | son               |
+|    103 | Brown     | own               |
+|    104 | Wilson    | son               |
+|    105 | Davis     | vis               |
+|    106 | Miller    | ler               |
+|    107 | Taylor    | lor               |
+|    108 | Anderson  | son               |
+|    109 | Thomas    | mas               |
+|    110 | Jackson   | son               |
+|    111 | White     | ite               |
+|    112 | Harris    | ris               |
+|    113 | Martin    | tin               |
+|    114 | Thompson  | son               |
+|    115 | Garcia    | cia               |
++--------+-----------+-------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        LEFT(first_name, 4) AS first_4_characters
+    -> FROM employees;
++--------+-------------+--------------------+
+| emp_id | first_name  | first_4_characters |
++--------+-------------+--------------------+
+|    101 | John        | John               |
+|    102 | Sarah       | Sara               |
+|    103 | Michael     | Mich               |
+|    104 | David       | Davi               |
+|    105 | Emma        | Emma               |
+|    106 | Robert      | Robe               |
+|    107 | Olivia      | Oliv               |
+|    108 | Daniel      | Dani               |
+|    109 | Sophia      | Soph               |
+|    110 | James       | Jame               |
+|    111 | Emily       | Emil               |
+|    112 | William     | Will               |
+|    113 | Ava         | Ava                |
+|    114 | Christopher | Chri               |
+|    115 | Isabella    | Isab               |
++--------+-------------+--------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        CONCAT(first_name, ' ', last_name) AS full_name
+    -> FROM employees;
++--------+----------------------+
+| emp_id | full_name            |
++--------+----------------------+
+|    101 | John Smith           |
+|    102 | Sarah Johnson        |
+|    103 | Michael Brown        |
+|    104 | David Wilson         |
+|    105 | Emma Davis           |
+|    106 | Robert Miller        |
+|    107 | Olivia Taylor        |
+|    108 | Daniel Anderson      |
+|    109 | Sophia Thomas        |
+|    110 | James Jackson        |
+|    111 | Emily White          |
+|    112 | William Harris       |
+|    113 | Ava Martin           |
+|    114 | Christopher Thompson |
+|    115 | Isabella Garcia      |
++--------+----------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        CONCAT(first_name, '-', last_name, '-', department) AS employee_details
+    -> FROM employees;
++--------+----------------------------+
+| emp_id | employee_details           |
++--------+----------------------------+
+|    101 | John-Smith-IT              |
+|    102 | Sarah-Johnson-HR           |
+|    103 | Michael-Brown-Sales        |
+|    104 | David-Wilson-IT            |
+|    105 | Emma-Davis-Finance         |
+|    106 | Robert-Miller-Sales        |
+|    107 | Olivia-Taylor-HR           |
+|    108 | Daniel-Anderson-IT         |
+|    109 | Sophia-Thomas-Finance      |
+|    110 | James-Jackson-Sales        |
+|    111 | Emily-White-IT             |
+|    112 | William-Harris-Finance     |
+|    113 | Ava-Martin-HR              |
+|    114 | Christopher-Thompson-Sales |
+|    115 | Isabella-Garcia-IT         |
++--------+----------------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        REPLACE(
+    ->            CONCAT(first_name, ' ', last_name),
+    ->            'a',
+    ->            '@'
+    ->        ) AS modified_name
+    -> FROM employees;
++--------+----------------------+
+| emp_id | modified_name        |
++--------+----------------------+
+|    101 | John Smith           |
+|    102 | S@r@h Johnson        |
+|    103 | Mich@el Brown        |
+|    104 | D@vid Wilson         |
+|    105 | Emm@ D@vis           |
+|    106 | Robert Miller        |
+|    107 | Olivi@ T@ylor        |
+|    108 | D@niel Anderson      |
+|    109 | Sophi@ Thom@s        |
+|    110 | J@mes J@ckson        |
+|    111 | Emily White          |
+|    112 | Willi@m H@rris       |
+|    113 | Av@ M@rtin           |
+|    114 | Christopher Thompson |
+|    115 | Is@bell@ G@rci@      |
++--------+----------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        REPLACE(
+    ->            REPLACE(CONCAT(first_name, ' ', last_name), 'a', '@'),
+    ->            'A',
+    ->            '@'
+    ->        ) AS modified_name
+    -> FROM employees;
++--------+----------------------+
+| emp_id | modified_name        |
++--------+----------------------+
+|    101 | John Smith           |
+|    102 | S@r@h Johnson        |
+|    103 | Mich@el Brown        |
+|    104 | D@vid Wilson         |
+|    105 | Emm@ D@vis           |
+|    106 | Robert Miller        |
+|    107 | Olivi@ T@ylor        |
+|    108 | D@niel @nderson      |
+|    109 | Sophi@ Thom@s        |
+|    110 | J@mes J@ckson        |
+|    111 | Emily White          |
+|    112 | Willi@m H@rris       |
+|    113 | @v@ M@rtin           |
+|    114 | Christopher Thompson |
+|    115 | Is@bell@ G@rci@      |
++--------+----------------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id,
+    ->        TRIM(first_name) AS first_name,
+    ->        TRIM(last_name) AS last_name
+    -> FROM employees;
++--------+-------------+-----------+
+| emp_id | first_name  | last_name |
++--------+-------------+-----------+
+|    101 | John        | Smith     |
+|    102 | Sarah       | Johnson   |
+|    103 | Michael     | Brown     |
+|    104 | David       | Wilson    |
+|    105 | Emma        | Davis     |
+|    106 | Robert      | Miller    |
+|    107 | Olivia      | Taylor    |
+|    108 | Daniel      | Anderson  |
+|    109 | Sophia      | Thomas    |
+|    110 | James       | Jackson   |
+|    111 | Emily       | White     |
+|    112 | William     | Harris    |
+|    113 | Ava         | Martin    |
+|    114 | Christopher | Thompson  |
+|    115 | Isabella    | Garcia    |
++--------+-------------+-----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        LPAD(first_name, 10, '*') AS padded_name
+    -> FROM employees;
++--------+-------------+-------------+
+| emp_id | first_name  | padded_name |
++--------+-------------+-------------+
+|    101 | John        | ******John  |
+|    102 | Sarah       | *****Sarah  |
+|    103 | Michael     | ***Michael  |
+|    104 | David       | *****David  |
+|    105 | Emma        | ******Emma  |
+|    106 | Robert      | ****Robert  |
+|    107 | Olivia      | ****Olivia  |
+|    108 | Daniel      | ****Daniel  |
+|    109 | Sophia      | ****Sophia  |
+|    110 | James       | *****James  |
+|    111 | Emily       | *****Emily  |
+|    112 | William     | ***William  |
+|    113 | Ava         | *******Ava  |
+|    114 | Christopher | Christophe  |
+|    115 | Isabella    | **Isabella  |
++--------+-------------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        RPAD(first_name, 10, '*') AS padded_name
+    -> FROM employees;
++--------+-------------+-------------+
+| emp_id | first_name  | padded_name |
++--------+-------------+-------------+
+|    101 | John        | John******  |
+|    102 | Sarah       | Sarah*****  |
+|    103 | Michael     | Michael***  |
+|    104 | David       | David*****  |
+|    105 | Emma        | Emma******  |
+|    106 | Robert      | Robert****  |
+|    107 | Olivia      | Olivia****  |
+|    108 | Daniel      | Daniel****  |
+|    109 | Sophia      | Sophia****  |
+|    110 | James       | James*****  |
+|    111 | Emily       | Emily*****  |
+|    112 | William     | William***  |
+|    113 | Ava         | Ava*******  |
+|    114 | Christopher | Christophe  |
+|    115 | Isabella    | Isabella**  |
++--------+-------------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT emp_id, first_name,
+    ->        LOCATE('a', first_name) AS a_position
+    -> FROM employees;
++--------+-------------+------------+
+| emp_id | first_name  | a_position |
++--------+-------------+------------+
+|    101 | John        |          0 |
+|    102 | Sarah       |          2 |
+|    103 | Michael     |          5 |
+|    104 | David       |          2 |
+|    105 | Emma        |          4 |
+|    106 | Robert      |          0 |
+|    107 | Olivia      |          6 |
+|    108 | Daniel      |          2 |
+|    109 | Sophia      |          6 |
+|    110 | James       |          2 |
+|    111 | Emily       |          0 |
+|    112 | William     |          6 |
+|    113 | Ava         |          1 |
+|    114 | Christopher |          0 |
+|    115 | Isabella    |          3 |
++--------+-------------+------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE first_name LIKE '%an%';
++--------+------------+-----------+------------+----------+---------+------------+
+| emp_id | first_name | last_name | department | salary   | bonus   | commission |
++--------+------------+-----------+------------+----------+---------+------------+
+|    108 | Daniel     | Anderson  | IT         | 67555.00 | 4200.00 |    1800.00 |
++--------+------------+-----------+------------+----------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT emp_id, last_name,
+    ->        LOCATE('son', last_name) AS son_position
+    -> FROM employees;
++--------+-----------+--------------+
+| emp_id | last_name | son_position |
++--------+-----------+--------------+
+|    101 | Smith     |            0 |
+|    102 | Johnson   |            5 |
+|    103 | Brown     |            0 |
+|    104 | Wilson    |            4 |
+|    105 | Davis     |            0 |
+|    106 | Miller    |            0 |
+|    107 | Taylor    |            0 |
+|    108 | Anderson  |            6 |
+|    109 | Thomas    |            0 |
+|    110 | Jackson   |            5 |
+|    111 | White     |            0 |
+|    112 | Harris    |            0 |
+|    113 | Martin    |            0 |
+|    114 | Thompson  |            6 |
+|    115 | Garcia    |            0 |
++--------+-----------+--------------+
+15 rows in set (0.00 sec)
+
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE LENGTH(first_name) > 5;
++--------+-------------+-----------+------------+----------+---------+------------+
+| emp_id | first_name  | last_name | department | salary   | bonus   | commission |
++--------+-------------+-----------+------------+----------+---------+------------+
+|    103 | Michael     | Brown     | Sales      | 61250.00 | 4500.00 |    3500.00 |
+|    106 | Robert      | Miller    | Sales      | 58990.00 | 3500.00 |    4200.00 |
+|    107 | Olivia      | Taylor    | HR         | 51025.00 | 2800.00 |     900.00 |
+|    108 | Daniel      | Anderson  | IT         | 67555.00 | 4200.00 |    1800.00 |
+|    109 | Sophia      | Thomas    | Finance    | 49875.00 | 2500.00 |    1300.00 |
+|    112 | William     | Harris    | Finance    | 55999.00 | 3100.00 |    1700.00 |
+|    114 | Christopher | Thompson  | Sales      | 68765.00 | 4000.00 |    3900.00 |
+|    115 | Isabella    | Garcia    | IT         | 75999.00 | 5200.00 |    2500.00 |
++--------+-------------+-----------+------------+----------+---------+------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     CONCAT(first_name, ' ', last_name) AS full_name,
+    ->     LENGTH(CONCAT(first_name, ' ', last_name)) AS name_length,
+    ->     LOCATE(
+    ->         'a',
+    ->         CONCAT(first_name, ' ', last_name)
+    ->     ) AS a_position
+    -> FROM employees;
++----------------------+-------------+------------+
+| full_name            | name_length | a_position |
++----------------------+-------------+------------+
+| John Smith           |          10 |          0 |
+| Sarah Johnson        |          13 |          2 |
+| Michael Brown        |          13 |          5 |
+| David Wilson         |          12 |          2 |
+| Emma Davis           |          10 |          4 |
+| Robert Miller        |          13 |          0 |
+| Olivia Taylor        |          13 |          6 |
+| Daniel Anderson      |          15 |          2 |
+| Sophia Thomas        |          13 |          6 |
+| James Jackson        |          13 |          2 |
+| Emily White          |          11 |          0 |
+| William Harris       |          14 |          6 |
+| Ava Martin           |          10 |          1 |
+| Christopher Thompson |          20 |          0 |
+| Isabella Garcia      |          15 |          3 |
++----------------------+-------------+------------+
+15 rows in set (0.00 sec)
+
+
+CLUSES:
+==========
+
+mysql> CREATE TABLE Employee
+    -> (
+    -> empid INT PRIMARY KEY,
+    -> ename VARCHAR(30),
+    -> gender VARCHAR(10),
+    -> dept VARCHAR(20),
+    -> job VARCHAR(20),
+    -> sal DECIMAL(10,2),
+    -> city VARCHAR(20),
+    -> age INT);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO Employee VALUES
+    -> (101,'Ravi','Male','IT','Developer',55000,'Hyderabad',25),
+    -> (102,'Sita','Female','HR','HR Executive',40000,'Chennai',28),
+    -> (103,'Arjun','Male','IT','Tester',45000,'Bangalore',26),
+    -> (104,'Priya','Female','Finance','Accountant',60000,'Hyderabad',30),
+    -> (105,'Kiran','Male','Sales','Sales Executive',35000,'Mumbai',24),
+    -> (106,'Anjali','Female','IT','Developer',70000,'Hyderabad',29),
+    -> (107,'Rahul','Male','HR','Manager',65000,'Delhi',35),
+    -> (108,'Sneha','Female','Sales','Sales Executive',38000,'Mumbai',27),
+    -> (109,'Vijay','Male','Finance','Manager',80000,'Chennai',40),
+    -> (110,'Divya','Female','IT','Developer',75000,'Bangalore',31),
+    -> (111,'Ajay','Male','IT','Developer',52000,'Hyderabad',27),
+    -> (112,'Pooja','Female','HR','HR Executive',42000,'Delhi',26),
+    -> (113,'Manoj','Male','Sales','Manager',68000,'Mumbai',36),
+    -> (114,'Neha','Female','Finance','Accountant',58000,'Hyderabad',29),
+    -> (115,'Karthik','Male','IT','Tester',48000,'Bangalore',25),
+    -> (116,'Meena','Female','Sales','Sales Executive',39000,'Chennai',28),
+    -> (117,'Surya','Male','Finance','Accountant',61000,'Hyderabad',33),
+    -> (118,'Lavanya','Female','IT','Developer',72000,'Hyderabad',30),
+    -> (119,'Ramesh','Male','HR','Manager',67000,'Delhi',38),
+    -> (120,'Keerthi','Female','Sales','Manager',69000,'Mumbai',34);
+Query OK, 20 rows affected (0.01 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+GROUP BY:
+=================
+
+mysql> SELECT dept, SUM(sal) AS total_salary
+    -> FROM Employee
+    -> GROUP BY dept;
++---------+--------------+
+| dept    | total_salary |
++---------+--------------+
+| IT      |    417000.00 |
+| HR      |    214000.00 |
+| Finance |    259000.00 |
+| Sales   |    249000.00 |
++---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dept, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY dept;
++---------+----------------+
+| dept    | employee_count |
++---------+----------------+
+| IT      |              7 |
+| HR      |              4 |
+| Finance |              4 |
+| Sales   |              5 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dept, AVG(sal) AS average_salary
+    -> FROM Employee
+    -> GROUP BY dept;
++---------+----------------+
+| dept    | average_salary |
++---------+----------------+
+| IT      |   59571.428571 |
+| HR      |   53500.000000 |
+| Finance |   64750.000000 |
+| Sales   |   49800.000000 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dept, MAX(sal) AS maximum_salary
+    -> FROM Employee
+    -> GROUP BY dept;
++---------+----------------+
+| dept    | maximum_salary |
++---------+----------------+
+| IT      |       75000.00 |
+| HR      |       67000.00 |
+| Finance |       80000.00 |
+| Sales   |       69000.00 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dept, MIN(sal) AS minimum_salary
+    -> FROM Employee
+    -> GROUP BY dept;
++---------+----------------+
+| dept    | minimum_salary |
++---------+----------------+
+| IT      |       45000.00 |
+| HR      |       40000.00 |
+| Finance |       58000.00 |
+| Sales   |       35000.00 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT gender, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY gender;
++--------+----------------+
+| gender | employee_count |
++--------+----------------+
+| Male   |             10 |
+| Female |             10 |
++--------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT gender, AVG(sal) AS average_salary
+    -> FROM Employee
+    -> GROUP BY gender;
++--------+----------------+
+| gender | average_salary |
++--------+----------------+
+| Male   |   57600.000000 |
+| Female |   56300.000000 |
++--------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT job, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY job;
++-----------------+----------------+
+| job             | employee_count |
++-----------------+----------------+
+| Developer       |              5 |
+| HR Executive    |              2 |
+| Tester          |              2 |
+| Accountant      |              3 |
+| Sales Executive |              3 |
+| Manager         |              5 |
++-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT dept, job, SUM(sal) AS total_salary
+    -> FROM Employee
+    -> GROUP BY dept, job;
++---------+-----------------+--------------+
+| dept    | job             | total_salary |
++---------+-----------------+--------------+
+| IT      | Developer       |    324000.00 |
+| HR      | HR Executive    |     82000.00 |
+| IT      | Tester          |     93000.00 |
+| Finance | Accountant      |    179000.00 |
+| Sales   | Sales Executive |    112000.00 |
+| HR      | Manager         |    132000.00 |
+| Finance | Manager         |     80000.00 |
+| Sales   | Manager         |    137000.00 |
++---------+-----------------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT city, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY city;
++-----------+----------------+
+| city      | employee_count |
++-----------+----------------+
+| Hyderabad |              7 |
+| Chennai   |              3 |
+| Bangalore |              3 |
+| Mumbai    |              4 |
+| Delhi     |              3 |
++-----------+----------------+
+5 rows in set (0.00 sec)
+
+GROUP BY & HAVING:
+========================
+mysql> SELECT dept, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING COUNT(*) > 5;
++------+----------------+
+| dept | employee_count |
++------+----------------+
+| IT   |              7 |
++------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT dept, AVG(sal) AS average_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING AVG(sal) > 50000;
++---------+----------------+
+| dept    | average_salary |
++---------+----------------+
+| IT      |   59571.428571 |
+| HR      |   53500.000000 |
+| Finance |   64750.000000 |
++---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT job, MAX(sal) AS maximum_salary
+    -> FROM Employee
+    -> GROUP BY job
+    -> HAVING MAX(sal) > 80000;
+Empty set (0.00 sec)
+
+mysql> SELECT city, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY city
+    -> HAVING COUNT(*) > 3;
++-----------+----------------+
+| city      | employee_count |
++-----------+----------------+
+| Hyderabad |              7 |
+| Mumbai    |              4 |
++-----------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT gender, SUM(sal) AS total_salary
+    -> FROM Employee
+    -> GROUP BY gender
+    -> HAVING SUM(sal) > 200000;
++--------+--------------+
+| gender | total_salary |
++--------+--------------+
+| Male   |    576000.00 |
+| Female |    563000.00 |
++--------+--------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> SELECT dept, MIN(sal) AS minimum_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING MIN(sal) > 30000;
++---------+----------------+
+| dept    | minimum_salary |
++---------+----------------+
+| IT      |       45000.00 |
+| HR      |       40000.00 |
+| Finance |       58000.00 |
+| Sales   |       35000.00 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT job, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY job
+    -> HAVING COUNT(*) >= 2;
++-----------------+----------------+
+| job             | employee_count |
++-----------------+----------------+
+| Developer       |              5 |
+| HR Executive    |              2 |
+| Tester          |              2 |
+| Accountant      |              3 |
+| Sales Executive |              3 |
+| Manager         |              5 |
++-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT dept, SUM(sal) AS total_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING SUM(sal) < 300000;
++---------+--------------+
+| dept    | total_salary |
++---------+--------------+
+| HR      |    214000.00 |
+| Finance |    259000.00 |
+| Sales   |    249000.00 |
++---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT city, AVG(age) AS average_age
+    -> FROM Employee
+    -> GROUP BY city
+    -> HAVING AVG(age) > 30;
++---------+-------------+
+| city    | average_age |
++---------+-------------+
+| Chennai |     32.0000 |
+| Mumbai  |     30.2500 |
+| Delhi   |     33.0000 |
++---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dept, MAX(sal) AS maximum_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING MAX(sal) < 70000;
++-------+----------------+
+| dept  | maximum_salary |
++-------+----------------+
+| HR    |       67000.00 |
+| Sales |       69000.00 |
++-------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY sal ASC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY sal DESC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+ORDER BY:
+==============
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY dept ASC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY dept ASC, sal DESC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY city ASC, ename ASC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY age ASC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY age DESC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY gender ASC, sal DESC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY job ASC, dept ASC, sal ASC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Employee
+    -> ORDER BY dept ASC, job ASC, ename ASC;
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+| empid | ename   | gender | dept    | job             | sal      | city      | age  |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+|   114 | Neha    | Female | Finance | Accountant      | 58000.00 | Hyderabad |   29 |
+|   104 | Priya   | Female | Finance | Accountant      | 60000.00 | Hyderabad |   30 |
+|   117 | Surya   | Male   | Finance | Accountant      | 61000.00 | Hyderabad |   33 |
+|   109 | Vijay   | Male   | Finance | Manager         | 80000.00 | Chennai   |   40 |
+|   112 | Pooja   | Female | HR      | HR Executive    | 42000.00 | Delhi     |   26 |
+|   102 | Sita    | Female | HR      | HR Executive    | 40000.00 | Chennai   |   28 |
+|   107 | Rahul   | Male   | HR      | Manager         | 65000.00 | Delhi     |   35 |
+|   119 | Ramesh  | Male   | HR      | Manager         | 67000.00 | Delhi     |   38 |
+|   111 | Ajay    | Male   | IT      | Developer       | 52000.00 | Hyderabad |   27 |
+|   106 | Anjali  | Female | IT      | Developer       | 70000.00 | Hyderabad |   29 |
+|   110 | Divya   | Female | IT      | Developer       | 75000.00 | Bangalore |   31 |
+|   118 | Lavanya | Female | IT      | Developer       | 72000.00 | Hyderabad |   30 |
+|   101 | Ravi    | Male   | IT      | Developer       | 55000.00 | Hyderabad |   25 |
+|   103 | Arjun   | Male   | IT      | Tester          | 45000.00 | Bangalore |   26 |
+|   115 | Karthik | Male   | IT      | Tester          | 48000.00 | Bangalore |   25 |
+|   120 | Keerthi | Female | Sales   | Manager         | 69000.00 | Mumbai    |   34 |
+|   113 | Manoj   | Male   | Sales   | Manager         | 68000.00 | Mumbai    |   36 |
+|   105 | Kiran   | Male   | Sales   | Sales Executive | 35000.00 | Mumbai    |   24 |
+|   116 | Meena   | Female | Sales   | Sales Executive | 39000.00 | Chennai   |   28 |
+|   108 | Sneha   | Female | Sales   | Sales Executive | 38000.00 | Mumbai    |   27 |
++-------+---------+--------+---------+-----------------+----------+-----------+------+
+20 rows in set (0.00 sec)
+
+GROUP BY + HAVING + ORDERBY :
+====================================
+mysql> SELECT dept, SUM(sal) AS total_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> ORDER BY total_salary DESC;
++---------+--------------+
+| dept    | total_salary |
++---------+--------------+
+| IT      |    417000.00 |
+| Finance |    259000.00 |
+| Sales   |    249000.00 |
+| HR      |    214000.00 |
++---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dept, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING COUNT(*) > 3
+    -> ORDER BY employee_count DESC;
++---------+----------------+
+| dept    | employee_count |
++---------+----------------+
+| IT      |              7 |
+| Sales   |              5 |
+| HR      |              4 |
+| Finance |              4 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT job, AVG(sal) AS average_salary
+    -> FROM Employee
+    -> GROUP BY job
+    -> HAVING AVG(sal) > 45000
+    -> ORDER BY average_salary ASC;
++------------+----------------+
+| job        | average_salary |
++------------+----------------+
+| Tester     |   46500.000000 |
+| Accountant |   59666.666667 |
+| Developer  |   64800.000000 |
+| Manager    |   69800.000000 |
++------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT city, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY city
+    -> HAVING COUNT(*) > 2
+    -> ORDER BY city ASC;
++-----------+----------------+
+| city      | employee_count |
++-----------+----------------+
+| Bangalore |              3 |
+| Chennai   |              3 |
+| Delhi     |              3 |
+| Hyderabad |              7 |
+| Mumbai    |              4 |
++-----------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT dept, MAX(sal) AS maximum_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING MAX(sal) > 60000
+    -> ORDER BY maximum_salary ASC;
++---------+----------------+
+| dept    | maximum_salary |
++---------+----------------+
+| HR      |       67000.00 |
+| Sales   |       69000.00 |
+| IT      |       75000.00 |
+| Finance |       80000.00 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT gender, SUM(sal) AS total_salary
+    -> FROM Employee
+    -> GROUP BY gender
+    -> HAVING SUM(sal) > 100000
+    -> ORDER BY total_salary ASC;
++--------+--------------+
+| gender | total_salary |
++--------+--------------+
+| Female |    563000.00 |
+| Male   |    576000.00 |
++--------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT dept, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY dept
+    -> HAVING COUNT(*) >= 4
+    -> ORDER BY dept ASC;
++---------+----------------+
+| dept    | employee_count |
++---------+----------------+
+| Finance |              4 |
+| HR      |              4 |
+| IT      |              7 |
+| Sales   |              5 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT dept, AVG(sal) AS average_salary
+    -> FROM Employee
+    -> GROUP BY dept
+    -> ORDER BY dept ASC, average_salary DESC;
++---------+----------------+
+| dept    | average_salary |
++---------+----------------+
+| Finance |   64750.000000 |
+| HR      |   53500.000000 |
+| IT      |   59571.428571 |
+| Sales   |   49800.000000 |
++---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT job, MIN(sal) AS minimum_salary
+    -> FROM Employee
+    -> GROUP BY job
+    -> HAVING MIN(sal) > 25000
+    -> ORDER BY minimum_salary ASC;
++-----------------+----------------+
+| job             | minimum_salary |
++-----------------+----------------+
+| Sales Executive |       35000.00 |
+| HR Executive    |       40000.00 |
+| Tester          |       45000.00 |
+| Developer       |       52000.00 |
+| Accountant      |       58000.00 |
+| Manager         |       65000.00 |
++-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT city, COUNT(*) AS employee_count
+    -> FROM Employee
+    -> GROUP BY city
+    -> HAVING COUNT(*) > 1
+    -> ORDER BY employee_count DESC;
++-----------+----------------+
+| city      | employee_count |
++-----------+----------------+
+| Hyderabad |              7 |
+| Mumbai    |              4 |
+| Chennai   |              3 |
+| Bangalore |              3 |
+| Delhi     |              3 |
++-----------+----------------+
+5 rows in set (0.00 sec)
+
+
+
+DATA & TIME FUNCTIONS:
+=======================
+
+
+mysql> CREATE TABLE employees (
+    ->     emp_id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     emp_name VARCHAR(50),
+    ->     department VARCHAR(30),
+    ->     salary DECIMAL(10,2),
+    ->     joining_date DATE,
+    ->     birth_date DATE
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> INSERT INTO employees
+    -> (emp_name, department, salary, joining_date, birth_date)
+    -> VALUES
+    -> ('Ravi', 'IT', 55000, '2022-01-15', '1998-05-20'),
+    -> ('Priya', 'HR', 48000, '2021-06-10', '1997-08-15'),
+    -> ('Arun', 'IT', 72000, '2020-03-25', '1995-12-10'),
+    -> ('Sneha', 'Finance', 65000, '2023-02-18', '1999-01-25'),
+    -> ('Kiran', 'HR', 52000, '2022-11-05', '1996-07-12'),
+    -> ('Anil', 'IT', 60000, '2024-01-20', '2000-03-30'),
+    -> ('Divya', 'Finance', 75000, '2019-09-12', '1994-11-18'),
+    -> ('Manoj', 'Sales', 45000, '2023-07-01', '1998-02-14'),
+    -> ('Pooja', 'Sales', 58000, '2021-12-20', '1997-06-22'),
+    -> ('Suresh', 'IT', 68000, '2020-08-30', '1995-10-05');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from employees;
++--------+----------+------------+----------+--------------+------------+
+| emp_id | emp_name | department | salary   | joining_date | birth_date |
++--------+----------+------------+----------+--------------+------------+
+|      1 | Ravi     | IT         | 55000.00 | 2022-01-15   | 1998-05-20 |
+|      2 | Priya    | HR         | 48000.00 | 2021-06-10   | 1997-08-15 |
+|      3 | Arun     | IT         | 72000.00 | 2020-03-25   | 1995-12-10 |
+|      4 | Sneha    | Finance    | 65000.00 | 2023-02-18   | 1999-01-25 |
+|      5 | Kiran    | HR         | 52000.00 | 2022-11-05   | 1996-07-12 |
+|      6 | Anil     | IT         | 60000.00 | 2024-01-20   | 2000-03-30 |
+|      7 | Divya    | Finance    | 75000.00 | 2019-09-12   | 1994-11-18 |
+|      8 | Manoj    | Sales      | 45000.00 | 2023-07-01   | 1998-02-14 |
+|      9 | Pooja    | Sales      | 58000.00 | 2021-12-20   | 1997-06-22 |
+|     10 | Suresh   | IT         | 68000.00 | 2020-08-30   | 1995-10-05 |
++--------+----------+------------+----------+--------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2026-08-23 12:32:15 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2026-08-23 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 12:32:27  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT emp_name, YEAR(joining_date) AS joining_year
+    -> FROM employees;
++----------+--------------+
+| emp_name | joining_year |
++----------+--------------+
+| Ravi     |         2022 |
+| Priya    |         2021 |
+| Arun     |         2020 |
+| Sneha    |         2023 |
+| Kiran    |         2022 |
+| Anil     |         2024 |
+| Divya    |         2019 |
+| Manoj    |         2023 |
+| Pooja    |         2021 |
+| Suresh   |         2020 |
++----------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, MONTH(joining_date) AS joining_month
+    -> FROM employees;
++----------+---------------+
+| emp_name | joining_month |
++----------+---------------+
+| Ravi     |             1 |
+| Priya    |             6 |
+| Arun     |             3 |
+| Sneha    |             2 |
+| Kiran    |            11 |
+| Anil     |             1 |
+| Divya    |             9 |
+| Manoj    |             7 |
+| Pooja    |            12 |
+| Suresh   |             8 |
++----------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, DAY(joining_date) AS joining_day
+    -> FROM employees;
++----------+-------------+
+| emp_name | joining_day |
++----------+-------------+
+| Ravi     |          15 |
+| Priya    |          10 |
+| Arun     |          25 |
+| Sneha    |          18 |
+| Kiran    |           5 |
+| Anil     |          20 |
+| Divya    |          12 |
+| Manoj    |           1 |
+| Pooja    |          20 |
+| Suresh   |          30 |
++----------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_name, DAYNAME(joining_date) AS joining_day
+    -> FROM employees;
++----------+-------------+
+| emp_name | joining_day |
++----------+-------------+
+| Ravi     | Saturday    |
+| Priya    | Thursday    |
+| Arun     | Wednesday   |
+| Sneha    | Saturday    |
+| Kiran    | Saturday    |
+| Anil     | Saturday    |
+| Divya    | Thursday    |
+| Manoj    | Saturday    |
+| Pooja    | Monday      |
+| Suresh   | Sunday      |
++----------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE DATEDIFF(CURDATE(), joining_date) > 1000;
++--------+----------+------------+----------+--------------+------------+
+| emp_id | emp_name | department | salary   | joining_date | birth_date |
++--------+----------+------------+----------+--------------+------------+
+|      1 | Ravi     | IT         | 55000.00 | 2022-01-15   | 1998-05-20 |
+|      2 | Priya    | HR         | 48000.00 | 2021-06-10   | 1997-08-15 |
+|      3 | Arun     | IT         | 72000.00 | 2020-03-25   | 1995-12-10 |
+|      4 | Sneha    | Finance    | 65000.00 | 2023-02-18   | 1999-01-25 |
+|      5 | Kiran    | HR         | 52000.00 | 2022-11-05   | 1996-07-12 |
+|      7 | Divya    | Finance    | 75000.00 | 2019-09-12   | 1994-11-18 |
+|      8 | Manoj    | Sales      | 45000.00 | 2023-07-01   | 1998-02-14 |
+|      9 | Pooja    | Sales      | 58000.00 | 2021-12-20   | 1997-06-22 |
+|     10 | Suresh   | IT         | 68000.00 | 2020-08-30   | 1995-10-05 |
++--------+----------+------------+----------+--------------+------------+
+9 rows in set (0.01 sec)
+
+mysql> SELECT emp_name,
+    ->        joining_date,
+    ->        DATE_ADD(joining_date, INTERVAL 1 YEAR) AS one_year_after
+    -> FROM employees;
++----------+--------------+----------------+
+| emp_name | joining_date | one_year_after |
++----------+--------------+----------------+
+| Ravi     | 2022-01-15   | 2023-01-15     |
+| Priya    | 2021-06-10   | 2022-06-10     |
+| Arun     | 2020-03-25   | 2021-03-25     |
+| Sneha    | 2023-02-18   | 2024-02-18     |
+| Kiran    | 2022-11-05   | 2023-11-05     |
+| Anil     | 2024-01-20   | 2025-01-20     |
+| Divya    | 2019-09-12   | 2020-09-12     |
+| Manoj    | 2023-07-01   | 2024-07-01     |
+| Pooja    | 2021-12-20   | 2022-12-20     |
+| Suresh   | 2020-08-30   | 2021-08-30     |
++----------+--------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_name,
+    ->        joining_date,
+    ->        DATE_ADD(joining_date, INTERVAL 30 DAY) AS date_after_30_days
+    -> FROM employees;
++----------+--------------+--------------------+
+| emp_name | joining_date | date_after_30_days |
++----------+--------------+--------------------+
+| Ravi     | 2022-01-15   | 2022-02-14         |
+| Priya    | 2021-06-10   | 2021-07-10         |
+| Arun     | 2020-03-25   | 2020-04-24         |
+| Sneha    | 2023-02-18   | 2023-03-20         |
+| Kiran    | 2022-11-05   | 2022-12-05         |
+| Anil     | 2024-01-20   | 2024-02-19         |
+| Divya    | 2019-09-12   | 2019-10-12         |
+| Manoj    | 2023-07-01   | 2023-07-31         |
+| Pooja    | 2021-12-20   | 2022-01-19         |
+| Suresh   | 2020-08-30   | 2020-09-29         |
++----------+--------------+--------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_name,
+    ->        joining_date,
+    ->        DATE_SUB(joining_date, INTERVAL 6 MONTH) AS six_months_before
+    -> FROM employees;
++----------+--------------+-------------------+
+| emp_name | joining_date | six_months_before |
++----------+--------------+-------------------+
+| Ravi     | 2022-01-15   | 2021-07-15        |
+| Priya    | 2021-06-10   | 2020-12-10        |
+| Arun     | 2020-03-25   | 2019-09-25        |
+| Sneha    | 2023-02-18   | 2022-08-18        |
+| Kiran    | 2022-11-05   | 2022-05-05        |
+| Anil     | 2024-01-20   | 2023-07-20        |
+| Divya    | 2019-09-12   | 2019-03-12        |
+| Manoj    | 2023-07-01   | 2023-01-01        |
+| Pooja    | 2021-12-20   | 2021-06-20        |
+| Suresh   | 2020-08-30   | 2020-02-29        |
++----------+--------------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE joining_date >= DATE_SUB(CURDATE(), INTERVAL 3 YEAR);
++--------+----------+------------+----------+--------------+------------+
+| emp_id | emp_name | department | salary   | joining_date | birth_date |
++--------+----------+------------+----------+--------------+------------+
+|      6 | Anil     | IT         | 60000.00 | 2024-01-20   | 2000-03-30 |
++--------+----------+------------+----------+--------------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT emp_name,
+    ->        DATE_FORMAT(joining_date, '%d-%m-%Y') AS formatted_date
+    -> FROM employees;
++----------+----------------+
+| emp_name | formatted_date |
++----------+----------------+
+| Ravi     | 15-01-2022     |
+| Priya    | 10-06-2021     |
+| Arun     | 25-03-2020     |
+| Sneha    | 18-02-2023     |
+| Kiran    | 05-11-2022     |
+| Anil     | 20-01-2024     |
+| Divya    | 12-09-2019     |
+| Manoj    | 01-07-2023     |
+| Pooja    | 20-12-2021     |
+| Suresh   | 30-08-2020     |
++----------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT emp_name,
+    ->        DATE_FORMAT(joining_date, '%d %M %Y') AS formatted_date
+    -> FROM employees;
++----------+-------------------+
+| emp_name | formatted_date    |
++----------+-------------------+
+| Ravi     | 15 January 2022   |
+| Priya    | 10 June 2021      |
+| Arun     | 25 March 2020     |
+| Sneha    | 18 February 2023  |
+| Kiran    | 05 November 2022  |
+| Anil     | 20 January 2024   |
+| Divya    | 12 September 2019 |
+| Manoj    | 01 July 2023      |
+| Pooja    | 20 December 2021  |
+| Suresh   | 30 August 2020    |
++----------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT STR_TO_DATE('25-08-2024', '%d-%m-%Y') AS converted_date;
++----------------+
+| converted_date |
++----------------+
+| 2024-08-25     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT STR_TO_DATE('15/January/2023', '%d/%M/%Y') AS converted_date;
++----------------+
+| converted_date |
++----------------+
+| 2023-01-15     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT VERSION();
++-----------+
+| VERSION() |
++-----------+
+| 8.0.46    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO employees
+    -> (emp_name, department, salary, joining_date, birth_date)
+    -> VALUES
+    -> ('Rahul', 'IT', 60000, '2026-08-23', '1998-10-15');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT LAST_INSERT_ID() AS new_employee_id;
++-----------------+
+| new_employee_id |
++-----------------+
+|              11 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM employees
+    -> WHERE emp_id = LAST_INSERT_ID();
++--------+----------+------------+----------+--------------+------------+
+| emp_id | emp_name | department | salary   | joining_date | birth_date |
++--------+----------+------------+----------+--------------+------------+
+|     11 | Rahul    | IT         | 60000.00 | 2026-08-23   | 1998-10-15 |
++--------+----------+------------+----------+--------------+------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
