@@ -2798,14 +2798,303 @@ USER()            → Connected user
 CURRENT_USER()    → Authenticated MySQL account
 CONNECTION_ID()   → Current connection ID
 LAST_INSERT_ID()  → Last AUTO_INCREMENT value
-🔥 Most important interview questions from Day 10:
-What is the difference between NOW(), CURDATE() and CURTIME()?
-What is the difference between DATE_ADD() and DATE_SUB()?
-What is DATEDIFF()?
-What is the difference between DATE_FORMAT() and STR_TO_DATE()?
-What is the difference between USER() and CURRENT_USER()?
-What is LAST_INSERT_ID()?
-What does CONNECTION_ID() return?
-How do you extract the year/month/day from a date?
-How do you add 10 days to today's date?
-How do you format a date as DD-MM-YYYY?
+
+
+_________________________DAY11_____________________________________
+
+## DAY 11 — AUTO_INCREMENT, SET OPERATORS & JOINS
+------------------------------------------------------------
+### 1. AUTO_INCREMENT
+--------------------------
+`AUTO_INCREMENT` automatically generates a unique numeric ID when a new record is inserted.
+
+Example:
+CREATE TABLE emp (
+    eid INT AUTO_INCREMENT PRIMARY KEY,
+    ename VARCHAR(50),
+    esal INT
+);
+```
+
+-Insert without specifying `eid`:
+
+INSERT INTO emp (ename, esal)
+VALUES ('Jaya', 10000);
+```
+
+-To find the last automatically generated ID:
+
+SELECT LAST_INSERT_ID();
+```
+
+### How to identify the next AUTO_INCREMENT value?
+
+-If the table already contains records and you want to know the next `AUTO_INCREMENT` value:
+SHOW TABLE STATUS LIKE 'emp';
+```
+
+Check the **Auto_increment** column.
+
+> Example: If `Auto_increment = 10`, the next inserted record will normally receive ID **10**.
+
+---
+
+# 2. SET OPERATORS
+-------------------------
+Set operators are used to **combine the results of two or more `SELECT` queries**.
+
+### Types of Set Operators
+---------------------------
+1. `UNION`
+2. `UNION ALL`
+3. `INTERSECT`
+4. `EXCEPT`
+
+### Important condition
+
+The `SELECT` queries should have:
+
+* The same number of columns
+* Corresponding columns with compatible data types
+
+---
+
+1.UNION
+---------------------
+-Combines results and **removes duplicate rows**.
+
+SELECT name FROM student1
+UNION
+SELECT name FROM student2;
+```
+
+2.UNION ALL
+------------
+-Combines results and **keeps duplicates**.
+
+```sql
+SELECT name FROM student1
+UNION ALL
+SELECT name FROM student2;
+```
+
+3.INTERSECT
+------------
+-Returns rows that are **common in both queries**.
+
+```sql
+SELECT name FROM student1
+INTERSECT
+SELECT name FROM student2;
+```
+
+4.EXCEPT
+------------
+-Returns rows present in the **first query but not in the second query**.
+
+SELECT name FROM student1
+EXCEPT
+SELECT name FROM student2;
+
+##JOINS
+-------------
+A **JOIN** is used to combine rows from **two or more tables** based on a related/common column.
+
+Example:
+SELECT *
+FROM employee e
+JOIN department d
+ON e.dept_id = d.dept_id;
+The common column here is `dept_id`.
+
+## Types of JOINs
+====================
+1. CORE JOINS
+2.OUTER JOINS
+
+1.Core Joins
+-------------------
+1. **INNER JOIN**
+2. **NATURAL JOIN**
+3. **EQUI JOIN**
+4. **NON-EQUI JOIN**
+
+**1. INNER JOIN**
+--------------------
+INNER JOIN returns only the ROWS that have matching values in both tables.
+
+SELECT *
+FROM employee e
+INNER JOIN department d
+ON e.dept_id = d.dept_id;
+```
+
+**2. NATURAL JOIN**
+---------------------------
+NATURAL JOIN automatically joins two tables using columns that have the **same name and compatible data type**.
+
+SELECT *
+FROM employee
+NATURAL JOIN department;
+```
+
+**3. EQUI JOIN**
+----------------------
+EQUI JOIN combines tables using an **equal (`=`) condition** between columns.
+
+SELECT *
+FROM employee e
+JOIN department d
+ON e.dept_id = d.dept_id;
+```
+
+**4. NON-EQUI JOIN**
+-------------------
+NON-EQUI JOIN combines tables using operators other than `=` such as `>`, `<`, `>=`, `<=`, or `BETWEEN`.
+
+SELECT *
+FROM employee e
+JOIN salary_grade s
+ON e.salary BETWEEN s.min_salary AND s.max_salary;
+```
+
+Easy to Remember
+
+* **INNER JOIN** → Only matching records
+* **NATURAL JOIN** → Automatically joins same-named columns
+* **EQUI JOIN** → Join using `=`
+* **NON-EQUI JOIN** → Join using `>`, `<`, `BETWEEN`, etc.
+
+2.Outer Joins
+-----------------------------
+1. **LEFT JOIN / LEFT OUTER JOIN**
+2. **RIGHT JOIN / RIGHT OUTER JOIN**
+3. **FULL JOIN / FULL OUTER JOIN**
+
+1.LEFT JOIN
+----------------------
+Returns **all rows from the left table** and matching rows from the right table.
+
+```sql
+SELECT *
+FROM employee e
+LEFT JOIN department d
+ON e.dept_id = d.dept_id;
+```
+
+2.RIGHT JOIN
+----------------
+Returns **all rows from the right table** and matching rows from the left table.
+
+```sql
+SELECT *
+FROM employee e
+RIGHT JOIN department d
+ON e.dept_id = d.dept_id;
+```
+
+3.FULL JOIN
+--------------------
+Returns **all rows from both tables**, matching where possible.
+
+SELECT *
+FROM employee e
+FULL OUTER JOIN department d
+ON e.dept_id = d.dept_id;
+```
+
+**MySQL note:** MySQL does not directly support `FULL OUTER JOIN`; it can be simulated using `UNION` of `LEFT JOIN` and `RIGHT JOIN`.
+
+### ⭐ Interview One-Line Answers
+
+**What is AUTO_INCREMENT?**
+It automatically generates a sequential numeric ID for new records.
+
+**What is `LAST_INSERT_ID()`?**
+It returns the last automatically generated `AUTO_INCREMENT` value for the current session.
+
+**What are SET operators?**
+They combine the results of two or more `SELECT` queries.
+
+**UNION vs UNION ALL?**
+`UNION` removes duplicates, while `UNION ALL` keeps duplicates.
+
+**What is JOIN?**
+JOIN combines rows from two or more tables using a related/common column.
+
+**INNER JOIN vs LEFT JOIN?**
+`INNER JOIN` returns only matching rows; `LEFT JOIN` returns all rows from the left table plus matching rows from the right table.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
