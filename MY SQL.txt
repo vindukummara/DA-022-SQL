@@ -1033,8 +1033,9 @@ id	name	age	address	phonenum	did
 102	Ram	20	HYD	9897089	202
 103	Sam	20	NULL
 
-⭐ Day 4 Quick Revision
-Constraints
+Day 4 Quick Revision
+Constraints:
+--------------
 -- PRIMARY KEY
 ALTER TABLE emp
 ADD CONSTRAINT pk_id PRIMARY KEY(id);
@@ -1104,6 +1105,8 @@ SELECT * FROM employee;
 
 SELECT id, name, age
 FROM employee;
+
+________________________________________________________________________________________________________________________________________
 
 DAY 5 — MySQL
 --------------
@@ -1594,7 +1597,7 @@ SET name = 'Ravi',
     age = 25
 WHERE id = 2;
 
-⚠️ Important: Always be careful with UPDATE without a WHERE clause.
+Important: Always be careful with UPDATE without a WHERE clause.
 
 UPDATE students
 SET age = 25;
@@ -1642,7 +1645,7 @@ DROP
 DROP TABLE students;
 Removes the entire table, including its structure and data.
 
-⭐ Day 5 Quick Revision
+Day 5 Quick Revision
 
 -- BETWEEN
 SELECT * FROM students
@@ -1711,7 +1714,7 @@ TRUNCATE TABLE students;
 DROP TABLE students;
 
 
-🔑 Most important interview differences
+Most important interview differences
 
 IS NULL vs ISNULL()
 -----------------------------
@@ -1734,7 +1737,7 @@ DELETE    → Removes rows
 TRUNCATE  → Removes all rows
 DROP      → Removes table + structure
 
-________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________DAY6_____________________________________
 
 DAY 6 — Predicates / Special Operators
 ===================================================
@@ -1937,7 +1940,7 @@ DROP	   Data + table            Removed
 -TRUNCATE TABLE students;
 -DROP TABLE students;
 
-_________________________________________________________________________________________DAY7___________________________________________
+_______________________________________________________________________________________________DAY7_____________________________________
 
 DAY 7 — LIMIT
 --------------------------
@@ -2278,6 +2281,8 @@ WHERE → GROUP BY → HAVING → ORDER BY → LIMIT.
 
 ____________________________________________________________________
 _______________________________DAY-9________________________________
+____________________________________________________________________
+
 Numeric Functions in SQL
 ============================
 1. ROUND()
@@ -2494,7 +2499,7 @@ SELECT LPAD('mysql', 10, '*');
 13. RPAD()
 --------------
 Adds characters to the right side until the string reaches the specified length.
->SELECT RPAD('mysql', 10, '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*');
+>SELECT RPAD('mysql', 10, '*');
 -- mysql*****
 
 14. LOCATE()
@@ -2525,7 +2530,7 @@ GREATEST()  Maximum	            GREATEST(10,20,5) → 20
 LEAST()     Minimum                 LEAST(10,20,5) → 5
 UPPER()	    Uppercase	             UPPER('mysql') → MYSQL
 LOWER()     Lowercase	             LOWER('MYSQL') → mysql
-LENGTH()    String length in bytes    LENGTH('mysql')
+LENGTH()   String length in bytes    LENGTH('mysql')
 CHAR_LENGTH()	Character count	      CHAR_LENGTH('mysql') → 5
 SUBSTRING()	Extract string	      SUBSTRING('MySQL',1,3) → MyS
 LEFT()	     Characters from left    LEFT('mysql',2) → my
@@ -2581,7 +2586,7 @@ LOCATE()	Find position	      LOCATE('a','apple') → 1
    SELECT LOCATE('sql', 'mysql'); -- 3
 
  
-________________________________21-08-2026________________________________
+_____________________________21-08-2026_____________________________
 __________________________________DAY10_____________________________
 
 
@@ -2690,9 +2695,9 @@ SELECT DATE_FORMAT(CURDATE(), '%d-%m-%Y');
 Output: 21-08-2026
 
 Important format symbols:
-Symbol	Meaning	          Example
-%d	      Day	             21
-%m	     Month	             08
+Symbol	    Meaning	      Example
+%d	      Day	         21
+%m	     Month	         08
 %Y	   4-digit year	        2026
 %y	   2-digit year	         26
 %M	   Full month name      August
@@ -2799,9 +2804,9 @@ CURRENT_USER()    → Authenticated MySQL account
 CONNECTION_ID()   → Current connection ID
 LAST_INSERT_ID()  → Last AUTO_INCREMENT value
 
-
-_________________________DAY11_____________________________________
-
+____________________________________________________________________
+_________________________DAY11______________________________________
+____________________________________________________________________
 ## DAY 11 — AUTO_INCREMENT, SET OPERATORS & JOINS
 ------------------------------------------------------------
 ### 1. AUTO_INCREMENT
@@ -3027,73 +3032,108 @@ JOIN combines rows from two or more tables using a related/common column.
 
 
 
+______________________________________________________________________________________
+________________________________DAY-14________________________________________________
 
 
+## DAY-14 — Corrected Notes
+1. SELF JOIN
+--------------
+-A SELF JOIN means joining a table with itself.
 
+Example:
 
+| emp_id | emp_name | manager_id |
+| -----: | -------- | ---------: |
+|    101 | A        |        102 |
+|    102 | B        |       NULL |
+|    103 | C        |        102 |
+|    104 | D        |        103 |
 
+Query to display employee and manager:
 
 
+SELECT 
+    e.emp_name AS employee,
+    m.emp_name AS manager
+FROM employee e
+LEFT JOIN employee m
+    ON e.manager_id = m.emp_id;
 
+**Important:**
+Here we use the same `employee` table twice:
 
+* `e` = employee
+* `m` = manager
 
+---
 
+2. EQUI JOIN
+-----------------
+-An EQUI JOIN joins two or more tables using the `=` operator.
 
+Example:
 
+SELECT e.*, d.*
+FROM employee e
+JOIN department d
+    ON e.dept_id = d.dept_id;
 
+This matches:
+employee.dept_id = department.dept_id
 
+3. NON-EQUI JOIN
+-----------------
+A NON-EQUI JOIN uses operators other than `=` such as:
 
+>
+<
+>=
+<=
+BETWEEN
 
+However, your example:
+SELECT e.emp_name, d.dept_name, e.salary
+FROM employee e
+JOIN department d
+    ON e.dept_id = d.dept_id
+WHERE e.salary > 50000;
 
+-is **NOT a non-equi join**. It is an **EQUI JOIN** with a `WHERE` condition.
 
+-A true NON-EQUI JOIN example needs a comparison between columns/values from the joined tables.
 
+For example, create salary ranges:
 
+```sql
+CREATE TABLE salary_grade (
+    grade VARCHAR(10),
+    min_salary INT,
+    max_salary INT
+);
 
+INSERT INTO salary_grade VALUES
+('A', 30000, 49999),
+('B', 50000, 69999),
+('C', 70000, 89999),
+('D', 90000, 120000);
 
+SELECT 
+    e.emp_name,
+    e.salary,
+    s.grade
+FROM employee e
+JOIN salary_grade s
+    ON e.salary BETWEEN s.min_salary AND s.max_salary;
 
+Here `BETWEEN` is used instead of `=`, so this is a **NON-EQUI JOIN**.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+| Join              | Meaning                              | Example                                    |
+| ----------------- | ------------------------------------ | ------------------------------------------ |
+| **SELF JOIN**     | Table joins with itself              | `employee e JOIN employee m`               |
+| **EQUI JOIN**     | Join using `=`                       | `e.dept_id = d.dept_id`                    |
+| **NON-EQUI JOIN** | Join using `>`, `<`, `BETWEEN`, etc. | `salary BETWEEN min_salary AND max_salary` |
 
 
 
