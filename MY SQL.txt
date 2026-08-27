@@ -2941,7 +2941,7 @@ NATURAL JOIN automatically joins two tables using columns that have the **same n
 SELECT *
 FROM employee
 NATURAL JOIN department;
-```
+
 
 **3. EQUI JOIN**
 ----------------------
@@ -3134,6 +3134,285 @@ Here `BETWEEN` is used instead of `=`, so this is a **NON-EQUI JOIN**.
 | **SELF JOIN**     | Table joins with itself              | `employee e JOIN employee m`               |
 | **EQUI JOIN**     | Join using `=`                       | `e.dept_id = d.dept_id`                    |
 | **NON-EQUI JOIN** | Join using `>`, `<`, `BETWEEN`, etc. | `salary BETWEEN min_salary AND max_salary` |
+
+
+____________________________DAY-15____________________________
+
+If you mean **notes** on this topic, here are simple Day 15 notes:
+
+## 📚 Day 15 — SQL Notes
+-------------------------
+### 1. CROSS JOIN
+====================
+
+* CROSS JOIN combines **every row of the first table with every row of the second table**.
+* It produces all possible combinations.
+* No `ON` condition is required.
+
+```sql
+SELECT e.emp_name, d.dept_name
+FROM employee e
+CROSS JOIN department d;
+```
+
+**Example:**
+If Employee has 10 rows and Department has 5 rows:
+**10 × 5 = 50 rows**
+
+---
+
+### 2. NATURAL JOIN
+====================
+* NATURAL JOIN automatically joins two tables using **columns having the same name**.
+* We don't need to specify the `ON` condition.
+
+```sql
+SELECT e.emp_name, d.dept_name
+FROM employee e
+NATURAL JOIN department d;
+```
+
+Here, `dept_id` is the common column, so the tables are joined using `dept_id`.
+
+---
+
+# 3. SUBQUERY
+================
+### Definition
+
+A **subquery** is a query written **inside another query**.
+
+* A subquery is usually enclosed in **parentheses `()`**.
+* The inner query executes as part of the outer query.
+
+### Example
+
+```sql
+SELECT *
+FROM product
+WHERE price = (
+    SELECT MAX(price)
+    FROM product
+);
+```
+
+The inner query finds the maximum price, and the outer query finds the product having that price.
+
+---
+
+# 4. Types of Subqueries
+=================================
+There are mainly four types:
+
+1. **Single-Row Subquery**
+2. **Multi-Row Subquery**
+3. **Nested Subquery**
+4. **Correlated Subquery**
+
+1. Single-Row Subquery
+------------------------------
+A subquery that returns **only one row/value** is called a Single-Row Subquery.
+
+Common operators:
+-------------
+=
+>
+<
+>=
+<=
+<>
+Example:
+SELECT *
+FROM product
+WHERE price = (
+    SELECT MAX(price)
+    FROM product
+);
+
+`MAX(price)` returns one value, so this is a **Single-Row Subquery**.
+
+
+2. Second Highest Price
+-------------------------
+SELECT MAX(price)
+FROM product
+WHERE price < (
+    SELECT MAX(price)
+    FROM product
+);
+Here:
+
+* Inner query → finds the highest price.
+* Outer query → finds the highest price below the highest price.
+* Result → **second highest price**.
+
+---
+
+3. Multi-Row Subquery
+------------------------------------
+A subquery that returns **more than one row** is called a Multi-Row Subquery.
+
+Common operators:
+
+```text
+IN
+ANY
+ALL
+SOME
+### Example using `IN`
+
+SELECT *
+FROM product
+WHERE category IN (
+    SELECT category
+    FROM product
+    WHERE price > 50000
+);
+
+ ANY
+--------------
+`ANY` means the condition should be true for **at least one value**.
+
+```sql
+SELECT *
+FROM product
+WHERE price < ANY (
+    SELECT price
+    FROM product
+    WHERE category = 'Furniture'
+);
+
+**ANY = At least one**
+
+ ALL
+------------
+`ALL` means the condition should be true for **every value** returned by the subquery.
+
+SELECT *
+FROM product
+WHERE price < ALL (
+    SELECT price
+    FROM product
+    WHERE category = 'Furniture'
+);
+
+**ALL = Every value**
+
+---
+
+4. Nested Subquery
+---------------------
+When a subquery is written **inside another subquery**, it is called a Nested Subquery.
+
+Example:
+SELECT *
+FROM product
+WHERE price = (
+    SELECT MAX(price)
+    FROM product
+    WHERE price < (
+        SELECT MAX(price)
+        FROM product
+    )
+);
+
+Here, there are multiple levels of queries.
+
+**Easy way to remember:**
+
+> Query inside query = Subquery
+> Subquery inside another subquery = Nested Subquery
+
+Interview Revision
+
+| Topic               | Meaning                            |
+| ------------------- | ---------------------------------- |
+| CROSS JOIN          | Every row × every row              |
+| NATURAL JOIN        | Joins using same-named columns     |
+| Subquery            | Query inside another query         |
+| Single-row          | Returns one row/value              |
+| Multi-row           | Returns multiple rows              |
+| `ANY`               | At least one                       |
+| `ALL`               | Every value                        |
+| `IN`                | Matches values from a list         |
+| Nested subquery     | Subquery inside another subquery   |
+| Correlated subquery | Inner query depends on outer query |
+
+
+
+
+CROSS JOIN:
+----------------
+
+ select e.emp_name , d.dept_name form
+ employee e cross join department d
+
+NATURAL JOIN:
+--------------
+select e.emp_name,d.dept_name from employee e 
+natural join department d;
+
+SUBQUERY:
+---------
+-To write a query intside another query.
+-the subquery  enclosed with in paranthesis.
+
+types of subquery
+-----------------
+1.singlerow subquery
+2.multirow subquery
+3.nested subquery
+4.corelated subquery
+
+1.singlerow subquery
+----------------------
+-The subquery returns only one row that is called singlerow subquery-using >,<, =, >=, <= etc
+
+>select max(price) as max_price from product;
+>select * from product where price = (select max(price) from product);
+>select * from product where price = 60000;
+(select max(price) from product where price <
+(select max(price) from product));
+
+select max(price) from product where price <(select max(price) from product);
+>select price from product where price category = 'Furniture';
+>select *  from product where price< any
+(select price from product where category = 'Furniture');
+
+
+2.multirow subquery
+--------------------
+-the subquery returns more than one row that is called multirow subquery.
+using Any, all, some, In
+
+3.nested subquery
+--------------------
+-multilevel of subquery is caleed as nested subquery.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
