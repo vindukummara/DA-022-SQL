@@ -3389,31 +3389,184 @@ using Any, all, some, In
 --------------------
 -multilevel of subquery is caleed as nested subquery.
 
+4.corelated subquery:
+-------------------------------
+
+________________DAY-16_______________________________
 
 
+Yes. Your notes are about **correlated subqueries and `EXISTS` / `NOT EXISTS`**. A few queries need correction. Here is a clean, interview-ready version.
+4. Correlated Subquery
+----------------------------
+What is a correlated subquery?
+A **correlated subquery** is a subquery that depends on the **current row of the outer query**.
+The inner query runs repeatedly for each row of the outer query.
+
+### Example 1: Employees earning more than their department average
+
+```sql
+SELECT e.emp_name, e.salary, e.dept_id
+FROM employee e
+WHERE e.salary > (
+    SELECT AVG(e1.salary)
+    FROM employee e1
+    WHERE e1.dept_id = e.dept_id
+);
+```
+
+### How it works
+
+For every employee:
+
+1. Take the employee's `dept_id`.
+2. Find the average salary of that department.
+3. Compare the employee's salary with that average.
+4. If salary is greater → display the employee.
+
+---
+
+## 5. Find Average Salary of Each Department
+
+Your query needs a `GROUP BY`.
+
+```sql
+SELECT dept_id, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY dept_id;
+```
+
+Example output:
+
+| dept_id | avg_salary |
+| ------- | ---------: |
+| 10      |      45000 |
+| 20      |      52000 |
+| 30      |      60000 |
+
+---
+
+## 6. Employees whose salary is greater than the minimum salary in their department
+
+For **each department**, we need to find that department's minimum salary.
+
+```sql
+SELECT e.*
+FROM employee e
+WHERE e.salary > (
+    SELECT MIN(e1.salary)
+    FROM employee e1
+    WHERE e1.dept_id = e.dept_id
+);
+```
+
+### Important
+
+This is a **correlated subquery** because:
+
+```sql
+e1.dept_id = e.dept_id
+```
+
+The inner query depends on the outer employee's department.
+
+---
+
+## 7. Find employees having the minimum salary in each department
+
+If you want the employee(s) whose salary is the **minimum salary in their department**:
+
+```sql
+SELECT e.*
+FROM employee e
+WHERE e.salary = (
+    SELECT MIN(e1.salary)
+    FROM employee e1
+    WHERE e1.dept_id = e.dept_id
+);
+```
+
+### Difference
+
+**Greater than minimum:**
+
+```sql
+WHERE e.salary > (...)
+```
+
+**Equal to minimum:**
+
+```sql
+WHERE e.salary = (...)
+```
+
+---
+
+# 8. `EXISTS`
+------------------------
+`EXISTS` checks whether the subquery returns **at least one row**.
+
+Your query is correct:
+
+```sql
+SELECT c.*
+FROM customers c
+WHERE EXISTS (
+    SELECT 1
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+);
+```
+
+### Meaning
+
+> Find customers who have placed at least one order.
+
+`SELECT 1` is commonly used because we only care whether a matching row exists.
 
 
+# 9. `NOT EXISTS`
+-------------------------------
+Your query is also correct:
 
+```sql
+SELECT c.*
+FROM customers c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+);
 
+## Interview Questions You Should Remember
+Q1. What is a correlated subquery?
+> A correlated subquery is a subquery that depends on the current row of the outer query. The subquery is executed for each row of the outer query.
+ Q2. What is `EXISTS`?
+> `EXISTS` checks whether the subquery returns at least one row. If it returns a row, the condition is TRUE.
+ Q3. What is `NOT EXISTS`?
+> `NOT EXISTS` returns TRUE when the subquery does not return any rows.
 
+### Q4. What is the difference between normal and correlated subquery?
 
+| Normal Subquery                             | Correlated Subquery              |
+| ------------------------------------------- | -------------------------------- |
+| Independent of outer query                  | Depends on outer query           |
+| Usually executes independently              | Evaluated for outer rows         |
+| Doesn't reference outer query               | References outer query           |
+| Example: `salary > (SELECT AVG(salary)...)` | Example: department-wise average |
 
+### Most important pattern to memorize
 
+SELECT e.*
+FROM employee e
+WHERE e.salary > (
+    SELECT AVG(e1.salary)
+    FROM employee e1
+    WHERE e1.dept_id = e.dept_id
+);
 
+The key part that makes it **correlated** is:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+WHERE e1.dept_id = e.dept_id
+This is an important **SQL interview topic for Data Analyst fresher interviews**.
 
 
