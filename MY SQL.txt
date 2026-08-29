@@ -3391,7 +3391,6 @@ using Any, all, some, In
 
 4.corelated subquery:
 -------------------------------
-
 ________________DAY-16_______________________________
 
 
@@ -3399,6 +3398,7 @@ Yes. Your notes are about **correlated subqueries and `EXISTS` / `NOT EXISTS`**.
 4. Correlated Subquery
 ----------------------------
 What is a correlated subquery?
+
 A **correlated subquery** is a subquery that depends on the **current row of the outer query**.
 The inner query runs repeatedly for each row of the outer query.
 
@@ -3568,5 +3568,223 @@ The key part that makes it **correlated** is:
 
 WHERE e1.dept_id = e.dept_id
 This is an important **SQL interview topic for Data Analyst fresher interviews**.
+
+
+________________________DAY17____________________________________________
+
+# DAY 17 — SQL VIEWS
+=============================
+Your notes are mostly correct. Here is a **clean, corrected, interview-ready version**.
+
+## 1. What is a View?
+
+A **View** is a **virtual table (logical table)** based on the result of a `SELECT` query.
+
+* A view generally **does not store the actual data separately**.
+* It stores the **SQL query definition**.
+* When we query the view, the database retrieves the data from the underlying table(s).
+
+### Syntax
+
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2
+FROM table_name;
+```
+ex:
+CREATE VIEW employee_view AS
+SELECT emp_id, emp_name, salary
+FROM employees;
+
+Now we can use:
+SELECT * FROM employee_view;
+
+# 2. Advantages of Views
+---------------------------
+1. Security
+--------------
+Views can hide sensitive columns from users.
+
+CREATE VIEW employee_public AS
+SELECT emp_id, emp_name, department
+FROM employees;
+
+Here, we don't expose salary.
+
+2. Avoid unnecessary columns
+
+We can show only the required columns instead of the entire table.
+
+3. Simplify complex queries
+
+A complicated query can be stored as a view and reused.
+
+4. Improve readability
+
+Instead of repeatedly writing a long query, we can simply use the view name.
+
+# 3. Types of Views
+---------------------------
+There are two commonly discussed types:
+
+1.Simple View
+------------
+A **simple view** is created from **one table** and generally does not contain complex operations such as:
+
+* Joins
+* Aggregate functions
+* `GROUP BY`
+* `HAVING`
+
+Example:
+
+```sql
+CREATE VIEW employee_view AS
+SELECT emp_id, emp_name, salary
+FROM employees;
+
+2. Complex View
+------------------
+A **complex view** is created using **multiple tables** or contains complex operations such as:
+
+* Joins
+* Aggregate functions
+* `GROUP BY`
+* `HAVING`
+
+Example:
+CREATE VIEW department_salary AS
+SELECT d.department_name, AVG(e.salary) AS avg_salary
+FROM employees e
+JOIN departments d
+ON e.department_id = d.department_id
+GROUP BY d.department_name;
+
+# 4. How to Check View Structure?
+
+In MySQL:
+DESC view_name;
+
+Example:
+
+DESC employee_view;
+
+You can also use:
+
+```sql
+SHOW CREATE VIEW employee_view;
+
+This shows the SQL query used to create the view.
+# 5. Can We Update a View?
+
+**Yes, some views can be updated.**
+
+A simple view is generally **updatable** if it satisfies the database's rules for updatable views.
+
+Example:
+
+```sql
+CREATE VIEW employee_view AS
+SELECT emp_id, emp_name, salary
+FROM employees;
+```
+
+We can potentially update it:
+
+```sql
+UPDATE employee_view
+SET salary = 50000
+WHERE emp_id = 101;
+```
+
+The underlying `employees` table will be updated.
+
+### Important interview point
+
+A view containing things like:
+
+* `GROUP BY`
+* `HAVING`
+* Aggregate functions such as `SUM()`, `AVG()`, `COUNT()`
+* Certain `JOIN`/complex query structures
+* `DISTINCT`
+* `UNION`
+
+may **not be updatable**.
+
+# 6. How to Delete a View?
+
+Use:
+DROP VIEW view_name;
+```
+
+Example:
+DROP VIEW employee_view;
+```
+
+**Important:** Dropping a view does **not normally delete the underlying table data**.
+
+
+# ⭐ Interview Questions — Views
+
+Q1. What is a view?
+A view is a virtual or logical table created using a `SELECT` query.
+
+Q2. Does a view store data?
+Normally, a view stores the query definition rather than storing a separate copy of the underlying data.
+
+Q3. What is the syntax to create a view?
+
+CREATE VIEW view_name AS
+SELECT ...
+FROM ...;
+
+Q4. What is a simple view?
+A view created from one table without complex operations such as joins and aggregate functions.
+
+Q5. What is a complex view?
+A view involving multiple tables or complex operations such as joins, aggregate functions, `GROUP BY`, or `HAVING`.
+
+Q6. Can we update a view?
+Yes, an updatable view can be updated, and the changes are reflected in the underlying table.
+
+Q7. How do you see the structure of a view?
+DESC view_name;
+
+Q8. How do you see the definition of a view?
+SHOW CREATE VIEW view_name;
+
+Q9. How do you delete a view?
+DROP VIEW view_name;
+
+Q10. Why are views used?
+ Mainly for **security, simplifying queries, hiding unnecessary columns, and improving readability/reusability**.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
