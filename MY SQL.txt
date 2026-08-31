@@ -3763,23 +3763,46 @@ Q10. Why are views used?
 
 
 
+____________________________DAY-18_____________________________________________
+
+TCL COMMANDS
+------------
+TCL stands for TRANSACTION CONTROL LANGUAGE
+commands:
+-----------
+commit , rollback,savepoint
+
+Transaction:
+------------
+it means group of sql operations the group of operations represent a single unit.
+
+transaction states
+
+ use da22;
+
+ select emp_name,salary from employee;
+
+begin;
+
+ update employee set salary = salary-20000 where emp_name = 'Rahul';
+
+ select * from employee;
+rollback;
 
 
+select * from employee;
 
+start transaction;
 
+update employee set salary = salary-20000  where emp_name = 'Rahul';
 
-
-
-
-
-
-
-
-
-
-
-
-
+ACID PROPERTIES:
+----------------
+-every transaction to follow the acid properties.
+A- Automicity
+C- Consistency
+I- Isolation
+D- Durability
 
 
 
