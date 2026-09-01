@@ -3991,5 +3991,730 @@ mysql> SELECT *
 4 rows in set (0.00 sec)
 
 
+mysql> select * from employee;;
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
+|      2 | Priya    | HR         | 45000.00 |   28 | Chennai   | 2021-03-20   |
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
+|      4 | Sneha    | Finance    | 52000.00 |   26 | Hyderabad | 2023-01-12   |
+|      5 | Kiran    | Sales      | 48000.00 |   24 | Mumbai    | 2022-11-05   |
+|      6 | Anjali   | IT         | 72000.00 |   32 | Pune      | 2019-07-18   |
+|      7 | Vijay    | HR         | 40000.00 |   29 | Hyderabad | 2021-09-25   |
+|      8 | Meena    | Finance    | 60000.00 |   31 | Chennai   | 2020-02-14   |
+|      9 | Ravi     | Sales      | 47000.00 |   27 | Bangalore | 2023-04-08   |
+|     10 | Divya    | IT         | 58000.00 |   23 | Hyderabad | 2024-01-10   |
+|     11 | Suresh   | Finance    | 68000.00 |   35 | Mumbai    | 2018-12-01   |
+|     12 | Pooja    | HR         | 43000.00 |   26 | Pune      | 2022-05-16   |
+|     13 | Manoj    | Sales      | 51000.00 |   30 | Chennai   | 2021-11-11   |
+|     14 | Lakshmi  | IT         | 75000.00 |   34 | Bangalore | 2019-03-22   |
+|     15 | Naveen   | Finance    | 56000.00 |   28 | Hyderabad | 2023-06-19   |
++--------+----------+------------+----------+------+-----------+--------------+
+15 rows in set (0.00 sec)
 
+ERROR:
+No query specified
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetAllEmployees()
+    -> BEGIN
+    ->     SELECT * FROM employee;
+    -> END //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetAllEmployees();
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
+|      2 | Priya    | HR         | 45000.00 |   28 | Chennai   | 2021-03-20   |
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
+|      4 | Sneha    | Finance    | 52000.00 |   26 | Hyderabad | 2023-01-12   |
+|      5 | Kiran    | Sales      | 48000.00 |   24 | Mumbai    | 2022-11-05   |
+|      6 | Anjali   | IT         | 72000.00 |   32 | Pune      | 2019-07-18   |
+|      7 | Vijay    | HR         | 40000.00 |   29 | Hyderabad | 2021-09-25   |
+|      8 | Meena    | Finance    | 60000.00 |   31 | Chennai   | 2020-02-14   |
+|      9 | Ravi     | Sales      | 47000.00 |   27 | Bangalore | 2023-04-08   |
+|     10 | Divya    | IT         | 58000.00 |   23 | Hyderabad | 2024-01-10   |
+|     11 | Suresh   | Finance    | 68000.00 |   35 | Mumbai    | 2018-12-01   |
+|     12 | Pooja    | HR         | 43000.00 |   26 | Pune      | 2022-05-16   |
+|     13 | Manoj    | Sales      | 51000.00 |   30 | Chennai   | 2021-11-11   |
+|     14 | Lakshmi  | IT         | 75000.00 |   34 | Bangalore | 2019-03-22   |
+|     15 | Naveen   | Finance    | 56000.00 |   28 | Hyderabad | 2023-06-19   |
++--------+----------+------------+----------+------+-----------+--------------+
+15 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeeById(IN p_emp_id INT)
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeeById(3);
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeeById(IN p_emp_id INT)
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+ERROR 1304 (42000): PROCEDURE GetEmployeeById already exists
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeeById(3);
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ^C
+mysql> ;
+ERROR:
+No query specified
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeesByDepartment(IN p_department VARCHAR(30))
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE department = p_department;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeesByDepartment('IT');
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
+|      6 | Anjali   | IT         | 72000.00 |   32 | Pune      | 2019-07-18   |
+|     10 | Divya    | IT         | 58000.00 |   23 | Hyderabad | 2024-01-10   |
+|     14 | Lakshmi  | IT         | 75000.00 |   34 | Bangalore | 2019-03-22   |
++--------+----------+------------+----------+------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeesByCity(IN p_city VARCHAR(30))
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE city = p_city;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeesByCity('Hyderabad');
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
+|      4 | Sneha    | Finance    | 52000.00 |   26 | Hyderabad | 2023-01-12   |
+|      7 | Vijay    | HR         | 40000.00 |   29 | Hyderabad | 2021-09-25   |
+|     10 | Divya    | IT         | 58000.00 |   23 | Hyderabad | 2024-01-10   |
+|     15 | Naveen   | Finance    | 56000.00 |   28 | Hyderabad | 2023-06-19   |
++--------+----------+------------+----------+------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeesAboveSalary(IN p_salary DECIMAL(10,2))
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE salary > p_salary;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeesAboveSalary(60000);
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
+|      6 | Anjali   | IT         | 72000.00 |   32 | Pune      | 2019-07-18   |
+|     11 | Suresh   | Finance    | 68000.00 |   35 | Mumbai    | 2018-12-01   |
+|     14 | Lakshmi  | IT         | 75000.00 |   34 | Bangalore | 2019-03-22   |
++--------+----------+------------+----------+------+-----------+--------------+
+4 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeesBySalaryRange(
+    ->     IN p_min_salary DECIMAL(10,2),
+    ->     IN p_max_salary DECIMAL(10,2)
+    -> )
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE salary BETWEEN p_min_salary AND p_max_salary;
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeesBySalaryRange(50000, 70000);
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
+|      3 | Arun     | IT         | 65000.00 |   30 | Bangalore | 2020-08-10   |
+|      4 | Sneha    | Finance    | 52000.00 |   26 | Hyderabad | 2023-01-12   |
+|      8 | Meena    | Finance    | 60000.00 |   31 | Chennai   | 2020-02-14   |
+|     10 | Divya    | IT         | 58000.00 |   23 | Hyderabad | 2024-01-10   |
+|     11 | Suresh   | Finance    | 68000.00 |   35 | Mumbai    | 2018-12-01   |
+|     13 | Manoj    | Sales      | 51000.00 |   30 | Chennai   | 2021-11-11   |
+|     15 | Naveen   | Finance    | 56000.00 |   28 | Hyderabad | 2023-06-19   |
++--------+----------+------------+----------+------+-----------+--------------+
+8 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeeSalary(
+    ->     IN p_emp_id INT,
+    ->     OUT p_salary DECIMAL(10,2)
+    -> )
+    -> BEGIN
+    ->     SELECT salary
+    ->     INTO p_salary
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeeSalary(3, @salary);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT @salary;
++----------+
+| @salary  |
++----------+
+| 65000.00 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeeDepartment(
+    ->     IN p_emp_id INT,
+    ->     OUT p_department VARCHAR(30)
+    -> )
+    -> BEGIN
+    ->     SELECT department
+    ->     INTO p_department
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeeDepartment(3, @department);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @department;
++-------------+
+| @department |
++-------------+
+| IT          |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE IncreaseSalary(IN p_emp_id INT)
+    -> BEGIN
+    ->     UPDATE employee
+    ->     SET salary = salary * 1.10
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL IncreaseSalary(3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE UpdateEmployeeCity(
+    ->     IN p_emp_id INT,
+    ->     IN p_city VARCHAR(30)
+    -> )
+    -> BEGIN
+    ->     UPDATE employee
+    ->     SET city = p_city
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL UpdateEmployeeCity(3, 'Hyderabad');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE CheckAgeEvenOdd(IN p_emp_id INT)
+    -> BEGIN
+    ->     DECLARE v_age INT;
+    ->
+    ->     SELECT age
+    ->     INTO v_age
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    ->
+    ->     IF MOD(v_age, 2) = 0 THEN
+    ->         SELECT 'Even Age' AS Result;
+    ->     ELSE
+    ->         SELECT 'Odd Age' AS Result;
+    ->     END IF;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL CheckAgeEvenOdd(3);
++----------+
+| Result   |
++----------+
+| Even Age |
++----------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE CheckAgeEvenOdd(IN p_emp_id INT)
+    -> BEGIN
+    ->     DECLARE v_age INT;
+    ->
+    ->     SELECT age
+    ->     INTO v_age
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    ->
+    ->     IF MOD(v_age, 2) = 0 THEN
+    ->         SELECT 'Even Age' AS Result;
+    ->     ELSE
+    ->         SELECT 'Odd Age' AS Result;
+    ->     END IF;
+    -> END //
+ERROR 1304 (42000): PROCEDURE CheckAgeEvenOdd already exists
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL CheckAgeEvenOdd(3);
++----------+
+| Result   |
++----------+
+| Even Age |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE CheckRetirement(IN p_emp_id INT)
+    -> BEGIN
+    ->     DECLARE v_age INT;
+    ->
+    ->     SELECT age
+    ->     INTO v_age
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    ->
+    ->     IF v_age >= 60 THEN
+    ->         SELECT 'Eligible for Retirement' AS Result;
+    ->     ELSE
+    ->         SELECT 'Not Eligible for Retirement' AS Result;
+    ->     END IF;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL CheckRetirement(3);
++-----------------------------+
+| Result                      |
++-----------------------------+
+| Not Eligible for Retirement |
++-----------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetDepartmentCount(
+    ->     IN p_department VARCHAR(30),
+    ->     OUT p_count INT
+    -> )
+    -> BEGIN
+    ->     SELECT COUNT(*)
+    ->     INTO p_count
+    ->     FROM employee
+    ->     WHERE department = p_department;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetDepartmentCount('IT', @count);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @count;
++--------+
+| @count |
++--------+
+|      5 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetAverageSalary(
+    ->     IN p_department VARCHAR(30),
+    ->     OUT p_avg_salary DECIMAL(10,2)
+    -> )
+    -> BEGIN
+    ->     SELECT AVG(salary)
+    ->     INTO p_avg_salary
+    ->     FROM employee
+    ->     WHERE department = p_department;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetAverageSalary('IT', @avg_salary);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @avg_salary;
++-------------+
+| @avg_salary |
++-------------+
+|    66300.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE IncreaseSalaryByPercentage(
+    ->     IN p_emp_id INT,
+    ->     INOUT p_percentage DECIMAL(5,2)
+    -> )
+    -> BEGIN
+    ->     UPDATE employee
+    ->     SET salary = salary + (salary * p_percentage / 100)
+    ->     WHERE emp_id = p_emp_id;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> SET @percentage = 10;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> CALL IncreaseSalaryByPercentage(3, @percentage);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> SELECT @percentage;
++-------------+
+| @percentage |
++-------------+
+|       10.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE emp_id = 3;
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      3 | Arun     | IT         | 78650.00 |   30 | Hyderabad | 2020-08-10   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetEmployeesUptoN(IN p_n INT)
+    -> BEGIN
+    ->     DECLARE v_id INT DEFAULT 1;
+    ->
+    ->     WHILE v_id <= p_n DO
+    ->
+    ->         SELECT *
+    ->         FROM employee
+    ->         WHERE emp_id = v_id;
+    ->
+    ->         SET v_id = v_id + 1;
+    ->
+    ->     END WHILE;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetEmployeesUptoN(5);
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.00 sec)
+
++--------+----------+------------+----------+------+---------+--------------+
+| emp_id | emp_name | department | salary   | age  | city    | joining_date |
++--------+----------+------------+----------+------+---------+--------------+
+|      2 | Priya    | HR         | 45000.00 |   28 | Chennai | 2021-03-20   |
++--------+----------+------------+----------+------+---------+--------------+
+1 row in set (0.01 sec)
+
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      3 | Arun     | IT         | 78650.00 |   30 | Hyderabad | 2020-08-10   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.01 sec)
+
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      4 | Sneha    | Finance    | 52000.00 |   26 | Hyderabad | 2023-01-12   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.01 sec)
+
++--------+----------+------------+----------+------+--------+--------------+
+| emp_id | emp_name | department | salary   | age  | city   | joining_date |
++--------+----------+------------+----------+------+--------+--------------+
+|      5 | Kiran    | Sales      | 48000.00 |   24 | Mumbai | 2022-11-05   |
++--------+----------+------------+----------+------+--------+--------------+
+1 row in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetHighestPaidEmployee(
+    ->     IN p_department VARCHAR(30)
+    -> )
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE department = p_department
+    ->     ORDER BY salary DESC
+    ->     LIMIT 1;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetHighestPaidEmployee('IT');
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      3 | Arun     | IT         | 78650.00 |   30 | Hyderabad | 2020-08-10   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE GetLowestPaidEmployee(
+    ->     IN p_department VARCHAR(30)
+    -> )
+    -> BEGIN
+    ->     SELECT *
+    ->     FROM employee
+    ->     WHERE department = p_department
+    ->     ORDER BY salary ASC
+    ->     LIMIT 1;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL GetLowestPaidEmployee('IT');
++--------+----------+------------+----------+------+-----------+--------------+
+| emp_id | emp_name | department | salary   | age  | city      | joining_date |
++--------+----------+------------+----------+------+-----------+--------------+
+|      1 | Rahul    | IT         | 55000.00 |   25 | Hyderabad | 2022-06-15   |
++--------+----------+------------+----------+------+-----------+--------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE CheckSalary(IN p_emp_id INT)
+    -> BEGIN
+    ->     DECLARE v_salary DECIMAL(10,2);
+    ->
+    ->     SELECT salary
+    ->     INTO v_salary
+    ->     FROM employee
+    ->     WHERE emp_id = p_emp_id;
+    ->
+    ->     IF v_salary < 60000 THEN
+    ->         SELECT 'Salary is below 60000' AS Result;
+    ->
+    ->     ELSEIF v_salary = 60000 THEN
+    ->         SELECT 'Salary is equal to 60000' AS Result;
+    ->
+    ->     ELSE
+    ->         SELECT 'Salary is above 60000' AS Result;
+    ->     END IF;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL CheckSalary(3);
++-----------------------+
+| Result                |
++-----------------------+
+| Salary is above 60000 |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER //
+mysql>
+mysql> CREATE PROCEDURE ProcessEmployeeSalary(IN p_n INT)
+    -> BEGIN
+    ->     DECLARE v_id INT DEFAULT 1;
+    ->     DECLARE v_name VARCHAR(50);
+    ->     DECLARE v_salary DECIMAL(10,2);
+    ->     DECLARE v_updated_salary DECIMAL(10,2);
+    ->
+    ->     WHILE v_id <= p_n DO
+    ->
+    ->         SELECT emp_name, salary
+    ->         INTO v_name, v_salary
+    ->         FROM employee
+    ->         WHERE emp_id = v_id;
+    ->
+    ->         SET v_updated_salary = v_salary * 1.10;
+    ->
+    ->         SELECT
+    ->             v_id AS emp_id,
+    ->             v_name AS emp_name,
+    ->             v_salary AS current_salary,
+    ->             v_updated_salary AS updated_salary;
+    ->
+    ->         SET v_id = v_id + 1;
+    ->
+    ->     END WHILE;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> CALL ProcessEmployeeSalary(5);
++--------+----------+----------------+----------------+
+| emp_id | emp_name | current_salary | updated_salary |
++--------+----------+----------------+----------------+
+|      1 | Rahul    |       55000.00 |       60500.00 |
++--------+----------+----------------+----------------+
+1 row in set (0.00 sec)
+
++--------+----------+----------------+----------------+
+| emp_id | emp_name | current_salary | updated_salary |
++--------+----------+----------------+----------------+
+|      2 | Priya    |       45000.00 |       49500.00 |
++--------+----------+----------------+----------------+
+1 row in set (0.01 sec)
+
++--------+----------+----------------+----------------+
+| emp_id | emp_name | current_salary | updated_salary |
++--------+----------+----------------+----------------+
+|      3 | Arun     |       78650.00 |       86515.00 |
++--------+----------+----------------+----------------+
+1 row in set (0.01 sec)
+
++--------+----------+----------------+----------------+
+| emp_id | emp_name | current_salary | updated_salary |
++--------+----------+----------------+----------------+
+|      4 | Sneha    |       52000.00 |       57200.00 |
++--------+----------+----------------+----------------+
+1 row in set (0.01 sec)
+
++--------+----------+----------------+----------------+
+| emp_id | emp_name | current_salary | updated_salary |
++--------+----------+----------------+----------------+
+|      5 | Kiran    |       48000.00 |       52800.00 |
++--------+----------+----------------+----------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
 
