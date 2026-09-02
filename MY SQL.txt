@@ -4243,6 +4243,252 @@ Practice these:
 > "A stored procedure is a precompiled group of SQL statements stored in the database, mainly used for code reusability, reducing repeated SQL code, and performing database operations efficiently."
 
 
+__________________________day-20________________________
+
+## DAY-20 — E-R DIAGRAMS / E-R MODEL
+
+### 1. E-R Model
+
+**E-R** stands for **Entity-Relationship**.
+
+An E-R model is used to represent the **data, entities, attributes, and relationships** between entities in a database.
+
+---
+
+### 2. Entity
+
+An **entity** is a real-world object about which we store data. In a database, it is generally represented by a **table**.
+
+**Symbol:** Rectangle ▭
+
+**Examples:**
+
+* Student
+* Employee
+* Car
+* Mobile
+* Bank Account
+
+### Kinds of Entity
+
+**1. Tangible Entity**
+An entity that can be physically seen or touched.
+
+Examples: **Car, Mobile, Student**
+
+**2. Intangible Entity**
+An entity that cannot be physically touched.
+
+Examples: **ATM Account, Bank Account**
+
+---
+
+## 3. Types of Entity
+
+### Strong Entity
+
+A **strong entity** is an entity that contains a **primary key** and can be uniquely identified.
+
+**Symbol:** Single rectangle
+
+Example:
+
+`STUDENT(Student_ID, Name, Age)`
+
+Here, `Student_ID` is the primary key.
+
+### Weak Entity
+
+A **weak entity** is an entity that **does not have its own primary key** and depends on another strong entity for identification.
+
+**Symbol:** Double rectangle.
+
+---
+
+# 4. Attributes
+
+An **attribute** describes a property or characteristic of an entity.
+
+**Symbol:** Ellipse/Oval
+
+Example:
+
+`STUDENT` → Name, Age, Phone
+
+### Types of Attributes
+
+**1. Simple Attribute**
+An attribute that cannot be divided further.
+
+Example: `Age`
+
+**2. Composite Attribute**
+An attribute that can be divided into smaller attributes.
+
+Example:
+
+`Name → First Name + Last Name`
+
+**3. Single-Valued Attribute**
+An attribute that has only one value for an entity.
+
+Example: `Date of Birth`
+
+**4. Multi-Valued Attribute**
+An attribute that can have multiple values.
+
+Example: `Phone Numbers`
+
+**5. Derived Attribute**
+An attribute whose value can be calculated from another attribute.
+
+Example:
+
+`Age` can be derived from `Date of Birth`.
+
+**6. Key Attribute**
+An attribute that uniquely identifies an entity.
+
+Example: `Student_ID`
+
+---
+
+# 5. Relationship
+
+A **relationship** represents an association between two or more entities.
+
+**Symbol:** Diamond ◇
+
+Example:
+
+`STUDENT` ◇ **ENROLLS** ◇ `COURSE`
+
+The relationship is **ENROLLS**.
+
+---
+
+# 6. Types of Relationships
+
+### 1. Unary Relationship
+
+A relationship involving **one entity**.
+
+Example:
+
+**Employee manages Employee**
+
+One employee can manage another employee.
+
+### 2. Binary Relationship
+
+A relationship involving **two entities**.
+
+Example:
+
+**Student enrolls in Course**
+
+Entities:
+
+* Student
+* Course
+
+### 3. Ternary Relationship
+
+A relationship involving **three entities**.
+
+Example:
+
+**Supplier supplies Product to Store**
+
+Entities:
+
+* Supplier
+* Product
+* Store
+
+### 4. N-ary Relationship
+
+A relationship involving **N number of entities** (more than three).
+
+---
+
+# 7. Cardinality
+
+**Cardinality** defines **how many instances of one entity can be associated with instances of another entity**.
+
+Main types of cardinality:
+
+### 1. One-to-One (1:1)
+
+One entity is related to **only one** entity.
+
+Example:
+
+**Person → Passport**
+
+One person has one passport.
+
+### 2. One-to-Many (1:N)
+
+One entity can be related to **many** entities.
+
+Example:
+
+**Department → Employees**
+
+One department can have many employees.
+
+### 3. Many-to-One (N:1)
+
+Many entities are related to **one** entity.
+
+Example:
+
+**Employees → Department**
+
+Many employees can belong to one department.
+
+### 4. Many-to-Many (M:N)
+
+Many entities can be related to **many** entities.
+
+Example:
+
+**Students ↔ Courses**
+
+One student can take many courses, and one course can have many students.
+
+---
+
+## ⭐ Interview Short Definitions
+
+| Term              | Definition                                                 |
+| ----------------- | ---------------------------------------------------------- |
+| **Entity**        | A real-world object represented in a database              |
+| **Attribute**     | Property/characteristic of an entity                       |
+| **Relationship**  | Association between entities                               |
+| **Cardinality**   | Number of entity instances participating in a relationship |
+| **Strong Entity** | Entity having its own primary key                          |
+| **Weak Entity**   | Entity dependent on another entity for identification      |
+| **Unary**         | Relationship involving one entity                          |
+| **Binary**        | Relationship involving two entities                        |
+| **Ternary**       | Relationship involving three entities                      |
+| **1:1**           | One-to-one relationship                                    |
+| **1:N**           | One-to-many relationship                                   |
+| **N:1**           | Many-to-one relationship                                   |
+| **M:N**           | Many-to-many relationship                                  |
+
+### Easy way to remember
+
+**Entity → Rectangle ▭**
+**Attribute → Oval/Ellipse ⭕**
+**Relationship → Diamond ◇**
+**Connection → Line**
+
+These are the complete **Day-20 E-R Model notes**, organized from the notes you provided.
+
+
+
 
 
 
