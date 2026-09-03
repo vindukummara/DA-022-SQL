@@ -4488,15 +4488,259 @@ One student can take many courses, and one course can have many students.
 These are the complete **Day-20 E-R Model notes**, organized from the notes you provided.
 
 
+_______________________________day-21_____________________________________
+03/09/2026
+# 📚 DAY 21 — SQL WINDOW FUNCTIONS
 
+**Date: 03/09/2026**
 
+## 1. Window Functions
+------------------------------
+Window functions are used to perform calculations across rows without combining them into a single row.
 
+### Types of Window Functions
+---------------------------------
+### A. Ranking Functions
+-------------------------
+1. `ROW_NUMBER()`
+2. `RANK()`
+3. `DENSE_RANK()`
+4. `NTILE()`
 
+### B. Aggregate Window Functions
+-------------------------------------
+1. `AVG()`
+2. `MAX()`
+3. `MIN()`
+4. `COUNT()`
+5. `SUM()`
 
+### C. Offset / Value Functions
+--------------------------------
+1. `FIRST_VALUE()`
+2. `LAG()`
+3. `LEAD()`
 
+---
 
+## 2. Syntax of Window Function
+-----------------------------------
+```sql
+SELECT column_list,
+       function_name() OVER() AS alias_name
+FROM table_name;
+```
 
+The `OVER()` clause defines the window on which the function operates.
 
+---
+
+## 3. PARTITION BY
+-----------------------
+`PARTITION BY` divides the data into groups based on a column.
+
+Example:
+
+```sql
+SELECT emp_name, department, salary,
+       AVG(salary) OVER(PARTITION BY department) AS dept_avg
+FROM employees;
+```
+
+Here, salary average is calculated **separately for each department**.
+
+---
+
+## 4. ORDER BY inside OVER()
+----------------------------------
+`ORDER BY` sorts the rows before applying the window function.
+
+Example:
+
+```sql
+SELECT emp_name, salary,
+       ROW_NUMBER() OVER(ORDER BY salary DESC) AS row_num
+FROM employees;
+```
+
+This gives a sequential number based on salary from highest to lowest.
+
+---
+
+## 5. ROW_NUMBER()
+---------------------------
+`ROW_NUMBER()` gives a **unique sequential number** to every row.
+
+```sql
+SELECT emp_name, department, salary,
+       ROW_NUMBER() OVER(
+           PARTITION BY department
+           ORDER BY salary DESC
+       ) AS row_num
+FROM employees;
+```
+
+Each department gets its own numbering.
+
+---
+
+## 6. RANK()
+---------------------
+`RANK()` gives the **same rank to employees having the same salary**.
+
+It **skips the next rank** after a tie.
+
+Example:
+
+| Salary | RANK |
+| -----: | ---: |
+|  90000 |    1 |
+|  85000 |    2 |
+|  85000 |    2 |
+|  80000 |    4 |
+
+---
+
+## 7. DENSE_RANK()
+------------------------
+`DENSE_RANK()` also gives the **same rank for ties**, but it **does not skip ranks**.
+
+Example:
+
+| Salary | DENSE_RANK |
+| -----: | ---------: |
+|  90000 |          1 |
+|  85000 |          2 |
+|  85000 |          2 |
+|  80000 |          3 |
+
+### ⭐ Important Difference
+
+`RANK()` → **1, 2, 2, 4**
+
+`DENSE_RANK()` → **1, 2, 2, 3**
+
+---
+
+## 8. NTILE()
+-----------------------
+`NTILE(n)` divides the rows into approximately equal groups.
+
+Example:
+
+```sql
+SELECT emp_name, salary,
+       NTILE(4) OVER(ORDER BY salary DESC) AS salary_group
+FROM employees;
+```
+
+This divides employees into **4 groups**.
+
+---
+
+## 9. Aggregate Window Functions
+-------------------------------------
+Aggregate functions can also be used as window functions.
+
+```sql
+SELECT department, salary,
+       AVG(salary) OVER(PARTITION BY department) AS dept_avg
+FROM employees;
+```
+
+Common functions:
+
+```text
+AVG()
+MAX()
+MIN()
+COUNT()
+SUM()
+```
+
+---
+
+## 10. LAG()
+-------------------------
+`LAG()` gets the value from the **previous row**.
+
+```sql
+SELECT emp_name, salary,
+       LAG(salary) OVER(ORDER BY salary DESC) AS previous_salary
+FROM employees;
+```
+
+---
+
+## 11. LEAD()
+--------------------
+`LEAD()` gets the value from the **next row**.
+
+```sql
+SELECT emp_name, salary,
+       LEAD(salary) OVER(ORDER BY salary DESC) AS next_salary
+FROM employees;
+```
+
+---
+
+## 12. FIRST_VALUE()
+---------------------------
+`FIRST_VALUE()` returns the first value in the ordered window.
+
+```sql
+SELECT emp_name, salary,
+       FIRST_VALUE(salary) OVER(ORDER BY salary DESC) AS highest_salary
+FROM employees;
+```
+
+---
+
+## ⭐ Important Interview Points
+
+### `ROW_NUMBER()`
+
+Gives a **unique number** to every row.
+
+### `RANK()`
+
+Same rank for ties, **skips rank**.
+
+### `DENSE_RANK()`
+
+Same rank for ties, **does not skip rank**.
+
+### `PARTITION BY`
+
+Divides data into groups.
+
+### `ORDER BY`
+
+Sorts rows inside the window.
+
+### `LAG()`
+
+Gets the **previous row**.
+
+### `LEAD()`
+
+Gets the **next row**.
+
+### `NTILE()`
+
+Divides rows into **N groups**.
+
+### `OVER()`
+
+Defines the window for the window function.
+
+**Small correction:** your example `ROW_NUMBER(partition by emp_id)` is not valid syntax. The correct form is:
+
+```sql
+ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC)
+```
+
+Also remember: **RANK and DENSE_RANK are especially important for interviews**, particularly questions like *highest salary, second-highest salary, top 3 salaries, and department-wise rankings*.
 
 
 
