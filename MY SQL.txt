@@ -4744,6 +4744,105 @@ Also remember: **RANK and DENSE_RANK are especially important for interviews**, 
 
 
 
+day 22
+=======
+1.project--------
+
+
+project - name -----> floder
+
+database (Folder)
+  create _database(file)
+  create_tables(file)
+  insert_records(file)
+  view(file)
+  procedure(file)
+  queries(file)(10 queries)
+
+documentation (folder)
+  requirements (file)
+  database_design(file)
+  E-R diagram(file)
+
+
+day 22
+=========
+
+Normalization:
+--------------
+-it is way to process & organizing the data into tables in database.
+-main advantages  of normalization:
+-------------------------------------
+-to reduce the data redundancy
+-to avoid the duplicate values into a column
+-to maintain data consistency
+-easy to write ,insert , update, delete queries.
+
+-normalization is work through using normal forms:
+--------------------------------------------------
+1. 1NF
+2. 2NF
+3. 3NF
+
+1. 1NF:
+-----------
+-1NF stands for first  normal form.
+- in table satisfy 1NF, WHEN EVERY COLUMN CONTAINS ATOMIC VALUE (SINGLE VALUES).
+
+2. 2NF:
+----------
+IT STANDS FOR SECOND NORMAL FORM
+-The table is satisfied in 2NF,when the table satisfy 1NF and remove the particial dependency.
+-1nf + parcial dependency
+
+3. 3NF
+-----
+-it stands for third normal form
+-2NF + transtive dependency
+ 
+composite key:
+--------------
+-In one table combine the more than one column identify uniquely.
+
+sid   did  marks  dept_name 
+101    2
+102    3
+104    2
+
+create table emp(sid int, did int marks int,
+dept_nmae varchar(20),primary key(sid,did);
+
+candidate key:
+--------------
+-The column contains unique values
+-in one table contains  more than one candidate key
+-in one candidate key.It is represented by primary key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
